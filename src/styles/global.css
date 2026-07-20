@@ -1,0 +1,276 @@
+@layer base, starlight, theme, components, utilities;
+
+@import '@astrojs/starlight-tailwind';
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities);
+@import '@fontsource-variable/plus-jakarta-sans';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
+@import '@fontsource/ibm-plex-mono/600.css';
+
+/*
+  Brand Snappli: rosa #ec4899 (pink-500) + escala zinc (UI oscura del producto).
+  https://starlight.astro.build/guides/css-and-tailwind/
+*/
+@theme {
+	--font-sans: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+	--font-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Code', monospace;
+
+	--color-accent-50: var(--color-pink-50);
+	--color-accent-100: var(--color-pink-100);
+	--color-accent-200: var(--color-pink-200);
+	--color-accent-300: var(--color-pink-300);
+	--color-accent-400: var(--color-pink-400);
+	--color-accent-500: var(--color-pink-500);
+	--color-accent-600: var(--color-pink-600);
+	--color-accent-700: var(--color-pink-700);
+	--color-accent-800: var(--color-pink-800);
+	--color-accent-900: var(--color-pink-900);
+	--color-accent-950: var(--color-pink-950);
+
+	--color-gray-50: var(--color-zinc-50);
+	--color-gray-100: var(--color-zinc-100);
+	--color-gray-200: var(--color-zinc-200);
+	--color-gray-300: var(--color-zinc-300);
+	--color-gray-400: var(--color-zinc-400);
+	--color-gray-500: var(--color-zinc-500);
+	--color-gray-600: var(--color-zinc-600);
+	--color-gray-700: var(--color-zinc-700);
+	--color-gray-800: var(--color-zinc-800);
+	--color-gray-900: var(--color-zinc-900);
+	--color-gray-950: var(--color-zinc-950);
+}
+
+@layer base {
+	:root {
+		--sl-content-width: 48rem;
+		--sl-text-h1: var(--sl-text-3xl);
+		--sl-text-h2: var(--sl-text-2xl);
+		--sl-line-height: 1.7;
+		--sl-line-height-headings: 1.25;
+	}
+
+	html {
+		scroll-behavior: smooth;
+	}
+}
+
+@layer components {
+	/* —— Header —— */
+	header.header {
+		backdrop-filter: blur(12px);
+		-webkit-backdrop-filter: blur(12px);
+		border-bottom: 1px solid color-mix(in srgb, var(--sl-color-gray-5) 80%, transparent);
+	}
+
+	site-title img {
+		height: 1.65rem;
+		width: auto;
+	}
+
+	/* —— Sidebar —— */
+	nav.sidebar .group-label .large {
+		font-size: 0.7rem;
+		font-weight: 700;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: var(--sl-color-gray-3);
+	}
+
+	nav.sidebar a[aria-current='page'] {
+		font-weight: 600;
+		border-inline-start: 2px solid var(--sl-color-accent);
+		padding-inline-start: calc(1rem - 2px);
+	}
+
+	/* —— Hero (splash) —— */
+	.hero {
+		position: relative;
+		isolation: isolate;
+		padding-block: 2.5rem 1.5rem;
+	}
+
+	.hero::before {
+		content: '';
+		position: absolute;
+		inset: -2rem -1rem auto;
+		height: min(28rem, 70vw);
+		z-index: -1;
+		pointer-events: none;
+		background:
+			radial-gradient(ellipse 70% 55% at 50% 0%, color-mix(in srgb, var(--sl-color-accent) 22%, transparent), transparent 70%),
+			radial-gradient(ellipse 40% 40% at 85% 20%, color-mix(in srgb, var(--sl-color-accent-high) 12%, transparent), transparent 65%);
+		opacity: 0.95;
+	}
+
+	.hero .tagline {
+		max-width: 36rem;
+		font-size: var(--sl-text-lg);
+		color: var(--sl-color-gray-2);
+		line-height: 1.65;
+	}
+
+	.hero .actions {
+		gap: 0.75rem;
+		margin-top: 0.5rem;
+	}
+
+	/* —— Cards / LinkCards —— */
+	.card {
+		border-radius: 0.875rem;
+		border: 1px solid var(--sl-color-gray-5);
+		background: color-mix(in srgb, var(--sl-color-gray-6) 45%, var(--sl-color-bg));
+		transition:
+			border-color 0.18s ease,
+			box-shadow 0.18s ease,
+			transform 0.18s ease;
+	}
+
+	.card:hover {
+		border-color: color-mix(in srgb, var(--sl-color-accent) 45%, var(--sl-color-gray-5));
+		box-shadow: 0 8px 28px -12px color-mix(in srgb, var(--sl-color-accent) 35%, transparent);
+		transform: translateY(-1px);
+	}
+
+	.sl-link-card {
+		border-radius: 0.75rem;
+		transition:
+			border-color 0.18s ease,
+			background-color 0.18s ease,
+			transform 0.18s ease;
+	}
+
+	.sl-link-card:hover {
+		border-color: color-mix(in srgb, var(--sl-color-accent) 50%, var(--sl-color-gray-5));
+		transform: translateY(-1px);
+	}
+
+	/* —— Markdown content —— */
+	.sl-markdown-content :is(h2, h3) {
+		scroll-margin-top: 5rem;
+	}
+
+	.sl-markdown-content table {
+		font-size: var(--sl-text-sm);
+	}
+
+	.sl-markdown-content :is(th, td) {
+		padding-block: 0.65rem;
+	}
+
+	.sl-markdown-content pre:not(.astro-code) {
+		border-radius: 0.75rem;
+	}
+
+	.sl-markdown-content .expressive-code {
+		margin-block: 1.25rem;
+	}
+
+	.sl-markdown-content .expressive-code .frame {
+		border-radius: 0.75rem;
+		overflow: hidden;
+	}
+
+	/* Asides más limpios */
+	.starlight-aside {
+		border-radius: 0.75rem;
+	}
+
+	/* Steps: más aire */
+	.sl-steps > li::before {
+		font-weight: 700;
+	}
+
+	/* Paginación */
+	.pagination-links a {
+		border-radius: 0.75rem;
+		transition:
+			border-color 0.15s ease,
+			background-color 0.15s ease;
+	}
+
+	.pagination-links a:hover {
+		border-color: color-mix(in srgb, var(--sl-color-accent) 40%, var(--sl-color-gray-5));
+	}
+
+	/* Footer de página */
+	footer.sl-flex {
+		margin-top: 2rem;
+		padding-top: 1.5rem;
+		border-top: 1px solid var(--sl-color-gray-6);
+	}
+
+	/* —— Landing sections —— */
+	.docs-path-grid {
+		display: grid;
+		gap: 1rem;
+		margin-block: 1.5rem 2.5rem;
+	}
+
+	@media (min-width: 50rem) {
+		.docs-path-grid {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+
+	.docs-path {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		padding: 1.25rem 1.35rem;
+		border-radius: 0.875rem;
+		border: 1px solid var(--sl-color-gray-5);
+		background: color-mix(in srgb, var(--sl-color-gray-6) 40%, var(--sl-color-bg));
+		text-decoration: none;
+		color: inherit;
+		transition:
+			border-color 0.18s ease,
+			box-shadow 0.18s ease,
+			transform 0.18s ease;
+	}
+
+	.docs-path:hover {
+		border-color: color-mix(in srgb, var(--sl-color-accent) 45%, var(--sl-color-gray-5));
+		box-shadow: 0 10px 30px -14px color-mix(in srgb, var(--sl-color-accent) 40%, transparent);
+		transform: translateY(-2px);
+	}
+
+	.docs-path__eyebrow {
+		font-size: 0.7rem;
+		font-weight: 700;
+		letter-spacing: 0.07em;
+		text-transform: uppercase;
+		color: var(--sl-color-accent-high);
+	}
+
+	.docs-path__title {
+		font-size: var(--sl-text-lg);
+		font-weight: 700;
+		line-height: 1.3;
+		color: var(--sl-color-white);
+	}
+
+	.docs-path__desc {
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-gray-2);
+		line-height: 1.55;
+		margin: 0;
+	}
+
+	.docs-path__cta {
+		margin-top: auto;
+		padding-top: 0.75rem;
+		font-size: var(--sl-text-sm);
+		font-weight: 600;
+		color: var(--sl-color-accent-high);
+	}
+
+	.docs-section-label {
+		margin: 0 0 0.35rem;
+		font-size: 0.75rem;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--sl-color-gray-3);
+	}
+}

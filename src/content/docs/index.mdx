@@ -1,0 +1,92 @@
+---
+title: Documentación de Snappli
+description: Guías de producto, API e integraciones para Snappli — inbox, IA y CRM.
+template: splash
+hero:
+  title: |
+    Documentación de
+    <span
+      class="font-black text-transparent
+        bg-clip-text bg-gradient-to-b
+        from-accent-700 to-accent-400
+        dark:from-accent-400 dark:to-accent-200"
+    >
+      Snappli
+    </span>
+  tagline: Configura tu inbox multi-canal, entrena agentes de IA e integra tu stack con la API y webhooks.
+  actions:
+    - text: Empezar en 5 minutos
+      link: /guia/primeros-pasos/
+      icon: right-arrow
+    - text: Referencia API
+      link: /desarrolladores/introduccion/
+      icon: seti:json
+      variant: minimal
+---
+
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+<p class="docs-section-label">Elige tu camino</p>
+
+<div class="docs-path-grid">
+	<a class="docs-path" href="/guia/primeros-pasos/">
+		<span class="docs-path__eyebrow">Nuevo en Snappli</span>
+		<span class="docs-path__title">Configurar la cuenta</span>
+		<p class="docs-path__desc">Onboarding, canales, equipo y primer agente IA.</p>
+		<span class="docs-path__cta">Primeros pasos →</span>
+	</a>
+	<a class="docs-path" href="/producto/inbox/">
+		<span class="docs-path__eyebrow">Equipo de soporte</span>
+		<span class="docs-path__title">Usar el producto</span>
+		<p class="docs-path__desc">Inbox, contactos, pipeline y asistentes.</p>
+		<span class="docs-path__cta">Guías de producto →</span>
+	</a>
+	<a class="docs-path" href="/desarrolladores/introduccion/">
+		<span class="docs-path__eyebrow">Integradores</span>
+		<span class="docs-path__title">Construir sobre la API</span>
+		<p class="docs-path__desc">API keys, endpoints y webhooks firmados.</p>
+		<span class="docs-path__cta">Docs de desarrolladores →</span>
+	</a>
+</div>
+
+## Guías populares
+
+<CardGrid>
+	<Card title="Inbox" icon="laptop">
+		Conversaciones multi-canal, asignación y escalación.
+		[Abrir →](/producto/inbox/)
+	</Card>
+	<Card title="Conectar WhatsApp" icon="comment">
+		Con Meta (recomendado) o configuración manual.
+		[Abrir →](/canales/whatsapp/)
+	</Card>
+	<Card title="Pipeline y acciones" icon="list-format">
+		Etapas y automatizaciones al entrar a una etapa.
+		[Abrir →](/producto/pipeline/)
+	</Card>
+	<Card title="Agentes IA" icon="star">
+		Instrucciones, conocimiento y handoff a humanos.
+		[Abrir →](/producto/agentes/)
+	</Card>
+	<Card title="Autenticación API" icon="approve-check">
+		API keys Bearer y buenas prácticas de seguridad.
+		[Abrir →](/desarrolladores/autenticacion/)
+	</Card>
+	<Card title="Webhooks" icon="seti:pipeline">
+		Eventos en tiempo real con verificación HMAC.
+		[Abrir →](/desarrolladores/webhooks/)
+	</Card>
+</CardGrid>
+
+## También te puede interesar
+
+<LinkCard
+	title="Conceptos"
+	description="El modelo mental de Snappli: organización, canal, conversación, pipeline."
+	href="/guia/conceptos/"
+/>
+<LinkCard
+	title="Preguntas frecuentes"
+	description="Límites, canales, roles y dónde pedir ayuda."
+	href="/referencia/faq/"
+/>

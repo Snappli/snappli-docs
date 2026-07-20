@@ -1,0 +1,35 @@
+---
+title: Instalar el widget
+description: Embebe el chat de Snappli en tu sitio web.
+---
+
+import { Steps, LinkCard } from '@astrojs/starlight/components';
+
+El **widget** es un chat que se embebe en tu web y envía los mensajes a tu inbox. Su snippet y clave pública están en **Configuración → Desarrolladores → Widget** (y al crear el canal Widget).
+
+## Instalación
+
+<Steps>
+
+1. Crea un widget en **Configuración → Canales → Widget** (nombre, orígenes permitidos, quick prompts, enrutamiento).
+2. Copia el **snippet de instalación** y tu **`publicKey`**.
+3. Pega el snippet antes de `</body>` en las páginas donde quieras el chat.
+4. Publica tu sitio y verifica que el chat aparece.
+
+</Steps>
+
+## Orígenes permitidos
+
+El widget solo se inicializa en los **dominios** que registres como orígenes permitidos. Añade todos los que uses (por ejemplo tu dominio de producción y el de staging).
+
+:::caution
+Si el dominio donde cargas el widget no está en los orígenes permitidos, el chat no se mostrará.
+:::
+
+## Página de chat
+
+Snappli también expone una página de chat pública en la ruta `/embed/chat`, usada internamente por el widget embebido.
+
+## Relacionado
+
+<LinkCard title="Canal Widget" description="Crear y configurar el widget." href="/canales/widget/" />

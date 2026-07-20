@@ -1,0 +1,83 @@
+---
+title: Inbox
+description: Conversaciones multi-canal y trabajo en equipo en Snappli.
+---
+
+import { Steps, LinkCard, CardGrid } from '@astrojs/starlight/components';
+
+El **inbox** (**Inbox** en el menú principal) reúne todas las conversaciones —WhatsApp, Instagram, Messenger, email y widget— en un solo lugar.
+
+## Bandejas y alcances
+
+En la barra lateral del inbox eliges qué ves:
+
+| Bandeja | Qué muestra |
+|---------|-------------|
+| **Mías** | Conversaciones asignadas a ti |
+| **Cola humana** | Conversaciones pendientes sin agente asignado |
+| **Equipo** | Todo lo del equipo (para supervisores) |
+| **Por equipo / línea / conexión / etiqueta** | Filtra por un equipo, línea de WhatsApp, conexión de email o etiqueta de inbox |
+
+Además puedes filtrar por estado **Activas** / **Resueltas**, y los supervisores por **agente** (o "sin asignar").
+
+## Trabajar una conversación
+
+<Steps>
+
+1. Abre la bandeja **Cola humana** o **Mías** y elige una conversación.
+2. Revisa el historial y el panel del contacto (pipeline, etiquetas, campos).
+3. Responde con el compositor (ver abajo).
+4. Coordina con notas y etiquetas de inbox.
+5. **Resuelve** la conversación cuando termines, o **transfiérela** a otro equipo.
+
+</Steps>
+
+### Asignar y transferir
+
+- **Asignar agente** — toma la conversación o pásala a un compañero.
+- **Transferir a equipo** — enruta a otro departamento.
+- **Nueva conversación** — inicia por WhatsApp, email o manual.
+
+## Compositor
+
+El compositor se adapta al canal de la conversación:
+
+| Capacidad | Detalle |
+|-----------|---------|
+| Enviar | **Enter** o **Cmd/Ctrl + Enter** |
+| Respuestas rápidas | Escribe **`/`** para insertar snippets (guardados en tu navegador) |
+| Variables | Escribe **`$`** para insertar datos del contacto |
+| Emojis | Escribe **`:`** o usa el selector |
+| Adjuntos | Menú de adjuntos (imágenes, archivos de la organización) |
+| Nota de voz | Grabación de audio (no disponible en email) |
+| Mejorar con IA | Botón para reescribir tu borrador |
+| Asunto | Campo de asunto cuando el canal es email |
+
+:::note
+**WhatsApp fuera de la ventana de 24 h:** solo puedes iniciar con **plantillas de Meta** aprobadas. El compositor te mostrará el panel de plantillas cuando aplique.
+:::
+
+## Etiquetas: inbox vs. contacto
+
+- **Etiquetas de inbox** — organizan conversaciones y aparecen como filtro en la barra lateral.
+- **Etiquetas de contacto** — describen a la persona y viven en su ficha.
+
+→ Ver [Contactos](/producto/contactos/) para las etiquetas de contacto.
+
+## Escalación desde la IA
+
+Cuando un agente IA no puede resolver (o el cliente pide una persona), **escala**: la conversación entra a la cola del equipo con el contexto previo, para que el agente no pida repetir.
+
+## Atajos de teclado
+
+- **Enter** / **Cmd·Ctrl + Enter** — enviar
+- **Escape** — cerrar diálogos, cancelar audio o menús
+- **↑ / ↓ + Enter** — navegar los menús de `/`, `$` y `:`
+
+## Relacionado
+
+<CardGrid>
+	<LinkCard title="Equipos" description="Cómo se reparten las conversaciones." href="/producto/equipos/" />
+	<LinkCard title="Agentes IA" description="Automatiza y escala al inbox." href="/producto/agentes/" />
+	<LinkCard title="Contactos y pipeline" description="El CRM detrás de cada chat." href="/producto/contactos/" />
+</CardGrid>

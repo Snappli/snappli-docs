@@ -1,0 +1,36 @@
+---
+title: Equipos
+description: Departamentos, colas y enrutamiento de conversaciones.
+---
+
+import { LinkCard } from '@astrojs/starlight/components';
+
+Los **equipos** (departamentos) agrupan a tus agentes y determinan cómo se reparten las conversaciones. Se gestionan en **Configuración → Equipos**.
+
+## Cómo se reparten las conversaciones
+
+Cada equipo usa un modo de **handoff humano**:
+
+| Modo | Comportamiento |
+|------|----------------|
+| **Cola compartida** | La conversación entra sin dueño; cualquier agente del equipo la toma |
+| **Asignación automática** | Se asigna automáticamente (round-robin) a un agente disponible |
+
+En el inbox, la bandeja **Cola humana** muestra justo las conversaciones pendientes sin agente.
+
+## Enrutamiento por canal
+
+Cada línea de WhatsApp, conexión de email, página de Meta o widget puede enrutarse de tres formas:
+
+- **Automático** — el orquestador decide el equipo.
+- **Áreas limitadas** — restringe a ciertos equipos.
+- **Equipo fijo** — siempre al mismo equipo.
+
+## Recursos del equipo
+
+Un equipo puede tener su propio agente IA, campos de contacto y activos. Su agente IA opera sobre las conversaciones que se le enrutan.
+
+## Relacionado
+
+<LinkCard title="Agentes IA" description="Cada equipo tiene su asistente." href="/producto/agentes/" />
+<LinkCard title="Inbox" description="Bandejas por equipo y cola humana." href="/producto/inbox/" />

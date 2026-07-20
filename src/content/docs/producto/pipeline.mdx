@@ -1,0 +1,58 @@
+---
+title: Pipeline y acciones
+description: Embudo de etapas y automatizaciones que se disparan al entrar a una etapa.
+---
+
+import { Steps, LinkCard } from '@astrojs/starlight/components';
+
+El **pipeline** es un embudo de etapas por el que avanzan tus contactos. Se configura en **Configuración → Pipeline**.
+
+## Etapas
+
+Parte de una plantilla (Genérico, Ecommerce, Servicios, SaaS B2B) o de un pipeline en blanco. Las etapas por defecto son:
+
+**Nuevo → Calificado → En negociación → Ganado → Perdido**
+
+Mueves contactos entre etapas desde la vista kanban de contactos o al editar el contacto. Una etapa puede marcarse como **etapa de entrada** (donde caen los contactos nuevos).
+
+## Editar una etapa
+
+El editor de etapa tiene tres pestañas:
+
+1. **General** — nombre, color y descripción.
+2. **Acciones** — automatizaciones al entrar a la etapa (ver abajo).
+3. **Campos** — campos del contacto que son **obligatorios** antes de poder entrar a la etapa.
+
+## Acciones de etapa
+
+Las **acciones** se ejecutan automáticamente cuando un contacto **entra** a la etapa. Se procesan de forma asíncrona y en el orden que definas.
+
+| Acción | Qué hace | Configuración |
+|--------|----------|---------------|
+| **Webhook** | Envía un evento `contact.stage.entered` a tu integración | Modo **automático** o **con aprobación** |
+| **Añadir etiqueta** | Asigna etiquetas de contacto | Hasta 20 etiquetas |
+| **Nota interna** | Crea una nota (admite variables del contacto) | Texto de la nota |
+| **Asignar** | Asigna la conversación | Auto (round-robin), a un usuario o a un equipo |
+| **Enviar plantilla** | Envía un mensaje | WhatsApp (plantilla Meta) o email (asunto + cuerpo) |
+
+<Steps>
+
+1. Abre **Configuración → Pipeline** y edita una etapa.
+2. Ve a la pestaña **Acciones** y añade una o varias.
+3. Ordénalas: se ejecutan de arriba abajo.
+4. Guarda. A partir de ahí, cada contacto que entre disparará las acciones.
+
+</Steps>
+
+:::note
+El webhook **con aprobación** deja la entrega en estado pendiente hasta que alguien la aprueba en **Desarrolladores → Webhooks**. Útil para revisar antes de notificar a sistemas externos.
+:::
+
+:::tip
+Si usas la acción de webhook, verifica siempre la firma HMAC en tu servidor. Ver [Webhooks](/desarrolladores/webhooks/).
+:::
+
+## Relacionado
+
+<LinkCard title="Webhooks" description="Evento contact.stage.entered y verificación HMAC." href="/desarrolladores/webhooks/" />
+<LinkCard title="Contactos" description="Campos, etiquetas y segmentos." href="/producto/contactos/" />

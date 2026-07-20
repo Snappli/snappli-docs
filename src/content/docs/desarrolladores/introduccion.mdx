@@ -1,0 +1,50 @@
+---
+title: Introducción a la API
+description: Cómo empezar con la API pública de Snappli.
+---
+
+import { LinkCard, Steps, CardGrid } from '@astrojs/starlight/components';
+
+La **API pública** de Snappli te permite leer datos de tu organización (hoy, contactos) desde tus propios sistemas. Para eventos en tiempo real usa [webhooks](/desarrolladores/webhooks/).
+
+## Requisitos
+
+- Un plan que incluya **acceso a la API** (`api_access`).
+- Una **API key** creada en **Configuración → Desarrolladores → API**.
+
+## Base URL
+
+```
+https://api.snappli.io/api
+```
+
+En desarrollo local:
+
+```
+http://localhost:3001/api
+```
+
+Todas las rutas públicas cuelgan de `/api/v1`.
+
+## Arranque rápido
+
+<Steps>
+
+1. Crea una API key en **Configuración → Desarrolladores → API**.
+2. Autentica con `Authorization: Bearer sk_…` — ver [Autenticación](/desarrolladores/autenticacion/).
+3. Llama a los [endpoints de contactos](/desarrolladores/contactos/).
+4. Suscribe [webhooks](/desarrolladores/webhooks/) si necesitas eventos.
+
+</Steps>
+
+## Referencia interactiva
+
+Dentro de la app, **Desarrolladores → API** incluye una referencia interactiva (OpenAPI + Scalar) donde puedes probar peticiones con tu clave. Esta documentación cubre conceptos, autenticación, endpoints y webhooks.
+
+## Siguiente
+
+<CardGrid>
+	<LinkCard title="Autenticación" description="API keys Bearer y errores." href="/desarrolladores/autenticacion/" />
+	<LinkCard title="API de contactos" description="Listar y obtener contactos." href="/desarrolladores/contactos/" />
+	<LinkCard title="Webhooks" description="Eventos firmados con HMAC." href="/desarrolladores/webhooks/" />
+</CardGrid>

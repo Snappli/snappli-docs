@@ -1,0 +1,65 @@
+---
+title: Preguntas frecuentes
+description: Respuestas cortas a dudas habituales sobre Snappli.
+sidebar:
+  order: 2
+---
+
+import { LinkCard } from '@astrojs/starlight/components';
+
+## Producto
+
+### ¿Puedo usar Snappli solo con WhatsApp?
+
+Sí. Conecta WhatsApp en **Configuración → Canales** y empieza por ahí. Puedes añadir Instagram, Messenger, email o widget después. Ver [Canales](/canales/introduccion/).
+
+### ¿La IA reemplaza a mi equipo?
+
+No. Los [agentes IA](/producto/agentes/) atienden lo rutinario y **escalan** al inbox cuando hace falta una persona. Tú defines instrucciones, conocimiento y reglas de escalación.
+
+### ¿Cuál es la diferencia entre etiquetas de inbox y de contacto?
+
+Las de **inbox** clasifican conversaciones; las de **contacto** describen a la persona. Ver [Conceptos](/guia/conceptos/#etiquetas-dos-tipos).
+
+### ¿Por qué no puedo escribir un mensaje libre en WhatsApp?
+
+Fuera de la ventana de 24 h desde el último mensaje del cliente, WhatsApp exige una **plantilla de Meta** aprobada. Ver [WhatsApp](/canales/whatsapp/#plantillas-y-ventana-de-24-horas).
+
+## Equipo y permisos
+
+### ¿Cómo invito agentes?
+
+En **Configuración → Miembros**. Asigna rol (Gerente, Agente o Solo lectura) y, para agentes, un equipo. Ver [Miembros y roles](/cuenta/miembros-y-roles/).
+
+### ¿Quién puede ver la facturación?
+
+Solo el **Propietario** gestiona la facturación. Ver [Facturación](/cuenta/facturacion/).
+
+## Facturación
+
+### ¿Dónde veo mi uso y límites?
+
+En **Configuración → Facturación → Uso**, con medidores de contactos, miembros, canales y equipos. Un banner te avisa al acercarte al límite.
+
+### ¿Qué pasa si supero mi plan?
+
+Snappli avisa por fases y solo bloquea **nuevos** contactos al superar el margen de cortesía; los ya activos del mes siguen. Ver [Facturación](/cuenta/facturacion/#qué-pasa-al-acercarte-al-límite).
+
+## Desarrolladores
+
+### ¿Dónde creo una API key?
+
+En **Configuración → Desarrolladores → API**. Se muestra completa una sola vez; guárdala en tu backend. Requiere un plan con acceso a la API. Ver [Autenticación](/desarrolladores/autenticacion/).
+
+### ¿Los webhooks reintentan si mi servidor falla?
+
+Sí: responde `2xx` en ~15 s; ante error, Snappli reintenta hasta 3 veces con backoff. Verifica siempre la firma HMAC. Ver [Webhooks](/desarrolladores/webhooks/).
+
+### ¿La API permite crear o editar contactos?
+
+Todavía no. Hoy la API pública es de **solo lectura** de contactos. Ver [API de contactos](/desarrolladores/contactos/).
+
+## Más ayuda
+
+<LinkCard title="Glosario" href="/referencia/glosario/" />
+<LinkCard title="Primeros pasos" href="/guia/primeros-pasos/" />

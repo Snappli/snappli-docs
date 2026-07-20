@@ -1,0 +1,54 @@
+---
+title: Contactos
+description: 'CRM ligero: perfiles, campos personalizados, etiquetas y segmentos.'
+---
+
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+
+Un **contacto** es la persona o empresa con la que conversas. En **Contactos** (menú principal) tienes vista de **tabla** y **kanban**.
+
+## Datos del contacto
+
+**Campos del sistema:** Nombre, Apellido, Teléfono, Email, Foto, Idioma y País.
+
+Cada contacto reúne además:
+
+- **Etiquetas de contacto** — describen a la persona (p. ej. `vip`, `mayorista`).
+- **Campos personalizados** — definidos por tu organización.
+- **Historial** — conversaciones en todos los canales.
+- **Etapa de pipeline** — dónde está en tu embudo.
+
+## Campos personalizados
+
+En **Configuración → Campos de contacto** creas campos propios. Tipos disponibles:
+
+| Tipo | Uso |
+|------|-----|
+| `TEXT` | Texto libre |
+| `NUMBER` | Numérico |
+| `DATE` | Fecha |
+| `SELECT` | Lista de opciones |
+| `BOOLEAN` | Sí / No |
+| `EMAIL` | Correo |
+| `IMAGE` | Imagen |
+
+Cada campo tiene visibilidad configurable (siempre visible, ocultar cuando esté vacío u ocultar siempre) y puede tener opciones condicionales. Los equipos también pueden definir campos propios.
+
+## Etiquetas de contacto
+
+Gestiónalas en **Configuración → Etiquetas de contacto**. Aparecen como chips en la lista y en la ficha del contacto, y sirven para filtrar y segmentar.
+
+:::note
+No confundir con las **etiquetas de inbox**, que se aplican a conversaciones. Ver [Inbox](/producto/inbox/).
+:::
+
+## Segmentos
+
+Los **segmentos** son grupos dinámicos de contactos definidos por reglas: canal, etiqueta, campos, último mensaje entrante, etapa de pipeline, etc. Se usan sobre todo como audiencia de [campañas](/producto/campanias/).
+
+## Relacionado
+
+<CardGrid>
+	<LinkCard title="Pipeline y acciones" description="Etapas y automatizaciones al entrar." href="/producto/pipeline/" />
+	<LinkCard title="Campañas" description="Envíos a segmentos de contactos." href="/producto/campanias/" />
+</CardGrid>

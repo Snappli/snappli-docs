@@ -1,0 +1,36 @@
+---
+title: Email
+description: Conecta correo y verifica tu dominio con registros DNS.
+---
+
+import { Steps, LinkCard } from '@astrojs/starlight/components';
+
+El canal de **email** convierte los correos entrantes en conversaciones del inbox. Requiere dos cosas: **verificar un dominio** y **crear una conexión**.
+
+## 1. Verifica tu dominio
+
+En **Configuración → Email → Dominios**:
+
+<Steps>
+
+1. Añade tu dominio raíz (p. ej. `tuempresa.com`). Snappli genera un subdominio de envío `snapmail.tuempresa.com`.
+2. Copia los **registros DNS** que se muestran en la tabla.
+3. Créalos en tu proveedor de DNS. En **Cloudflare**, deja los registros como **DNS only** (nube gris), no proxied.
+4. Vuelve a Snappli y pulsa **verificar**.
+
+</Steps>
+
+El dominio pasa por los estados **Pendiente de DNS → Verificando → Verificado**. Si falla, revisa los registros y reintenta.
+
+:::note
+La propagación DNS puede tardar desde minutos hasta unas horas según tu proveedor.
+:::
+
+## 2. Crea la conexión
+
+En **Configuración → Canales → Email**, crea una conexión indicando la dirección **from / reply-to** sobre un dominio ya verificado, y define el enrutamiento.
+
+## Relacionado
+
+<LinkCard title="Plantillas y campañas de email" description="Contenido reutilizable y envíos." href="/producto/campanias/" />
+<LinkCard title="Visión general de canales" description="Todos los canales disponibles." href="/canales/introduccion/" />

@@ -1,0 +1,29 @@
+---
+title: Instagram y Messenger
+description: Conecta la mensajería de tus páginas de Meta.
+---
+
+import { Steps, LinkCard } from '@astrojs/starlight/components';
+
+Atiende los mensajes directos de **Instagram** y **Messenger** desde el mismo inbox. Se conectan en **Configuración → Canales**.
+
+## Conectar
+
+<Steps>
+
+1. En **Canales**, añade un canal y elige **Instagram** o **Messenger**.
+2. Completa el formulario de Meta: nombre (label), **Page ID**, **Access Token**, **Verify Token** y el nombre de la página.
+3. Para Instagram, indica además el **Instagram Account ID**.
+4. Configura el webhook con los datos que te muestra el asistente.
+5. Define el **enrutamiento** y guarda.
+
+</Steps>
+
+:::note
+Necesitas una página de Facebook vinculada y permisos de administrador en Meta. Instagram debe ser una cuenta profesional conectada a esa página.
+:::
+
+## Relacionado
+
+<LinkCard title="Visión general de canales" description="Todos los canales disponibles." href="/canales/introduccion/" />
+<LinkCard title="Inbox" description="Atiende Instagram y Messenger junto al resto." href="/producto/inbox/" />

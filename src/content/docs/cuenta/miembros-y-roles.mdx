@@ -1,0 +1,41 @@
+---
+title: Miembros y roles
+description: Invita a tu equipo y controla qué puede hacer cada persona.
+---
+
+import { Steps, LinkCard } from '@astrojs/starlight/components';
+
+Gestiona a las personas de tu organización en **Configuración → Miembros**.
+
+## Roles
+
+| Rol | Etiqueta en la app | Puede… |
+|-----|--------------------|--------|
+| **Propietario** | Propietario | Todo, incluida la facturación. Único que factura. |
+| **Gerente** | Gerente | Configurar la empresa, invitar miembros y ver todo el equipo. |
+| **Agente** | Agente | Atender el inbox de su equipo. |
+| **Solo lectura** | Solo lectura | Ver informes e historial, sin responder. |
+
+:::note
+La facturación y la configuración de desarrolladores están reservadas normalmente al **Propietario** (y en parte a **Gerente**).
+:::
+
+## Invitar miembros
+
+<Steps>
+
+1. En **Configuración → Miembros**, pulsa invitar.
+2. Escribe el email y elige el rol (**Gerente**, **Agente** o **Solo lectura**).
+3. Para **Agente** y **Solo lectura**, asigna un **equipo** (obligatorio).
+4. Envía la invitación; la persona la acepta desde su correo.
+
+</Steps>
+
+## Disponibilidad de agentes
+
+Cada agente puede marcar su **disponibilidad** desde el selector de estado en la barra superior. La asignación automática de conversaciones tiene en cuenta a los agentes disponibles.
+
+## Relacionado
+
+<LinkCard title="Equipos" description="Cómo se reparten las conversaciones." href="/producto/equipos/" />
+<LinkCard title="Organización" description="Ajustes generales de la empresa." href="/cuenta/organizacion/" />

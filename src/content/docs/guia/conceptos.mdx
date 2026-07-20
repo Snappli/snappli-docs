@@ -1,0 +1,50 @@
+---
+title: Conceptos
+description: El modelo mental de Snappli en una página.
+---
+
+import { LinkCard } from '@astrojs/starlight/components';
+
+Estos son los objetos con los que trabajarás en Snappli. Si vienes de otra herramienta, esta página te da el mapa completo.
+
+## Jerarquía
+
+- **Organización** — tu empresa (el tenant). Todo vive dentro de una organización.
+- **Miembros** — las personas de tu equipo, cada una con un [rol](/cuenta/miembros-y-roles/).
+- **Equipos** (departamentos) — agrupan miembros y determinan cómo se enrutan las conversaciones.
+
+## Conversaciones y canales
+
+- **Canal** — el medio por el que llegan mensajes: WhatsApp, Instagram, Messenger, email o widget web.
+- **Conversación** — un hilo con un contacto en un canal concreto.
+- **Asignación** — el agente (o la cola de un equipo) responsable de la conversación.
+- **Escalación** — cuando un agente IA cede el control a una persona.
+
+## CRM
+
+- **Contacto** — la persona o lead. Reúne su perfil, etiquetas, campos personalizados e historial en todos los canales.
+- **Pipeline** — embudo de **etapas** (p. ej. Nuevo → Calificado → Ganado).
+- **Acción de etapa** — automatización que se dispara cuando un contacto **entra** a una etapa (webhook, etiqueta, nota, asignación o envío de plantilla).
+- **Campaña** — envío o secuencia (WhatsApp o email) hacia un **segmento** de contactos.
+
+## Automatización con IA
+
+- **Agente IA / Asistente** — bot configurado con instrucciones y conocimiento que atiende en tus canales.
+- **Base de conocimiento** — documentos (archivo, URL o Google Docs) indexados que la IA usa para responder.
+
+## Etiquetas: dos tipos
+
+| Tipo | Se aplica a | Dónde se gestiona |
+|------|-------------|-------------------|
+| **Etiqueta de inbox** | Conversaciones | Organización → Etiquetas |
+| **Etiqueta de contacto** | Contactos | Configuración → Etiquetas de contacto |
+
+## Desarrolladores
+
+- **API key** — secreto `sk_…` para autenticar la API pública.
+- **Webhook** — notificación HTTP que Snappli envía a tu servidor cuando ocurre un evento.
+
+## Relacionado
+
+<LinkCard title="Glosario" description="Definiciones cortas de cada término." href="/referencia/glosario/" />
+<LinkCard title="Primeros pasos" description="Configura tu organización." href="/guia/primeros-pasos/" />

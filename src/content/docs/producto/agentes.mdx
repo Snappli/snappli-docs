@@ -1,0 +1,51 @@
+---
+title: Agentes IA
+description: Asistentes con instrucciones, conocimiento y escalación a humanos.
+---
+
+import { Steps, LinkCard, CardGrid } from '@astrojs/starlight/components';
+
+Los **agentes IA** (asistentes) responden en tus canales con el tono y el conocimiento que configures, y **escalan** al inbox humano cuando hace falta. Se gestionan en **Automatizaciones → Agentes IA**.
+
+## Agentes por equipo
+
+Cada equipo tiene su agente IA. Para activar agentes, primero crea tus [equipos](/producto/equipos/); el agente opera sobre las conversaciones que se enrutan a ese equipo.
+
+## Configuración
+
+El editor del asistente tiene varias pestañas:
+
+| Pestaña | Qué configuras |
+|---------|----------------|
+| **General** | Ajustes básicos del asistente |
+| **Instrucciones** | Rol, tono, límites y qué hacer cuando no sabe (admite variables del contacto) |
+| **Paso a humanos** | Palabras clave de escalación (por defecto `humano`, `agente`, `persona`) y escalación por inactividad (1–480 min) |
+| **Conocimiento** | Documentos de la base de conocimiento que puede consultar |
+
+## Flujo recomendado
+
+<Steps>
+
+1. Crea tus equipos en **Configuración → Equipos**.
+2. En **Automatizaciones → Agentes IA**, abre el asistente del equipo.
+3. Escribe **instrucciones** claras: qué ofreces, qué no prometer, idioma.
+4. Enlaza una [base de conocimiento](/producto/base-de-conocimiento/) y espera a que se indexe.
+5. Prueba casos reales en el **simulador**.
+6. Ajusta la escalación (palabras clave e inactividad) y déjalo operando.
+
+</Steps>
+
+:::tip
+Empieza con un alcance estrecho (p. ej. horarios + FAQs de envíos) y amplíalo cuando veas qué preguntan tus clientes.
+:::
+
+## Escalación
+
+Cuando el asistente escala, la conversación entra a la **cola del equipo** en el inbox con el contexto previo, de forma que el agente humano no pida al cliente que repita. Genera el evento `conversation.escalated` (útil para [webhooks](/desarrolladores/webhooks/)).
+
+## Relacionado
+
+<CardGrid>
+	<LinkCard title="Base de conocimiento" description="Documentos que alimentan a la IA." href="/producto/base-de-conocimiento/" />
+	<LinkCard title="Inbox" description="Dónde caen las conversaciones escaladas." href="/producto/inbox/" />
+</CardGrid>

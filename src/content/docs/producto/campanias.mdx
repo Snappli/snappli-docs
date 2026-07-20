@@ -1,0 +1,45 @@
+---
+title: Campañas
+description: Envíos y secuencias de WhatsApp o email a segmentos de contactos.
+---
+
+import { Steps, LinkCard } from '@astrojs/starlight/components';
+
+Las **campañas** envían mensajes a un grupo de contactos por WhatsApp o email. Se gestionan en **Campañas** (menú principal) y también desde **Email → Campañas**.
+
+## Tipos
+
+| Canal | Qué necesitas |
+|-------|---------------|
+| **WhatsApp** | Una línea de WhatsApp + una plantilla de Meta aprobada (con sus parámetros) + un segmento |
+| **Email** | Una conexión de email + asunto + una plantilla o HTML propio |
+
+La audiencia se define con un [segmento de contactos](/producto/contactos/#segmentos).
+
+## Crear una campaña
+
+<Steps>
+
+1. En **Campañas**, crea una nueva y elige el canal (WhatsApp o email).
+2. Selecciona la línea/conexión y la plantilla o el contenido.
+3. Define la **audiencia** (segmento). Puedes previsualizar quién es elegible.
+4. Programa el envío (`scheduledAt`) o lánzalo.
+5. (Opcional) configura la **recurrencia**.
+
+</Steps>
+
+## Programación y recurrencia
+
+- **Programación** — define fecha y hora de envío.
+- **Recurrencia** — `Ninguna`, `Diaria`, `Semanal` o `Mensual`, con intervalo (1–12) y fecha de fin opcional.
+
+## Estados
+
+Una campaña pasa por: **Borrador → Programada → En ejecución → Completada**. También puede quedar **Pausada**, **Cancelada** o **Fallida**.
+
+Al previsualizar la audiencia verás quién es **elegible** y quién se **omite** (y por qué), con opción de exportar.
+
+## Relacionado
+
+<LinkCard title="Plantillas de email" description="Diseña el contenido reutilizable." href="/producto/base-de-conocimiento/" />
+<LinkCard title="Contactos y segmentos" description="Define tu audiencia." href="/producto/contactos/" />

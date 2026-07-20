@@ -1,0 +1,51 @@
+---
+title: WhatsApp
+description: Conecta WhatsApp Business a Snappli con Meta o manualmente.
+---
+
+import { Steps, LinkCard } from '@astrojs/starlight/components';
+
+Conecta tu número de **WhatsApp Business** desde **Configuración → Canales → WhatsApp**. Hay dos métodos.
+
+## Método 1: con Facebook (recomendado)
+
+Usa el **Embedded Signup** de Meta: inicias sesión con tu cuenta de Facebook y autorizas el número sin copiar credenciales a mano.
+
+<Steps>
+
+1. En **Canales**, añade un canal y elige **WhatsApp**.
+2. Selecciona **Con Facebook**.
+3. Completa el flujo de Meta (elige la cuenta de WhatsApp Business y el número).
+4. Al terminar, la línea queda conectada y lista para enrutar.
+
+</Steps>
+
+:::tip
+Es la vía más rápida y con menos errores. Necesitas ser administrador de la cuenta de WhatsApp Business en Meta.
+:::
+
+## Método 2: configuración manual
+
+Si prefieres conectar con tus propias credenciales de la API de WhatsApp Cloud:
+
+<Steps>
+
+1. En **Canales → WhatsApp**, elige **Configuración manual**.
+2. Introduce las **credenciales**: nombre (label), Phone Number ID, Access Token, Verify Token, WABA ID y teléfono a mostrar.
+3. Configura la **URL de webhook** y el **Verify Token** en tu app de Meta con los datos que te indica el asistente.
+4. Define el **enrutamiento** (a qué equipo va) y guarda.
+
+</Steps>
+
+## Plantillas y ventana de 24 horas
+
+WhatsApp solo permite enviar **mensajes libres** dentro de las 24 h posteriores al último mensaje del cliente. Fuera de esa ventana debes iniciar con una **plantilla de Meta** aprobada. En el inbox, el compositor te ofrece el panel de plantillas cuando corresponde.
+
+## Gestionar líneas
+
+Todas las líneas conectadas se listan y editan desde la misma página de **Canales**.
+
+## Relacionado
+
+<LinkCard title="Campañas de WhatsApp" description="Envíos masivos con plantillas de Meta." href="/producto/campanias/" />
+<LinkCard title="Inbox" description="Responder y usar plantillas." href="/producto/inbox/" />

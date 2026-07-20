@@ -1,0 +1,69 @@
+---
+title: Autenticación
+description: Autentica peticiones a la API con una API key Bearer.
+---
+
+import { Steps, LinkCard } from '@astrojs/starlight/components';
+
+Todas las peticiones a la API pública requieren una **API key** en la cabecera `Authorization`.
+
+## Crear una clave
+
+<Steps>
+
+1. Ve a **Configuración → Desarrolladores → API**.
+2. Crea una clave con un nombre descriptivo.
+3. Copia el secreto **`sk_…`** — solo se muestra completo **una vez**.
+4. Guárdalo en un secreto de tu backend o CI, nunca en el frontend público.
+
+</Steps>
+
+:::note
+La clave tiene el formato `sk_` seguido de una cadena hexadecimal. En el panel solo verás su prefijo (los primeros caracteres) para identificarla.
+:::
+
+## Usar la clave
+
+```http
+GET /api/v1/contacts HTTP/1.1
+Host: api.snappli.io
+Authorization: Bearer sk_...
+```
+
+Con `curl`:
+
+```bash
+curl -sS https://api.snappli.io/api/v1/contacts \
+  -H "Authorization: Bearer sk_..."
+```
+
+## Alcance y límites
+
+- La clave es a nivel de **organización**: da acceso a los endpoints públicos de tu organización.
+- No hay scopes por recurso: cualquier clave válida puede leer los endpoints disponibles.
+- El acceso depende de que tu plan incluya la función **`api_access`**.
+
+## Errores de autenticación
+
+| Código | Significado |
+|--------|-------------|
+| `401` | API key ausente o inválida |
+| `403` | Tu plan no incluye acceso a la API (`PLAN_LIMIT_REACHED`) |
+
+Ejemplo de respuesta `403`:
+
+```json
+{
+  "statusCode": 403,
+  "code": "PLAN_LIMIT_REACHED",
+  "message": "API y webhooks no está incluido en tu plan."
+}
+```
+
+:::caution
+Trata las API keys como contraseñas. Si se filtra una clave, **revócala** en el panel y crea otra. La revocación es inmediata.
+:::
+
+## Siguiente
+
+<LinkCard title="API de contactos" description="Endpoints, parámetros y respuestas." href="/desarrolladores/contactos/" />

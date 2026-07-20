@@ -1,0 +1,41 @@
+---
+title: Base de conocimiento
+description: Documentos que alimentan las respuestas de tus agentes IA.
+---
+
+import { Steps, LinkCard } from '@astrojs/starlight/components';
+
+La **base de conocimiento** son los documentos que tus [agentes IA](/producto/agentes/) consultan para responder con información de tu negocio. Se gestiona desde la pestaña **Conocimiento** del asistente.
+
+## Fuentes
+
+Puedes añadir conocimiento desde tres fuentes:
+
+- **Subir archivo** — sube un documento.
+- **URL** — indexa el contenido de una página web.
+- **Google Docs** — conecta tu cuenta de Google e importa documentos.
+
+## Cómo funciona
+
+<Steps>
+
+1. Añade una fuente desde el asistente del equipo.
+2. Snappli procesa el documento y lo divide en **fragmentos** indexados.
+3. Cuando hay documentos listos, pruébalo en el **chat de prueba** del asistente.
+4. El agente usa esos fragmentos para responder con contexto real (respuestas *grounded*).
+
+</Steps>
+
+:::note
+El número de **fragmentos** disponibles depende de tu plan (`max_knowledge_fragments`). Consulta tu [uso](/cuenta/facturacion/) si te acercas al límite.
+:::
+
+## Buenas prácticas
+
+- Sube documentos concretos y actualizados (políticas, FAQs, catálogos).
+- Divide temas grandes en documentos separados para mejorar la relevancia.
+- Revisa el chat de prueba tras cada cambio importante.
+
+## Relacionado
+
+<LinkCard title="Agentes IA" description="Configura instrucciones y escalación." href="/producto/agentes/" />

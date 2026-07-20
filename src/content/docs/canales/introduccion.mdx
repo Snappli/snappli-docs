@@ -1,0 +1,31 @@
+---
+title: Visión general de canales
+description: Conecta WhatsApp, Instagram, Messenger, email y widget web.
+---
+
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+
+Los **canales** son los medios por los que llegan mensajes a tu inbox. Se gestionan en **Configuración → Canales**.
+
+## Canales disponibles
+
+<CardGrid>
+	<LinkCard title="WhatsApp" description="Conecta con Meta (recomendado) o manualmente." href="/canales/whatsapp/" />
+	<LinkCard title="Instagram y Messenger" description="Mensajería de tus páginas de Meta." href="/canales/instagram-messenger/" />
+	<LinkCard title="Email" description="Conexión de correo y verificación de dominio." href="/canales/email/" />
+	<LinkCard title="Widget web" description="Chat embebido en tu sitio." href="/canales/widget/" />
+</CardGrid>
+
+## Enrutamiento
+
+Cada canal (línea de WhatsApp, conexión de email, página de Meta o widget) define cómo se reparten sus conversaciones:
+
+- **Automático** — el orquestador elige el equipo.
+- **Áreas limitadas** — restringe a ciertos equipos.
+- **Equipo fijo** — siempre al mismo equipo.
+
+→ Ver [Equipos](/producto/equipos/) para el detalle del enrutamiento.
+
+:::note
+Los **webhooks** aparecen junto a los canales, pero no son un canal de mensajes: son notificaciones salientes hacia tus sistemas. Ver [Webhooks](/desarrolladores/webhooks/).
+:::

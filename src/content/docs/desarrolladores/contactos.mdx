@@ -1,0 +1,114 @@
+---
+title: API de contactos
+description: Endpoints para listar y obtener contactos de tu organización.
+---
+
+import { LinkCard } from '@astrojs/starlight/components';
+
+La API pública expone hoy dos endpoints de **solo lectura** sobre contactos. Todas las peticiones requieren [autenticación](/desarrolladores/autenticacion/) con `Authorization: Bearer sk_…`.
+
+## Listar contactos
+
+```http
+GET /api/v1/contacts
+```
+
+Devuelve los contactos de tu organización, paginados.
+
+### Parámetros de consulta
+
+| Parámetro | Tipo | Por defecto | Descripción |
+|-----------|------|-------------|-------------|
+| `page` | entero ≥ 1 | `1` | Página a devolver |
+| `limit` | entero 1–100 | `20` | Elementos por página |
+| `search` | string | — | Búsqueda por nombre, teléfono o email |
+| `view` | `all` · `active` · `inactive` · `blocked` | `all` | Filtra por estado |
+| `tagId` | string | — | Filtra por etiqueta de contacto |
+| `segmentId` | string | — | Filtra por segmento |
+| `pipelineStageId` | string | — | Filtra por etapa de pipeline |
+
+### Respuesta
+
+La paginación es por **página/límite** (no cursor):
+
+```json
+{
+  "data": [
+    {
+      "id": "ckv...",
+      "firstName": "Ana",
+      "lastName": "Pérez",
+      "displayName": "Ana Pérez",
+      "email": "ana@example.com",
+      "phone": "+593999999999",
+      "language": "es",
+      "countryCode": "EC",
+      "tags": [{ "id": "tg_1", "name": "vip", "color": "#ec4899" }],
+      "pipelineStageId": "st_1",
+      "pipelineStageEnteredAt": "2026-07-16T18:00:00.000Z"
+    }
+  ],
+  "meta": {
+    "total": 128,
+    "page": 1,
+    "limit": 20,
+    "totalPages": 7
+  }
+}
+```
+
+### Ejemplo
+
+```bash
+curl -sS "https://api.snappli.io/api/v1/contacts?limit=50&view=active" \
+  -H "Authorization: Bearer sk_..."
+```
+
+## Obtener un contacto
+
+```http
+GET /api/v1/contacts/:id
+```
+
+Devuelve el detalle de un contacto, incluyendo sus últimas conversaciones, valores de campos personalizados, etiquetas y etapa de pipeline.
+
+### Ejemplo
+
+```bash
+curl -sS "https://api.snappli.io/api/v1/contacts/ckv..." \
+  -H "Authorization: Bearer sk_..."
+```
+
+Si el contacto no existe, responde `404`:
+
+```json
+{ "statusCode": 404, "message": "Contacto no encontrado", "error": "Not Found" }
+```
+
+## Errores
+
+| Código | Cuándo |
+|--------|--------|
+| `400` | Parámetros de consulta inválidos (fallo de validación) |
+| `401` | API key ausente o inválida |
+| `403` | El plan no incluye acceso a la API |
+| `404` | Contacto no encontrado |
+
+Ejemplo de error de validación (`400`):
+
+```json
+{
+  "statusCode": 400,
+  "message": "Validation failed",
+  "errors": [{ "path": ["limit"], "message": "Number must be less than or equal to 100" }]
+}
+```
+
+:::note
+La escritura de contactos y otros recursos aún no está disponible en la API pública. Para reaccionar a cambios usa [webhooks](/desarrolladores/webhooks/).
+:::
+
+## Relacionado
+
+<LinkCard title="Webhooks" description="Recibe eventos de contactos y pipeline." href="/desarrolladores/webhooks/" />
+<LinkCard title="Autenticación" description="Cómo crear y usar API keys." href="/desarrolladores/autenticacion/" />

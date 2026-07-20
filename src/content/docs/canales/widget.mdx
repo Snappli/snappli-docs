@@ -1,0 +1,35 @@
+---
+title: Widget web
+description: Chat embebido en tu sitio web.
+---
+
+import { Steps, LinkCard } from '@astrojs/starlight/components';
+
+El **widget** es un chat que embebes en tu sitio para que los visitantes te escriban directamente al inbox.
+
+## Crear el widget
+
+En **Configuración → Canales → Widget**:
+
+<Steps>
+
+1. Añade un canal **Widget** y ponle nombre.
+2. Define los **orígenes permitidos** (los dominios donde se mostrará).
+3. (Opcional) añade **quick prompts** (hasta 8) para sugerir preguntas iniciales.
+4. Configura el **enrutamiento** al equipo que atenderá.
+5. Guarda: obtendrás un **snippet de instalación** y una `publicKey`.
+
+</Steps>
+
+## Instalar en tu sitio
+
+Pega el snippet de instalación antes de `</body>` en las páginas donde quieras el chat. También encuentras el snippet y la clave pública en **Configuración → Desarrolladores → Widget**.
+
+:::tip
+Los **orígenes permitidos** deben coincidir con el dominio real donde cargas el widget, o el chat no se inicializará.
+:::
+
+## Relacionado
+
+<LinkCard title="Instalación para desarrolladores" description="Snippet y clave pública." href="/desarrolladores/widget/" />
+<LinkCard title="Inbox" description="Atiende los mensajes del widget." href="/producto/inbox/" />
