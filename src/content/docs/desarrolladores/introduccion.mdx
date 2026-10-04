@@ -9,19 +9,13 @@ La **API pública** de Snappli te permite leer datos de tu organización (hoy, c
 
 ## Requisitos
 
-- El plan **Pro** o superior de Snappli completo (Pro, Business o Enterprise), que incluye **API y webhooks** (`api_access`).
-- Una **API key** creada en **Configuración → Desarrolladores → API**.
+- El plan **Pro** o superior de Snappli completo (Pro, Business o Enterprise), que incluye **API y webhooks**.
+- Una **API key** creada en **Configuración → API**.
 
 ## Base URL
 
 ```
 https://api.snappli.io/api
-```
-
-En desarrollo local:
-
-```
-http://localhost:3001/api
 ```
 
 Todas las rutas públicas cuelgan de `/api/v1`.
@@ -30,7 +24,7 @@ Todas las rutas públicas cuelgan de `/api/v1`.
 
 <Steps>
 
-1. Crea una API key en **Configuración → Desarrolladores → API**.
+1. Crea una API key en **Configuración → API**.
 2. Autentica con `Authorization: Bearer sk_…` — ver [Autenticación](/desarrolladores/autenticacion/).
 3. Llama a los [endpoints de contactos](/desarrolladores/contactos/).
 4. Suscribe [webhooks](/desarrolladores/webhooks/) si necesitas eventos.
@@ -39,7 +33,7 @@ Todas las rutas públicas cuelgan de `/api/v1`.
 
 ## Referencia interactiva
 
-Dentro de la app, **Desarrolladores → API** incluye una referencia interactiva (OpenAPI + Scalar) donde puedes probar peticiones con tu clave. Esta documentación cubre conceptos, autenticación, endpoints y webhooks.
+Dentro de la app, **Configuración → API** incluye una referencia interactiva (OpenAPI + Scalar) donde puedes probar peticiones con tu clave. Esta documentación cubre conceptos, autenticación, endpoints y webhooks.
 
 ## Siguiente
 
