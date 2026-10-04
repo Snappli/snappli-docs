@@ -2,7 +2,7 @@
 
 Documentación pública de [Snappli](https://www.snappli.io), publicada en [docs.snappli.io](https://docs.snappli.io).
 
-Stack: **Astro 7** + **Starlight** + **Tailwind CSS 4**, desplegable en Vercel.
+Stack: **Astro 7** + **Starlight** + **Tailwind CSS 4**, servido como sitio estático con nginx en Dokploy.
 
 ## Desarrollo
 
@@ -38,12 +38,24 @@ Estructura de secciones:
 
 Al añadir una página, actualiza el `sidebar` en `astro.config.mjs` (salvo `referencia/`, que es autogenerado y ordena por `sidebar.order`).
 
-## Despliegue (Vercel)
+Precios y límites de planes: `src/data/pricing.ts` (fuente única, se muestra con `<PlanTable>`). Capturas del producto: `src/assets/capturas/`; cómo regenerarlas en `scripts/capturas/README.md`.
 
-1. Importa este repo en Vercel (framework: Astro).
-2. Añade el dominio `docs.snappli.io`.
-3. En Cloudflare DNS: `CNAME` `docs` → `cname.vercel-dns.com`.
-4. En el frontend de Snappli (producción): `NEXT_PUBLIC_DOCS_URL=https://docs.snappli.io`.
+## Despliegue (Dokploy)
+
+Cada push a `main` despliega automáticamente en Dokploy:
+
+1. El `Dockerfile` compila el sitio con `pnpm build` (Node 22) y copia `dist/` a una imagen de nginx.
+2. `nginx.conf` sirve las rutas de Astro (`/ruta/` → `/ruta/index.html`), usa `404.html` de Starlight y cachea `/_astro/` por un año.
+3. `docs.snappli.io` pasa por Cloudflare hacia Dokploy.
+
+Para probar la imagen en local:
+
+```bash
+docker build -t snappli-docs .
+docker run --rm -p 8080:80 snappli-docs
+```
+
+En el frontend de Snappli (producción): `NEXT_PUBLIC_DOCS_URL=https://docs.snappli.io`.
 
 ## Branding
 
