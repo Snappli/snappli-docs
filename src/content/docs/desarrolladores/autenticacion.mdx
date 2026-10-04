@@ -41,14 +41,14 @@ curl -sS https://api.snappli.io/api/v1/contacts \
 
 - La clave es a nivel de **organización**: da acceso a los endpoints públicos de tu organización.
 - No hay scopes por recurso: cualquier clave válida puede leer los endpoints disponibles.
-- El acceso depende de que tu plan incluya la función **`api_access`**.
+- El acceso requiere el plan **Pro** o superior de Snappli completo (función **`api_access`**). El plan Starter no incluye API.
 
 ## Errores de autenticación
 
 | Código | Significado |
 |--------|-------------|
 | `401` | API key ausente o inválida |
-| `403` | Tu plan no incluye acceso a la API (`PLAN_LIMIT_REACHED`) |
+| `403` | Tu plan no incluye acceso a la API (`PLAN_LIMIT_REACHED`); sube a Pro o superior |
 
 Ejemplo de respuesta `403`:
 

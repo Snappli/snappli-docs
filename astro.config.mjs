@@ -58,6 +58,7 @@ export default defineConfig({
 						{ label: 'Campañas', slug: 'producto/campanias' },
 						{ label: 'Equipos', slug: 'producto/equipos' },
 						{ label: 'Informes', slug: 'producto/informes' },
+						{ label: 'Minutos de voz con IA', slug: 'producto/voz-minutos' },
 					],
 				},
 				{

@@ -22,5 +22,11 @@ sidebar:
 | **Campaña** | Envío o secuencia hacia contactos |
 | **API key** | Secreto `sk_…` para la API pública |
 | **Webhook** | Notificación HTTP saliente hacia tu sistema |
-| **Add-on** | Extra de billing (capacidad o funciones) |
+| **Add-on / Complemento** | Extra de facturación (capacidad o funciones) que sumas sin cambiar de plan |
+| **Contacto activo** | Contacto con actividad en el mes; cuenta para el límite de contactos del plan |
+| **Fragmento de conocimiento** | Parte indexada de un documento de la base de conocimiento; el plan define cuántos puedes tener |
+| **Crédito de IA** | Unidad de consumo de la IA: 1 crédito por token que lee y 5 por token que escribe |
+| **Minuto de voz con IA** | Minuto de llamada atendido por la IA; cada llamada se redondea al minuto |
+| **Cobro por uso** | Exceso postpago (contactos, créditos de IA, minutos de voz) que se cobra en la siguiente factura |
+| **Enterprise** | Plan a medida de Snappli completo, desde $399/mes |
 | **Manage** | Área de administración (canales, billing, desarrolladores…) |

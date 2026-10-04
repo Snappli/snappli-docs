@@ -1,45 +1,122 @@
 ---
 title: Facturación y uso
-description: Planes, complementos, medidores de uso y límites de capacidad.
+description: Planes, complementos, cobros por uso y límites de capacidad.
 ---
 
 import { LinkCard } from '@astrojs/starlight/components';
 
 La facturación está en **Configuración → Facturación** y solo la gestiona el **Propietario**. Tiene tres áreas: **Plan**, **Complementos** y **Uso**.
 
-## Planes
+Snappli se ofrece en dos productos:
 
-Snappli ofrece varios planes (Starter, Pro, Business y Scale). Cada plan define límites y funciones:
+- **Snappli completo** ([snappli.io](https://www.snappli.io)) — inbox multicanal, agentes IA, embudo, campañas, voz con IA y API.
+- **Snappli para WhatsApp** ([wa.snappli.io](https://wa.snappli.io)) — la versión enfocada solo en WhatsApp.
 
-| Límite / función | Ejemplos |
-|------------------|----------|
-| Capacidad | Contactos activos, miembros, canales, equipos, fragmentos de KB, organizaciones |
-| Funciones | Canales de Meta, agente IA, base de conocimiento, automatización, acceso a la API |
+Todos los precios están en dólares (USD). El pago **anual** equivale a **10 meses** del precio mensual (dos meses gratis).
+
+## Planes de Snappli completo
+
+| | **Starter** | **Pro** | **Business** | **Enterprise** |
+|---|---|---|---|---|
+| Precio mensual | $59/mes | $129/mes | $239/mes | Desde $399/mes |
+| Precio anual | $590/año | $1.290/año | $2.390/año | Desde $3.990/año |
+| Usuarios | 3 | 5 | 10 | 20 |
+| Contactos activos/mes | 2.000 | 5.000 | 10.000 | 25.000 |
+| Canales | 3 | Ilimitados | Ilimitados | Ilimitados |
+| Equipos | 1 | 3 | 10 | Ilimitados |
+| Empresas (organizaciones) | 1 | 1 | 1 | 2 |
+| Fragmentos de conocimiento | 400 | 2.000 | 8.000 | Ilimitados |
+| Créditos de IA/mes | 10M | 25M | 50M | 100M |
+| Envíos masivos por WhatsApp | Hasta 1.000 destinatarios por envío | Sin límite mensual, 5.000 por envío | Sin límite mensual, 10.000 por envío | Sin límite mensual, 25.000 por envío |
+| Emails de campaña/mes | — | 15.000 | 40.000 | 100.000 |
+| Minutos de voz con IA/mes | — | 60 | 200 | 500 |
+| Embudo e informes | ✓ | ✓ | ✓ | ✓ |
+| API y webhooks | — | ✓ | ✓ | ✓ |
+| Onboarding prioritario | — | — | ✓ | ✓ |
+
+**Enterprise** es un plan a medida: el precio parte de $399/mes y se ajusta a tu volumen. Escríbenos para cotizarlo.
+
+## Planes de Snappli para WhatsApp
+
+| | **Free** | **Starter** | **Pro** | **Business** |
+|---|---|---|---|---|
+| Precio mensual | $0 | $19/mes | $35/mes | $89/mes |
+| Precio anual | $0 | $190/año | $350/año | $890/año |
+| Usuarios | 1 | 2 | 3 | 5 |
+| Contactos | 50 | 1.000 | 3.000 | 10.000 |
+| Números de WhatsApp | 1 | 1 | 1 | 2 |
+| Créditos de IA/mes | — | 4M | 10M | 30M |
+| Envíos masivos (destinatarios/mes) | — | 1.000 | 5.000 | Sin límite |
+| Informes | — | — | ✓ | ✓ |
+
+En Snappli para WhatsApp, los envíos masivos son **solo por WhatsApp**, con **plantillas aprobadas por Meta** y se envían **una vez** (sin recurrencia ni email). Ver [Campañas](/producto/campanias/#envíos-masivos-en-snappli-para-whatsapp).
+
+## Créditos de IA
+
+Los agentes IA consumen **créditos de IA**: **1 crédito** por cada token que la IA **lee** y **5 créditos** por cada token que **escribe**. Cada plan incluye una cantidad mensual de créditos; puedes ver el consumo en **Uso**.
 
 ## Complementos
 
-En **Complementos** amplías tu plan sin cambiarlo: contactos extra, asientos, equipos, canales, fragmentos de conocimiento, organizaciones adicionales u onboarding premium.
+En **Complementos** amplías tu plan sin cambiarlo.
 
-## Uso
+### Snappli completo
 
-En **Uso** ves medidores en tiempo real de contactos activos, miembros, canales, equipos y fragmentos de KB. Puedes activar la **expansión automática de contactos activos** para no bloquear tu operación.
+| Complemento | Precio | Cómo se cobra |
+|-------------|--------|---------------|
+| +100 contactos activos | $10 | Por uso (postpago). Se activa en **Uso** |
+| Usuario extra | $15/mes | Mensual |
+| Equipo extra | $10/mes | Mensual |
+| Empresa extra | $79/mes | Mensual |
+| +500 fragmentos de conocimiento | $15/mes | Mensual |
+| +1M créditos de IA | $3 | Por uso (postpago). Se activa en **Uso** |
+| +1.000 emails de campaña | $2,50 | Se confirma al lanzar la campaña |
+| Minuto de voz con IA | $0,15 | Por uso (postpago). Se activa en **Uso** con un tope de minutos |
+| Onboarding asistido | $149 | Pago único |
+
+### Snappli para WhatsApp
+
+| Complemento | Precio |
+|-------------|--------|
+| +100 contactos | $5 |
+| Usuario extra | $10/mes |
+| +500 fragmentos de conocimiento | $15/mes |
+| +1M créditos de IA | $3 |
+| Onboarding asistido | $149 (pago único) |
+
+## Uso y cobros por uso
+
+En **Uso** ves medidores en tiempo real de contactos activos, miembros, canales, equipos, fragmentos de conocimiento, créditos de IA, emails de campaña y minutos de voz.
+
+Desde ahí también activas los **cobros por uso** (postpago), para seguir operando cuando superas lo incluido en tu plan:
+
+- **Contactos activos** — se cobran en bloques de +100 contactos.
+- **Créditos de IA** — se cobran en bloques de +1M créditos.
+- **Minutos de voz con IA** — se cobran por minuto, hasta el **tope de minutos** que tú eliges. Ver [Minutos de voz con IA](/producto/voz-minutos/).
+
+Los **emails de campaña** adicionales no se activan en Uso: cuando una campaña supera los emails incluidos, Snappli te pide confirmar los bloques extra **al lanzarla**.
+
+Los cobros por uso de un mes se cobran en la **siguiente factura**.
 
 ## Qué pasa al acercarte al límite
 
 Snappli te avisa por fases:
 
 1. **Cerca del límite** (~80%) — banner informativo.
-2. **En el límite** del plan — aviso para ampliar.
-3. **Margen de cortesía** — un pequeño buffer por encima del límite.
-4. **Bloqueo** — al superar el margen, los **nuevos** contactos pueden bloquearse (los ya activos del mes siguen).
+2. **En el límite** del plan — aviso para ampliar con un complemento o activar el cobro por uso.
+3. **Al superar el límite** — si tienes activado el cobro por uso, sigues operando y el exceso se cobra en la siguiente factura. Si no lo tienes activado, los **nuevos** contactos pueden bloquearse (los ya activos del mes siguen).
 
 En todos los casos verás un banner que enlaza a **Complementos** o **Uso** para resolverlo.
 
 :::tip
-Si tu volumen crece de forma estable, suele salir mejor subir de plan que acumular complementos.
+Si tu volumen crece de forma estable, suele salir mejor subir de plan que acumular complementos o cobros por uso.
 :::
+
+## Mensajes de WhatsApp (cobros de Meta)
+
+Los mensajes de WhatsApp los cobra **Meta directamente a tu tarjeta**, no Snappli. Snappli no agrega ningún recargo. Ver [¿Quién paga los mensajes de WhatsApp?](/referencia/faq/#quién-paga-los-mensajes-de-whatsapp).
 
 ## Relacionado
 
+<LinkCard title="Minutos de voz con IA" description="Cómo se cuentan y cobran las llamadas." href="/producto/voz-minutos/" />
 <LinkCard title="Informes" description="Métricas de tu operación." href="/producto/informes/" />
-<LinkCard title="Acceso a la API" description="Requiere un plan con la función habilitada." href="/desarrolladores/introduccion/" />
+<LinkCard title="Acceso a la API" description="Disponible desde el plan Pro." href="/desarrolladores/introduccion/" />
