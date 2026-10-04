@@ -34,7 +34,7 @@ export default defineConfig({
 				},
 			],
 			editLink: {
-				baseUrl: 'https://github.com/luis-gomez-91/snappli-docs/edit/main/',
+				baseUrl: 'https://github.com/Snappli/snappli-docs/edit/main/',
 			},
 			lastUpdated: true,
 			pagination: true,
