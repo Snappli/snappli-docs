@@ -6,6 +6,7 @@ sidebar:
 ---
 
 import { LinkCard } from '@astrojs/starlight/components';
+import { ADDONS, FULL_PLANS, META_RATES, WS_PLANS, formatUsd, planPrice } from '../../../data/pricing';
 
 ## Producto
 
@@ -39,7 +40,7 @@ Solo el **Propietario** gestiona la facturación. Ver [Facturación](/cuenta/fac
 
 ### ¿Qué planes hay?
 
-Snappli completo tiene **Starter** ($59/mes), **Pro** ($129/mes), **Business** ($239/mes) y **Enterprise** (desde $399/mes, a medida). Snappli para WhatsApp tiene **Free**, **Starter** ($19), **Pro** ($35) y **Business** ($89). El pago anual equivale a 10 meses. Ver [Facturación](/cuenta/facturacion/).
+Snappli completo tiene {FULL_PLANS.map((p) => `${p.name} (${planPrice(p).toLowerCase()}${p.fromPrice ? ', a medida' : ''})`).join(', ')}. Snappli para WhatsApp tiene {WS_PLANS.map((p) => `${p.name} (${planPrice(p)})`).join(', ')}. El pago anual equivale a 10 meses. Ver [Facturación](/cuenta/facturacion/).
 
 ### ¿Dónde veo mi uso y límites?
 
@@ -51,7 +52,7 @@ Snappli avisa por fases. Si activas el **cobro por uso** en **Uso** (contactos, 
 
 ### ¿Qué es un crédito de IA?
 
-La unidad con la que se mide el uso de los agentes IA: **1 crédito** por cada token que la IA lee y **5** por cada token que escribe. Cada plan incluye créditos mensuales y puedes sumar +1M por $3. Ver [Facturación](/cuenta/facturacion/#créditos-de-ia).
+La unidad con la que se mide el uso de los agentes IA: **1 crédito** por cada token que la IA lee y **5** por cada token que escribe. Cada plan incluye créditos mensuales y puedes sumar +1M por {formatUsd(ADDONS.full.aiCredits1M)}. Ver [Facturación](/cuenta/facturacion/#créditos-de-ia).
 
 ### ¿Quién paga los mensajes de WhatsApp?
 
@@ -60,16 +61,16 @@ Tú, directamente a **Meta**. Con cualquiera de las dos formas de conectar ([con
 | Tipo de mensaje | Costo aproximado de Meta |
 |-----------------|--------------------------|
 | Responder cuando el cliente te escribe primero (dentro de 24 h) | Gratis |
-| Servicio o verificación fuera de esa ventana | ~US$0,0113 por mensaje |
-| Marketing (p. ej. campañas) | ~US$0,074 por mensaje |
+| Servicio o verificación fuera de esa ventana | ~US{formatUsd(META_RATES.utility)} por mensaje |
+| Marketing (p. ej. campañas) | ~US{formatUsd(META_RATES.marketing)} por mensaje |
 
-Son tarifas de referencia para "resto de Latinoamérica" (incluye Ecuador). Consulta las tarifas vigentes en la [página de precios de Meta](https://developers.facebook.com/documentation/business-messaging/whatsapp/pricing).
+Son tarifas de referencia para "resto de Latinoamérica" (incluye Ecuador). Consulta las tarifas vigentes en la <a href={META_RATES.pricingUrl}>página de precios de Meta</a>.
 
 ## Desarrolladores
 
 ### ¿Dónde creo una API key?
 
-En **Configuración → Desarrolladores → API**. Se muestra completa una sola vez; guárdala en tu backend. Requiere el plan **Pro** o superior de Snappli completo. Ver [Autenticación](/desarrolladores/autenticacion/).
+En **Configuración → API**. Se muestra completa una sola vez; guárdala en tu backend. Requiere el plan **Pro** o superior de Snappli completo. Ver [Autenticación](/desarrolladores/autenticacion/).
 
 ### ¿Los webhooks reintentan si mi servidor falla?
 

@@ -4,6 +4,8 @@ description: Planes, complementos, cobros por uso y límites de capacidad.
 ---
 
 import { LinkCard } from '@astrojs/starlight/components';
+import PlanTable from '../../../components/PlanTable.astro';
+import { ADDONS, formatUsd, fullPlan } from '../../../data/pricing';
 
 La facturación está en **Configuración → Facturación** y solo la gestiona el **Propietario**. Tiene tres áreas: **Plan**, **Complementos** y **Uso**.
 
@@ -16,38 +18,13 @@ Todos los precios están en dólares (USD). El pago **anual** equivale a **10 me
 
 ## Planes de Snappli completo
 
-| | **Starter** | **Pro** | **Business** | **Enterprise** |
-|---|---|---|---|---|
-| Precio mensual | $59/mes | $129/mes | $239/mes | Desde $399/mes |
-| Precio anual | $590/año | $1.290/año | $2.390/año | Desde $3.990/año |
-| Usuarios | 3 | 5 | 10 | 20 |
-| Contactos activos/mes | 2.000 | 5.000 | 10.000 | 25.000 |
-| Canales | 3 | Ilimitados | Ilimitados | Ilimitados |
-| Equipos | 1 | 3 | 10 | Ilimitados |
-| Empresas (organizaciones) | 1 | 1 | 1 | 2 |
-| Fragmentos de conocimiento | 400 | 2.000 | 8.000 | Ilimitados |
-| Créditos de IA/mes | 10M | 25M | 50M | 100M |
-| Envíos masivos por WhatsApp | Hasta 1.000 destinatarios por envío | Sin límite mensual, 5.000 por envío | Sin límite mensual, 10.000 por envío | Sin límite mensual, 25.000 por envío |
-| Emails de campaña/mes | — | 15.000 | 40.000 | 100.000 |
-| Minutos de voz con IA/mes | — | 60 | 200 | 500 |
-| Embudo e informes | ✓ | ✓ | ✓ | ✓ |
-| API y webhooks | — | ✓ | ✓ | ✓ |
-| Onboarding prioritario | — | — | ✓ | ✓ |
+<PlanTable product="full" />
 
-**Enterprise** es un plan a medida: el precio parte de $399/mes y se ajusta a tu volumen. Escríbenos para cotizarlo.
+**Enterprise** es un plan a medida: el precio parte de {formatUsd(fullPlan('enterprise').monthly)}/mes y se ajusta a tu volumen. Escríbenos para cotizarlo.
 
 ## Planes de Snappli para WhatsApp
 
-| | **Free** | **Starter** | **Pro** | **Business** |
-|---|---|---|---|---|
-| Precio mensual | $0 | $19/mes | $35/mes | $89/mes |
-| Precio anual | $0 | $190/año | $350/año | $890/año |
-| Usuarios | 1 | 2 | 3 | 5 |
-| Contactos | 50 | 1.000 | 3.000 | 10.000 |
-| Números de WhatsApp | 1 | 1 | 1 | 2 |
-| Créditos de IA/mes | — | 4M | 10M | 30M |
-| Envíos masivos (destinatarios/mes) | — | 1.000 | 5.000 | Sin límite |
-| Informes | — | — | ✓ | ✓ |
+<PlanTable product="ws" />
 
 En Snappli para WhatsApp, los envíos masivos son **solo por WhatsApp**, con **plantillas aprobadas por Meta** y se envían **una vez** (sin recurrencia ni email). Ver [Campañas](/producto/campanias/#envíos-masivos-en-snappli-para-whatsapp).
 
@@ -63,25 +40,25 @@ En **Complementos** amplías tu plan sin cambiarlo.
 
 | Complemento | Precio | Cómo se cobra |
 |-------------|--------|---------------|
-| +100 contactos activos | $10 | Por uso (postpago). Se activa en **Uso** |
-| Usuario extra | $15/mes | Mensual |
-| Equipo extra | $10/mes | Mensual |
-| Empresa extra | $79/mes | Mensual |
-| +500 fragmentos de conocimiento | $15/mes | Mensual |
-| +1M créditos de IA | $3 | Por uso (postpago). Se activa en **Uso** |
-| +1.000 emails de campaña | $2,50 | Se confirma al lanzar la campaña |
-| Minuto de voz con IA | $0,15 | Por uso (postpago). Se activa en **Uso** con un tope de minutos |
-| Onboarding asistido | $149 | Pago único |
+| +100 contactos activos | {formatUsd(ADDONS.full.activeContacts100)} | Por uso (postpago). Se activa en **Uso** |
+| Usuario extra | {formatUsd(ADDONS.full.user)}/mes | Mensual |
+| Equipo extra | {formatUsd(ADDONS.full.team)}/mes | Mensual |
+| Empresa extra | {formatUsd(ADDONS.full.organization)}/mes | Mensual |
+| +500 fragmentos de conocimiento | {formatUsd(ADDONS.full.kbFragments500)}/mes | Mensual |
+| +1M créditos de IA | {formatUsd(ADDONS.full.aiCredits1M)} | Por uso (postpago). Se activa en **Uso** |
+| +1.000 emails de campaña | {formatUsd(ADDONS.full.campaignEmails1000)} | Se confirma al lanzar la campaña |
+| Minuto de voz con IA | {formatUsd(ADDONS.full.voiceMinute)} | Por uso (postpago). Se activa en **Uso** con un tope de minutos |
+| Onboarding asistido | {formatUsd(ADDONS.full.onboarding)} | Pago único |
 
 ### Snappli para WhatsApp
 
 | Complemento | Precio |
 |-------------|--------|
-| +100 contactos | $5 |
-| Usuario extra | $10/mes |
-| +500 fragmentos de conocimiento | $15/mes |
-| +1M créditos de IA | $3 |
-| Onboarding asistido | $149 (pago único) |
+| +100 contactos | {formatUsd(ADDONS.ws.activeContacts100)} |
+| Usuario extra | {formatUsd(ADDONS.ws.user)}/mes |
+| +500 fragmentos de conocimiento | {formatUsd(ADDONS.ws.kbFragments500)}/mes |
+| +1M créditos de IA | {formatUsd(ADDONS.ws.aiCredits1M)} |
+| Onboarding asistido | {formatUsd(ADDONS.ws.onboarding)} (pago único) |
 
 ## Uso y cobros por uso
 

@@ -28,5 +28,5 @@ sidebar:
 | **Crédito de IA** | Unidad de consumo de la IA: 1 crédito por token que lee y 5 por token que escribe |
 | **Minuto de voz con IA** | Minuto de llamada atendido por la IA; cada llamada se redondea al minuto |
 | **Cobro por uso** | Exceso postpago (contactos, créditos de IA, minutos de voz) que se cobra en la siguiente factura |
-| **Enterprise** | Plan a medida de Snappli completo, desde $399/mes |
+| **Enterprise** | Plan a medida de Snappli completo (ver [Facturación](/cuenta/facturacion/)) |
 | **Manage** | Área de administración (canales, billing, desarrolladores…) |

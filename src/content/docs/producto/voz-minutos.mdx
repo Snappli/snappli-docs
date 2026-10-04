@@ -4,17 +4,14 @@ description: Cuántos minutos incluye tu plan, cómo se cuentan las llamadas y c
 ---
 
 import { Steps, LinkCard } from '@astrojs/starlight/components';
+import PlanTable from '../../../components/PlanTable.astro';
+import { ADDONS, formatUsd } from '../../../data/pricing';
 
 Los **minutos de voz con IA** miden el tiempo de las llamadas que atiende un agente IA. Cada plan de **Snappli completo** desde **Pro** incluye una cantidad mensual de minutos, y puedes activar minutos extra con un tope que tú eliges.
 
 ## Minutos incluidos por plan
 
-| Plan de Snappli completo | Minutos de voz con IA/mes |
-|--------------------------|---------------------------|
-| **Starter** | No incluidos |
-| **Pro** | 60 |
-| **Business** | 200 |
-| **Enterprise** | 500 |
+<PlanTable product="full" rows={['voiceMinutes']} />
 
 Los planes de Snappli para WhatsApp no incluyen voz con IA.
 
@@ -26,7 +23,7 @@ Los planes de Snappli para WhatsApp no incluyen voz con IA.
 
 ## Minutos extra
 
-Cuando agotas los minutos incluidos, puedes seguir atendiendo llamadas con IA a **$0,15 por minuto** (postpago).
+Cuando agotas los minutos incluidos, puedes seguir atendiendo llamadas con IA a **{formatUsd(ADDONS.full.voiceMinute)} por minuto** (postpago).
 
 <Steps>
 
