@@ -13,6 +13,7 @@ export default defineConfig({
 			title: 'Snappli Docs',
 			description:
 				'Guías de producto, API e integraciones para Snappli — atención al cliente con IA.',
+			favicon: '/favicon.png',
 			defaultLocale: 'root',
 			locales: {
 				root: {
@@ -30,7 +31,7 @@ export default defineConfig({
 				{
 					icon: 'github',
 					label: 'GitHub',
-					href: 'https://github.com/luis-gomez-91/snappli-docs',
+					href: 'https://github.com/Snappli/snappli-docs',
 				},
 			],
 			editLink: {
@@ -107,6 +108,26 @@ export default defineConfig({
 						name: 'theme-color',
 						content: '#ec4899',
 					},
+				},
+				{
+					tag: 'meta',
+					attrs: { property: 'og:image', content: 'https://docs.snappli.io/og.png' },
+				},
+				{
+					tag: 'meta',
+					attrs: { property: 'og:image:width', content: '1200' },
+				},
+				{
+					tag: 'meta',
+					attrs: { property: 'og:image:height', content: '630' },
+				},
+				{
+					tag: 'meta',
+					attrs: { property: 'og:image:alt', content: 'Snappli — Documentación' },
+				},
+				{
+					tag: 'meta',
+					attrs: { name: 'twitter:image', content: 'https://docs.snappli.io/og.png' },
 				},
 			],
 		}),

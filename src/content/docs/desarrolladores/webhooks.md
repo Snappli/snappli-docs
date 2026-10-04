@@ -3,14 +3,18 @@ title: Webhooks
 description: Recibe eventos de Snappli en tu servidor con firma HMAC.
 ---
 
-Los **webhooks** envían un `POST` JSON a tu URL cuando ocurren eventos (pipeline, contactos, conversaciones). Se configuran en **Configuración → Desarrolladores → Webhooks**.
+Los **webhooks** envían un `POST` JSON a tu URL cuando ocurren eventos (pipeline, contactos, conversaciones). Se configuran en **Configuración → Webhooks**.
 
 ## Configuración
 
-1. **Configuración → Desarrolladores → Webhooks**.
+Puedes crear **varios webhooks** por organización (por ejemplo, uno para tu CRM y otro para tu backend). Para cada uno:
+
+1. En **Configuración → Webhooks**, crea un **nuevo webhook** con un nombre.
 2. Indica la **URL** de destino.
 3. (Recomendado) define un **secret** para verificar firmas HMAC.
-4. Elige los **eventos suscritos**.
+4. (Opcional) añade una **cabecera de autenticación** (p. ej. `Authorization: Bearer …`) si tu endpoint la exige; se envía en cada entrega.
+5. Elige los **eventos suscritos**.
+6. (Opcional) filtra por **etapa** del pipeline (eventos de etapa) o por **etiqueta** (`contact.tag.assigned`). Si lo dejas vacío, recibes todas.
 
 El panel también incluye historial de entregas, aprobaciones pendientes y recetas para n8n, Zapier y HubSpot.
 
@@ -82,19 +86,28 @@ La firma es el HMAC SHA-256 de `timestamp.body` usando tu secret:
 import crypto from 'node:crypto';
 
 function verify(secret, timestamp, rawBody, signature) {
-  const expected = crypto
-    .createHmac('sha256', secret)
-    .update(`${timestamp}.${rawBody}`)
-    .digest('hex');
-  return crypto.timingSafeEqual(
-    Buffer.from(expected),
-    Buffer.from(signature),
+  if (!timestamp || !signature) return false;
+
+  // Rechaza entregas con más de 5 minutos de antigüedad (evita replays).
+  const ageSeconds = Math.abs(Date.now() / 1000 - Number(timestamp));
+  if (!Number.isFinite(ageSeconds) || ageSeconds > 300) return false;
+
+  const expected = Buffer.from(
+    crypto
+      .createHmac('sha256', secret)
+      .update(`${timestamp}.${rawBody}`)
+      .digest('hex'),
   );
+  const received = Buffer.from(signature);
+
+  // timingSafeEqual lanza un error si las longitudes difieren.
+  if (received.length !== expected.length) return false;
+  return crypto.timingSafeEqual(expected, received);
 }
 ```
 
 :::caution
-Usa el **cuerpo crudo** (raw body) tal cual lo recibes, antes de parsear el JSON. Reparsear y volver a serializar puede cambiar bytes y romper la verificación. Rechaza timestamps con más de ~5 minutos de antigüedad.
+Usa el **cuerpo crudo** (raw body) tal cual lo recibes, antes de parsear el JSON. Reparsear y volver a serializar puede cambiar bytes y romper la verificación.
 :::
 
 ## Entrega y reintentos
@@ -105,5 +118,5 @@ Usa el **cuerpo crudo** (raw body) tal cual lo recibes, antes de parsear el JSON
 - Las entregas con **aprobación** quedan pendientes hasta que alguien las aprueba.
 
 :::tip
-En el panel de Desarrolladores tienes ejemplos de payload y un botón de prueba para validar tu endpoint.
+En **Configuración → Webhooks** tienes ejemplos de payload y un botón de prueba para validar tu endpoint.
 :::

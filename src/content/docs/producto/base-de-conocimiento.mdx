@@ -4,6 +4,8 @@ description: Documentos que alimentan las respuestas de tus agentes IA.
 ---
 
 import { Steps, LinkCard } from '@astrojs/starlight/components';
+import PlanTable from '../../../components/PlanTable.astro';
+import { ADDONS, formatUsd } from '../../../data/pricing';
 
 La **base de conocimiento** son los documentos que tus [agentes IA](/producto/agentes/) consultan para responder con información de tu negocio. Se gestiona desde la pestaña **Conocimiento** del asistente.
 
@@ -32,14 +34,15 @@ El número de **fragmentos** disponibles depende de tu plan. Consulta tu [uso](/
 
 ## Fragmentos por plan
 
-| Plan de Snappli completo | Fragmentos incluidos |
-|--------------------------|----------------------|
-| **Starter** | 400 |
-| **Pro** | 2.000 |
-| **Business** | 8.000 |
-| **Enterprise** | Ilimitados |
+**Snappli completo**
 
-¿Necesitas más? Añade bloques de **+500 fragmentos por $15/mes** desde **Configuración → Facturación → Complementos** (disponible también en Snappli para WhatsApp).
+<PlanTable product="full" rows={['kbFragments']} />
+
+**Snappli para WhatsApp**
+
+<PlanTable product="ws" rows={['kbFragments']} />
+
+¿Necesitas más? Añade bloques de **+500 fragmentos por {formatUsd(ADDONS.full.kbFragments500)}/mes** desde **Configuración → Facturación → Complementos** (disponible también en Snappli para WhatsApp).
 
 ## Buenas prácticas
 

@@ -4,6 +4,8 @@ description: Embudo de etapas y automatizaciones que se disparan al entrar a una
 ---
 
 import { Steps, LinkCard } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import pipeline from '../../../assets/capturas/pipeline.png';
 
 El **pipeline** es un embudo de etapas por el que avanzan tus contactos. Se configura en **Configuración → Pipeline**.
 
@@ -14,6 +16,11 @@ Parte de una plantilla (Genérico, Ecommerce, Servicios, SaaS B2B) o de un pipel
 **Nuevo → Calificado → En negociación → Ganado → Perdido**
 
 Mueves contactos entre etapas desde la vista kanban de contactos o al editar el contacto. Una etapa puede marcarse como **etapa de entrada** (donde caen los contactos nuevos).
+
+<figure>
+	<Image src={pipeline} alt="Página Configuración, Pipeline, con las etapas Nuevo, Interesado, Carrito, Compra y Perdido, el número de contactos de cada una y sus webhooks." />
+	<figcaption>Etapas de la plantilla Ecommerce en Configuración → Pipeline.</figcaption>
+</figure>
 
 ## Editar una etapa
 
@@ -45,7 +52,7 @@ Las **acciones** se ejecutan automáticamente cuando un contacto **entra** a la 
 </Steps>
 
 :::note
-El webhook **con aprobación** deja la entrega en estado pendiente hasta que alguien la aprueba en **Desarrolladores → Webhooks**. Útil para revisar antes de notificar a sistemas externos.
+El webhook **con aprobación** deja la entrega en estado pendiente hasta que alguien la aprueba en **Configuración → Webhooks**. Útil para revisar antes de notificar a sistemas externos.
 :::
 
 :::tip

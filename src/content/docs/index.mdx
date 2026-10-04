@@ -2,6 +2,8 @@
 title: Documentación de Snappli
 description: Guías de producto, API e integraciones para Snappli — inbox, IA y CRM.
 template: splash
+editUrl: false
+lastUpdated: false
 hero:
   title: |
     Documentación de
@@ -18,13 +20,13 @@ hero:
     - text: Empezar en 5 minutos
       link: /guia/primeros-pasos/
       icon: right-arrow
-    - text: Referencia API
+    - text: Para desarrolladores
       link: /desarrolladores/introduccion/
       icon: seti:json
       variant: minimal
 ---
 
-import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
 
 <p class="docs-section-label">Elige tu camino</p>
 
@@ -49,44 +51,17 @@ import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
 	</a>
 </div>
 
-## Guías populares
+## Guías más consultadas
 
 <CardGrid>
-	<Card title="Inbox" icon="laptop">
-		Conversaciones multi-canal, asignación y escalación.
-		[Abrir →](/producto/inbox/)
-	</Card>
-	<Card title="Conectar WhatsApp" icon="comment">
-		Con Meta (recomendado) o configuración manual.
-		[Abrir →](/canales/whatsapp/)
-	</Card>
-	<Card title="Pipeline y acciones" icon="list-format">
-		Etapas y automatizaciones al entrar a una etapa.
-		[Abrir →](/producto/pipeline/)
-	</Card>
-	<Card title="Agentes IA" icon="star">
-		Instrucciones, conocimiento y handoff a humanos.
-		[Abrir →](/producto/agentes/)
-	</Card>
-	<Card title="Autenticación API" icon="approve-check">
-		API keys Bearer y buenas prácticas de seguridad.
-		[Abrir →](/desarrolladores/autenticacion/)
-	</Card>
-	<Card title="Webhooks" icon="seti:pipeline">
-		Eventos en tiempo real con verificación HMAC.
-		[Abrir →](/desarrolladores/webhooks/)
-	</Card>
+	<LinkCard title="Conectar WhatsApp" description="Con Meta (recomendado) o configuración manual." href="/canales/whatsapp/" />
+	<LinkCard title="Agentes IA" description="Instrucciones, conocimiento y paso a humanos." href="/producto/agentes/" />
+	<LinkCard title="Base de conocimiento" description="Los documentos con los que responde la IA." href="/producto/base-de-conocimiento/" />
+	<LinkCard title="Pipeline y acciones" description="Etapas y automatizaciones al entrar a una etapa." href="/producto/pipeline/" />
+	<LinkCard title="Planes y facturación" description="Precios, complementos y cobros por uso." href="/cuenta/facturacion/" />
+	<LinkCard title="Webhooks" description="Eventos en tiempo real con firma HMAC." href="/desarrolladores/webhooks/" />
 </CardGrid>
 
-## También te puede interesar
-
-<LinkCard
-	title="Conceptos"
-	description="El modelo mental de Snappli: organización, canal, conversación, pipeline."
-	href="/guia/conceptos/"
-/>
-<LinkCard
-	title="Preguntas frecuentes"
-	description="Límites, canales, roles y dónde pedir ayuda."
-	href="/referencia/faq/"
-/>
+<div class="docs-help">
+	¿No encuentras algo? Busca con <kbd>Ctrl</kbd> / <kbd>⌘</kbd> + <kbd>K</kbd>, revisa las <a href="/referencia/faq/">preguntas frecuentes</a> o los <a href="/guia/conceptos/">conceptos básicos</a>.
+</div>

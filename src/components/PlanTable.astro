@@ -1,0 +1,133 @@
+---
+/*
+  Tabla de planes generada desde `src/data/pricing.ts`.
+  Uso: <PlanTable product="full" rows={['monthly', 'voiceMinutes']} />
+*/
+import {
+	FULL_PLANS,
+	WS_PLANS,
+	formatCredits,
+	formatNumber,
+	planPrice,
+	type Plan,
+} from '../data/pricing';
+
+type RowKey =
+	| 'monthly'
+	| 'yearly'
+	| 'users'
+	| 'activeContacts'
+	| 'channels'
+	| 'teams'
+	| 'organizations'
+	| 'kbFragments'
+	| 'aiCredits'
+	| 'recipientsPerSend'
+	| 'recipientsPerMonth'
+	| 'campaignEmails'
+	| 'voiceMinutes'
+	| 'reports'
+	| 'api'
+	| 'priorityOnboarding';
+
+interface Props {
+	product: 'full' | 'ws';
+	rows?: RowKey[];
+}
+
+const DEFAULT_ROWS: Record<Props['product'], RowKey[]> = {
+	full: [
+		'monthly',
+		'yearly',
+		'users',
+		'activeContacts',
+		'channels',
+		'teams',
+		'organizations',
+		'kbFragments',
+		'aiCredits',
+		'recipientsPerSend',
+		'campaignEmails',
+		'voiceMinutes',
+		'reports',
+		'api',
+		'priorityOnboarding',
+	],
+	ws: [
+		'monthly',
+		'yearly',
+		'users',
+		'activeContacts',
+		'channels',
+		'kbFragments',
+		'aiCredits',
+		'recipientsPerMonth',
+		'reports',
+	],
+};
+
+const { product, rows = DEFAULT_ROWS[product] } = Astro.props;
+const plans = product === 'full' ? FULL_PLANS : WS_PLANS;
+
+const limit = (value: number | null | undefined, unlimited = 'Ilimitados') =>
+	value === null ? unlimited : !value ? '—' : formatNumber(value);
+const check = (value: boolean) => (value ? '✓' : '—');
+
+const ROWS: Record<RowKey, { label: string; value: (plan: Plan) => string }> = {
+	monthly: { label: 'Precio mensual', value: (p) => planPrice(p, 'monthly') },
+	yearly: { label: 'Precio anual', value: (p) => planPrice(p, 'yearly') },
+	users: { label: 'Usuarios', value: (p) => limit(p.users) },
+	activeContacts: {
+		label: product === 'full' ? 'Contactos activos/mes' : 'Contactos',
+		value: (p) => limit(p.activeContacts),
+	},
+	channels: {
+		label: product === 'full' ? 'Canales' : 'Números de WhatsApp',
+		value: (p) => limit(p.channels),
+	},
+	teams: { label: 'Equipos', value: (p) => limit(p.teams) },
+	organizations: { label: 'Empresas (organizaciones)', value: (p) => limit(p.organizations) },
+	kbFragments: { label: 'Fragmentos de conocimiento', value: (p) => limit(p.kbFragments) },
+	aiCredits: { label: 'Créditos de IA/mes', value: (p) => formatCredits(p.aiCredits) },
+	recipientsPerSend: {
+		label: 'Envíos masivos por WhatsApp',
+		value: (p) =>
+			p.id === 'starter'
+				? `Hasta ${formatNumber(p.recipientsPerSend!)} destinatarios por envío`
+				: `Sin límite mensual, ${formatNumber(p.recipientsPerSend!)} por envío`,
+	},
+	recipientsPerMonth: {
+		label: 'Envíos masivos (destinatarios/mes)',
+		value: (p) => limit(p.recipientsPerMonth, 'Sin límite'),
+	},
+	campaignEmails: { label: 'Emails de campaña/mes', value: (p) => limit(p.campaignEmails) },
+	voiceMinutes: { label: 'Minutos de voz con IA/mes', value: (p) => limit(p.voiceMinutes) },
+	reports: {
+		label: product === 'full' ? 'Embudo e informes' : 'Informes',
+		value: (p) => check(p.reports),
+	},
+	api: { label: 'API y webhooks', value: (p) => check(p.api) },
+	priorityOnboarding: { label: 'Onboarding prioritario', value: (p) => check(p.priorityOnboarding) },
+};
+---
+
+<table>
+	<thead>
+		<tr>
+			<th></th>
+			{plans.map((plan) => <th><strong>{plan.name}</strong></th>)}
+		</tr>
+	</thead>
+	<tbody>
+		{
+			rows.map((key) => (
+				<tr>
+					<td>{ROWS[key].label}</td>
+					{plans.map((plan) => (
+						<td>{ROWS[key].value(plan)}</td>
+					))}
+				</tr>
+			))
+		}
+	</tbody>
+</table>

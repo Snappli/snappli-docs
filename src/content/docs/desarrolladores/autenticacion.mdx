@@ -11,7 +11,7 @@ Todas las peticiones a la API pública requieren una **API key** en la cabecera 
 
 <Steps>
 
-1. Ve a **Configuración → Desarrolladores → API**.
+1. Ve a **Configuración → API**.
 2. Crea una clave con un nombre descriptivo.
 3. Copia el secreto **`sk_…`** — solo se muestra completo **una vez**.
 4. Guárdalo en un secreto de tu backend o CI, nunca en el frontend público.
@@ -41,7 +41,7 @@ curl -sS https://api.snappli.io/api/v1/contacts \
 
 - La clave es a nivel de **organización**: da acceso a los endpoints públicos de tu organización.
 - No hay scopes por recurso: cualquier clave válida puede leer los endpoints disponibles.
-- El acceso requiere el plan **Pro** o superior de Snappli completo (función **`api_access`**). El plan Starter no incluye API.
+- El acceso requiere el plan **Pro** o superior de Snappli completo. El plan Starter no incluye API.
 
 ## Errores de autenticación
 
