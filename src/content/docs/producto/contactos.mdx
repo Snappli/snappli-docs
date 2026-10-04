@@ -4,8 +4,15 @@ description: 'CRM ligero: perfiles, campos personalizados, etiquetas y segmentos
 ---
 
 import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import contactos from '../../../assets/capturas/contactos.png';
 
 Un **contacto** es la persona o empresa con la que conversas. En **Contactos** (menú principal) tienes vista de **tabla** y **kanban**.
+
+<figure>
+	<Image src={contactos} alt="Vista de tabla de Contactos con nombre, canales, etiquetas de colores, última actividad, teléfono y email, y filtros por etiqueta a la izquierda." />
+	<figcaption>Vista de tabla de contactos, con filtros por estado y etiqueta.</figcaption>
+</figure>
 
 ## Datos del contacto
 

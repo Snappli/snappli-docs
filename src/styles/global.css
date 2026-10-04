@@ -97,9 +97,11 @@
 		height: min(28rem, 70vw);
 		z-index: -1;
 		pointer-events: none;
-		background:
-			radial-gradient(ellipse 70% 55% at 50% 0%, color-mix(in srgb, var(--sl-color-accent) 22%, transparent), transparent 70%),
-			radial-gradient(ellipse 40% 40% at 85% 20%, color-mix(in srgb, var(--sl-color-accent-high) 12%, transparent), transparent 65%);
+		background: radial-gradient(
+			ellipse 70% 55% at 50% 0%,
+			color-mix(in srgb, var(--sl-color-accent) 22%, transparent),
+			transparent 70%
+		);
 		opacity: 0.95;
 	}
 
@@ -169,6 +171,32 @@
 	.sl-markdown-content .expressive-code .frame {
 		border-radius: 0.75rem;
 		overflow: hidden;
+	}
+
+	/* Capturas del producto */
+	.sl-markdown-content figure {
+		margin-block: 1.5rem 2rem;
+	}
+
+	.sl-markdown-content figure img {
+		display: block;
+		width: 100%;
+		height: auto;
+		border: 1px solid var(--sl-color-gray-5);
+		border-radius: 0.75rem;
+		box-shadow: 0 12px 32px -16px rgb(0 0 0 / 0.45);
+	}
+
+	.sl-markdown-content figure.docs-shot--narrow {
+		max-width: 26rem;
+		margin-inline: auto;
+	}
+
+	.sl-markdown-content figcaption {
+		margin-top: 0.6rem;
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-gray-3);
+		text-align: center;
 	}
 
 	/* Asides más limpios */
@@ -263,6 +291,24 @@
 		font-size: var(--sl-text-sm);
 		font-weight: 600;
 		color: var(--sl-color-accent-high);
+	}
+
+	.docs-help {
+		margin-top: 2.5rem;
+		padding-top: 1.5rem;
+		border-top: 1px solid var(--sl-color-gray-6);
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-gray-2);
+		text-align: center;
+	}
+
+	.docs-help kbd {
+		padding: 0.1rem 0.4rem;
+		border: 1px solid var(--sl-color-gray-5);
+		border-radius: 0.3rem;
+		background: var(--sl-color-gray-6);
+		font-family: var(--sl-font-mono, monospace);
+		font-size: 0.8em;
 	}
 
 	.docs-section-label {

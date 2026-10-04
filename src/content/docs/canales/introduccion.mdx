@@ -4,8 +4,15 @@ description: Conecta WhatsApp, Instagram, Messenger, email y widget web.
 ---
 
 import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import canales from '../../../assets/capturas/canales.png';
 
 Los **canales** son los medios por los que llegan mensajes a tu inbox. Se gestionan en **Configuración → Canales**.
+
+<figure>
+	<Image src={canales} alt="Página Configuración, Canales, con cuatro canales activos: WhatsApp, Instagram, widget web y email." />
+	<figcaption>Canales de una organización en Configuración → Canales.</figcaption>
+</figure>
 
 ## Canales disponibles
 

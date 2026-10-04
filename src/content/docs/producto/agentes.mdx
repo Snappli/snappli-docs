@@ -4,6 +4,9 @@ description: Asistentes con instrucciones, conocimiento y escalación a humanos.
 ---
 
 import { Steps, LinkCard, CardGrid } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import agenteInstrucciones from '../../../assets/capturas/agente-instrucciones.png';
+import agentePasoHumanos from '../../../assets/capturas/agente-paso-humanos.png';
 
 Los **agentes IA** (asistentes) responden en tus canales con el tono y el conocimiento que configures, y **escalan** al inbox humano cuando hace falta. Se gestionan en **Automatizaciones → Agentes IA**.
 
@@ -19,8 +22,32 @@ El editor del asistente tiene varias pestañas:
 |---------|----------------|
 | **General** | Ajustes básicos del asistente |
 | **Instrucciones** | Rol, tono, límites y qué hacer cuando no sabe (admite variables del contacto) |
-| **Paso a humanos** | Palabras clave de escalación (por defecto `humano`, `agente`, `persona`) y escalación por inactividad (1–480 min) |
+| **Paso a humanos** | Reglas de escalación en lenguaje natural, palabras clave (por defecto `humano`, `agente`, `persona`) y escalación por inactividad (1–480 min) |
 | **Conocimiento** | Documentos de la base de conocimiento que puede consultar |
+
+### Instrucciones
+
+Escribe el rol, el tono y los límites del agente. Puedes insertar variables del contacto (por ejemplo `{{contact.firstName}}`) desde los menús **Contacto**, **Recopilar** y **Etiquetas**, y usar **Mejorar con IA** para pulir el texto.
+
+<figure class="docs-shot docs-shot--narrow">
+	<Image src={agenteInstrucciones} alt="Pestaña Instrucciones del agente IA del equipo Ventas, con el texto de instrucciones y una variable del contacto resaltada." />
+	<figcaption>Instrucciones del agente del equipo Ventas.</figcaption>
+</figure>
+
+### Paso a humanos
+
+El agente deja de responder y pasa la conversación al inbox cuando se cumple alguna de estas condiciones:
+
+- **Escalar cuando…** — reglas en lenguaje natural que la IA evalúa en cada mensaje (p. ej. *el contacto pide cancelar la cuenta*).
+- **No escalar cuando…** — excepciones que el agente puede resolver solo (p. ej. *consultas simples de horario o precio*).
+- **Temas extra** — temas que se suman a la detección rápida (p. ej. *cancelación, reembolso*).
+- **Palabras clave** — si el mensaje contiene alguna, el agente deja de responder al instante.
+- **Inactividad** — escala si el contacto no responde en el tiempo que definas.
+
+<figure class="docs-shot docs-shot--narrow">
+	<Image src={agentePasoHumanos} alt="Pestaña Paso a humanos con los campos Escalar cuando, No escalar cuando, Temas extra y las palabras clave humano, agente, persona y asesor." />
+	<figcaption>Reglas y palabras clave de escalación.</figcaption>
+</figure>
 
 ## Flujo recomendado
 
@@ -31,7 +58,7 @@ El editor del asistente tiene varias pestañas:
 3. Escribe **instrucciones** claras: qué ofreces, qué no prometer, idioma.
 4. Enlaza una [base de conocimiento](/producto/base-de-conocimiento/) y espera a que se indexe.
 5. Prueba casos reales en el **simulador**.
-6. Ajusta la escalación (palabras clave e inactividad) y déjalo operando.
+6. Ajusta el paso a humanos (reglas, palabras clave e inactividad) y déjalo operando.
 
 </Steps>
 

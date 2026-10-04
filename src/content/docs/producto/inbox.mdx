@@ -4,8 +4,15 @@ description: Conversaciones multi-canal y trabajo en equipo en Snappli.
 ---
 
 import { Steps, LinkCard, CardGrid } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import inboxConversacion from '../../../assets/capturas/inbox-conversacion.png';
 
 El **inbox** (**Inbox** en el menú principal) reúne todas las conversaciones —WhatsApp, Instagram, Messenger, email y widget— en un solo lugar.
+
+<figure>
+	<Image src={inboxConversacion} alt="Inbox de Snappli con la lista de chats a la izquierda y una conversación de WhatsApp abierta, donde el agente IA responde y luego transfiere a una persona del equipo." />
+	<figcaption>Una conversación atendida primero por el agente IA y luego por una persona del equipo de Ventas.</figcaption>
+</figure>
 
 ## Bandejas y alcances
 
@@ -13,10 +20,10 @@ En la barra lateral del inbox eliges qué ves:
 
 | Bandeja | Qué muestra |
 |---------|-------------|
-| **Mías** | Conversaciones asignadas a ti |
-| **Cola humana** | Conversaciones pendientes sin agente asignado |
+| **Míos** | Conversaciones asignadas a ti |
+| **Cola sin asignar** | Conversaciones pendientes sin agente asignado |
 | **Equipo** | Todo lo del equipo (para supervisores) |
-| **Por equipo / línea / conexión / etiqueta** | Filtra por un equipo, línea de WhatsApp, conexión de email o etiqueta de inbox |
+| **Etiquetas / Equipos / Líneas WhatsApp / Conexiones Email** | Filtra por etiqueta de contacto, equipo, línea de WhatsApp o conexión de email |
 
 Además puedes filtrar por estado **Activas** / **Resueltas**, y los supervisores por **agente** (o "sin asignar").
 
@@ -24,7 +31,7 @@ Además puedes filtrar por estado **Activas** / **Resueltas**, y los supervisore
 
 <Steps>
 
-1. Abre la bandeja **Cola humana** o **Mías** y elige una conversación.
+1. Abre la bandeja **Cola sin asignar** o **Míos** y elige una conversación.
 2. Revisa el historial y el panel del contacto (pipeline, etiquetas, campos).
 3. Responde con el compositor (ver abajo).
 4. Coordina con notas y etiquetas de inbox.
@@ -59,8 +66,8 @@ El compositor se adapta al canal de la conversación:
 
 ## Etiquetas: inbox vs. contacto
 
-- **Etiquetas de inbox** — organizan conversaciones y aparecen como filtro en la barra lateral.
-- **Etiquetas de contacto** — describen a la persona y viven en su ficha.
+- **Etiquetas de inbox** — organizan conversaciones (p. ej. *Pedido*, *Devolución*).
+- **Etiquetas de contacto** — describen a la persona y viven en su ficha. Son las que aparecen como filtro en la sección **Etiquetas** de la barra lateral del inbox.
 
 → Ver [Contactos](/producto/contactos/) para las etiquetas de contacto.
 
