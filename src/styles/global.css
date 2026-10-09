@@ -9,36 +9,71 @@
 @import '@fontsource/ibm-plex-mono/600.css';
 
 /*
-  Brand Snappli: rosa #ec4899 (pink-500) + escala zinc (UI oscura del producto).
+  Paleta de snappli-frontend (src/app/globals.css):
+  - primary (rosa, --snappli-primary): CTAs y marca, de forma escasa.
+  - accent (índigo, --sl-color-accent*): chrome — enlaces, nav activa, foco, washes.
+  - Neutros fríos (escala gray) en lugar de zinc.
+  Sin degradados: superficies planas y sombras neutras.
   https://starlight.astro.build/guides/css-and-tailwind/
 */
 @theme {
 	--font-sans: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
 	--font-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Code', monospace;
 
-	--color-accent-50: var(--color-pink-50);
-	--color-accent-100: var(--color-pink-100);
-	--color-accent-200: var(--color-pink-200);
-	--color-accent-300: var(--color-pink-300);
-	--color-accent-400: var(--color-pink-400);
-	--color-accent-500: var(--color-pink-500);
-	--color-accent-600: var(--color-pink-600);
-	--color-accent-700: var(--color-pink-700);
-	--color-accent-800: var(--color-pink-800);
-	--color-accent-900: var(--color-pink-900);
-	--color-accent-950: var(--color-pink-950);
+	--color-accent-50: var(--color-indigo-50);
+	--color-accent-100: var(--color-indigo-100);
+	--color-accent-200: var(--color-indigo-200);
+	--color-accent-300: var(--color-indigo-300);
+	--color-accent-400: var(--color-indigo-400);
+	--color-accent-500: var(--color-indigo-500);
+	--color-accent-600: var(--color-indigo-600);
+	--color-accent-700: var(--color-indigo-700);
+	--color-accent-800: var(--color-indigo-800);
+	--color-accent-900: var(--color-indigo-900);
+	--color-accent-950: var(--color-indigo-950);
+}
 
-	--color-gray-50: var(--color-zinc-50);
-	--color-gray-100: var(--color-zinc-100);
-	--color-gray-200: var(--color-zinc-200);
-	--color-gray-300: var(--color-zinc-300);
-	--color-gray-400: var(--color-zinc-400);
-	--color-gray-500: var(--color-zinc-500);
-	--color-gray-600: var(--color-zinc-600);
-	--color-gray-700: var(--color-zinc-700);
-	--color-gray-800: var(--color-zinc-800);
-	--color-gray-900: var(--color-zinc-900);
-	--color-gray-950: var(--color-zinc-950);
+/* Tokens Starlight por tema (sin capa: ganan al mapeo de @astrojs/starlight-tailwind). */
+:root {
+	--snappli-primary: #ec4899;
+	--snappli-primary-hover: #f472b6;
+	--snappli-on-primary: #ffffff;
+	--snappli-card: #1a1726;
+	--snappli-shadow-soft: 0 1px 2px rgb(0 0 0 / 0.1), 0 6px 20px -6px rgb(0 0 0 / 0.16);
+
+	--sl-color-white: #f4f2fa;
+	--sl-color-gray-1: #d9d6e5;
+	--sl-color-gray-2: #a8a3bc;
+	--sl-color-gray-3: #8b86a0;
+	--sl-color-gray-4: #57526b;
+	--sl-color-gray-5: #2c2840;
+	--sl-color-gray-6: #1a1726;
+	--sl-color-black: #13111e;
+
+	--sl-color-accent-low: #1e1b3a;
+	--sl-color-accent: #818cf8;
+	--sl-color-accent-high: #a5b4fc;
+}
+
+:root[data-theme='light'] {
+	--snappli-primary: #db2777;
+	--snappli-primary-hover: #be185d;
+	--snappli-card: #ffffff;
+	--snappli-shadow-soft: 0 1px 2px rgb(18 19 26 / 0.04), 0 5px 18px -5px rgb(18 19 26 / 0.1);
+
+	--sl-color-white: #12131a;
+	--sl-color-gray-1: #26252f;
+	--sl-color-gray-2: #45435a;
+	--sl-color-gray-3: #5a5670;
+	--sl-color-gray-4: #9e9ab4;
+	--sl-color-gray-5: #dcdde7;
+	--sl-color-gray-6: #eef0f6;
+	--sl-color-gray-7: #f5f5f9;
+	--sl-color-black: #ffffff;
+
+	--sl-color-accent-low: #eef0ff;
+	--sl-color-accent: #4f46e5;
+	--sl-color-accent-high: #4338ca;
 }
 
 @layer base {
@@ -77,10 +112,59 @@
 		color: var(--sl-color-gray-3);
 	}
 
-	nav.sidebar a[aria-current='page'] {
+	nav.sidebar a {
+		border-radius: 0.5rem;
+		transition:
+			color 0.15s ease,
+			background-color 0.15s ease;
+	}
+
+	nav.sidebar a:not([aria-current='page']):hover {
+		background-color: var(--sl-color-gray-6);
+	}
+
+	nav.sidebar a[aria-current='page'],
+	nav.sidebar a[aria-current='page']:hover,
+	nav.sidebar a[aria-current='page']:focus {
 		font-weight: 600;
-		border-inline-start: 2px solid var(--sl-color-accent);
-		padding-inline-start: calc(1rem - 2px);
+		color: var(--sl-color-text-accent);
+		background-color: var(--sl-color-accent-low);
+	}
+
+	/* —— Botones —— primary = rosa de marca (CTA), secundarios neutros */
+	.sl-link-button.primary,
+	.sl-link-button.primary:hover {
+		background: var(--snappli-primary);
+		border-color: var(--snappli-primary);
+		color: var(--snappli-on-primary);
+	}
+
+	.sl-link-button.primary:hover {
+		background: var(--snappli-primary-hover);
+		border-color: var(--snappli-primary-hover);
+	}
+
+	.sl-link-button {
+		border-radius: 0.625rem;
+		font-weight: 600;
+		transition:
+			background-color 0.15s ease,
+			border-color 0.15s ease,
+			color 0.15s ease;
+	}
+
+	.sl-link-button.minimal:hover {
+		color: var(--sl-color-text-accent);
+	}
+
+	/* Enlaces del contenido: índigo */
+	.sl-markdown-content a:not(:where(.not-content *, .sl-link-button)) {
+		text-underline-offset: 0.2em;
+		text-decoration-color: color-mix(in srgb, var(--sl-color-text-accent) 40%, transparent);
+	}
+
+	.sl-markdown-content a:not(:where(.not-content *, .sl-link-button)):hover {
+		text-decoration-color: currentColor;
 	}
 
 	/* —— Hero (splash) —— */
@@ -90,19 +174,8 @@
 		padding-block: 2.5rem 1.5rem;
 	}
 
-	.hero::before {
-		content: '';
-		position: absolute;
-		inset: -2rem -1rem auto;
-		height: min(28rem, 70vw);
-		z-index: -1;
-		pointer-events: none;
-		background: radial-gradient(
-			ellipse 70% 55% at 50% 0%,
-			color-mix(in srgb, var(--sl-color-accent) 22%, transparent),
-			transparent 70%
-		);
-		opacity: 0.95;
+	.hero .docs-hero-brand {
+		color: var(--snappli-primary);
 	}
 
 	.hero .tagline {
@@ -121,7 +194,7 @@
 	.card {
 		border-radius: 0.875rem;
 		border: 1px solid var(--sl-color-gray-5);
-		background: color-mix(in srgb, var(--sl-color-gray-6) 45%, var(--sl-color-bg));
+		background: var(--snappli-card);
 		transition:
 			border-color 0.18s ease,
 			box-shadow 0.18s ease,
@@ -130,7 +203,7 @@
 
 	.card:hover {
 		border-color: color-mix(in srgb, var(--sl-color-accent) 45%, var(--sl-color-gray-5));
-		box-shadow: 0 8px 28px -12px color-mix(in srgb, var(--sl-color-accent) 35%, transparent);
+		box-shadow: var(--snappli-shadow-soft);
 		transform: translateY(-1px);
 	}
 
@@ -248,7 +321,7 @@
 		padding: 1.25rem 1.35rem;
 		border-radius: 0.875rem;
 		border: 1px solid var(--sl-color-gray-5);
-		background: color-mix(in srgb, var(--sl-color-gray-6) 40%, var(--sl-color-bg));
+		background: var(--snappli-card);
 		text-decoration: none;
 		color: inherit;
 		transition:
@@ -259,7 +332,7 @@
 
 	.docs-path:hover {
 		border-color: color-mix(in srgb, var(--sl-color-accent) 45%, var(--sl-color-gray-5));
-		box-shadow: 0 10px 30px -14px color-mix(in srgb, var(--sl-color-accent) 40%, transparent);
+		box-shadow: var(--snappli-shadow-soft);
 		transform: translateY(-2px);
 	}
 
