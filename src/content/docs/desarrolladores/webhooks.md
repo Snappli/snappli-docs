@@ -5,6 +5,10 @@ description: Recibe eventos de Snappli en tu servidor con firma HMAC.
 
 Los **webhooks** envían un `POST` JSON a tu URL cuando ocurren eventos (pipeline, contactos, conversaciones). Se configuran en **Configuración → Webhooks**.
 
+:::note[Disponibilidad]
+Los webhooks forman parte de **API y webhooks**, incluido en el plan **Pro** o superior de Snappli completo (Pro, Business o Enterprise). No están disponibles en Snappli para WhatsApp.
+:::
+
 ## Configuración
 
 Puedes crear **varios webhooks** por organización (por ejemplo, uno para tu CRM y otro para tu backend). Para cada uno:
