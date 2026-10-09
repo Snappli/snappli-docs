@@ -1,0 +1,109 @@
+---
+title: Recetas de webhooks
+description: Guías paso a paso para conectar los webhooks de Snappli con webhook.site, tu backend, n8n, Google Sheets y HubSpot.
+---
+
+import { Steps, LinkCard } from '@astrojs/starlight/components';
+
+Estas recetas parten de un **webhook** creado en **Configuración → Webhooks**. Si aún no sabes qué es un webhook o qué eventos existen, empieza por [Webhooks](/desarrolladores/webhooks/).
+
+:::note
+Requiere el plan **Pro** o superior de Snappli completo. Los webhooks no están disponibles en Snappli para WhatsApp.
+:::
+
+| Receta | Herramientas | Nivel | Tiempo |
+|--------|--------------|-------|--------|
+| [Prueba rápida con webhook.site](#prueba-rápida-con-webhooksite) | webhook.site | Fácil | ~5 min |
+| [Conecta tu propio backend](#conecta-tu-propio-backend) | Tu backend | Intermedio | ~15 min |
+| [Lead calificado → Google Sheets](#lead-calificado--google-sheets-con-n8n) | n8n, Google Sheets | Intermedio | ~20 min |
+| [Snappli → HubSpot](#snappli--hubspot-con-n8n) | n8n, HubSpot | Intermedio | ~30 min |
+
+## Prueba rápida con webhook.site
+
+Verifica en un par de minutos que Snappli envía eventos correctamente, sin instalar nada.
+
+**Necesitas:** un webhook con al menos un evento suscrito (por ejemplo `contact.webhook.manual`, suscrito por defecto).
+
+<Steps>
+
+1. Entra a [webhook.site](https://webhook.site) y copia la URL única que te asigna (algo como `https://webhook.site/abc-123…`).
+2. En **Configuración → Webhooks**, crea un webhook nuevo, pega esa URL como destino y guarda.
+3. Pulsa **Enviar prueba** en la fila del webhook. El JSON debería aparecer en webhook.site al instante.
+
+   Si no llega nada, revisa que el webhook esté **activo** y mira el detalle de la entrega en el historial.
+4. Abre un contacto con etapa asignada y pulsa **Enviar a integración**. El evento `contact.webhook.manual` debe aparecer en webhook.site.
+
+</Steps>
+
+## Conecta tu propio backend
+
+Sin intermediarios: Snappli envía los eventos directo a un endpoint que tú controlas.
+
+**Necesitas:** un endpoint HTTP propio que acepte `POST` y responda `2xx`, y acceso para desplegarlo o modificarlo.
+
+<Steps>
+
+1. **Expón un endpoint que reciba `POST`.** Debe ser accesible desde internet, aceptar un cuerpo JSON y responder `2xx` en menos de 15 segundos. Consulta la [forma del payload](/desarrolladores/webhooks/#forma-del-payload).
+
+   Responde rápido y procesa en segundo plano si tu lógica tarda: Snappli reintenta si no recibe un `2xx` a tiempo.
+2. **Pega la URL en Snappli.** En **Configuración → Webhooks**, crea un webhook con la URL de tu endpoint y elige los eventos que te interesan.
+3. **¿Tu endpoint exige autenticación?** Si está detrás de un token, API key o Basic Auth, añade el nombre y valor de esa cabecera al webhook (por ejemplo `Authorization: Bearer …`). Snappli la incluye en cada entrega.
+4. **Verifica que el evento viene de Snappli.** Configura un **secret**. Cada entrega llega con `X-Snappli-Signature` y `X-Snappli-Timestamp`; valida la firma antes de procesar (ver [Verificación HMAC](/desarrolladores/webhooks/#verificación-hmac)).
+5. **Evita procesar el mismo evento dos veces.** Cada payload incluye `trigger.deliveryId`, único por entrega. Guarda los IDs ya procesados para ignorar reintentos duplicados.
+6. **Prueba y valida el historial.** Usa **Enviar prueba** y confirma que tu endpoint respondió `2xx`. En **Actividad** ves el resultado real de cada evento.
+
+</Steps>
+
+## Lead calificado → Google Sheets (con n8n)
+
+Cuando un contacto entra a una etapa del pipeline, se registra automáticamente una fila en una hoja de cálculo.
+
+**Necesitas:**
+
+- Cuenta en n8n (cloud o self-hosted).
+- Cuenta de Google con acceso a Sheets.
+- Un pipeline con una etapa en modo webhook **Automático** o **Manual**.
+- El evento `contact.stage.entered` suscrito.
+
+<Steps>
+
+1. **Crea una hoja en Google Sheets** con las columnas: Fecha, Nombre, Email, Teléfono, Etapa, Canal, Tags. La primera fila son los encabezados.
+
+   Copia el ID del documento desde la URL: `docs.google.com/spreadsheets/d/ESTE_ID/edit`.
+2. **Importa la plantilla n8n.** Descarga [snappli-pipeline-google-sheets.json](/integrations/n8n/snappli-pipeline-google-sheets.json) e impórtala en n8n (**Workflows → Import from file**). Activa el workflow y copia la URL de producción del nodo Webhook (suele verse como `https://tu-n8n.app/webhook/snappli-leads`).
+3. **Configura Google Sheets en n8n.** Abre el nodo Google Sheets, conecta tus credenciales y pega el ID de tu hoja. Ajusta el nombre de la pestaña si no es «Leads».
+4. **Conecta Snappli con n8n.** En **Configuración → Webhooks**, crea un webhook con la URL de producción de n8n y pulsa **Enviar prueba**.
+5. **Configura el pipeline.** En **Configuración → Pipeline**, edita la etapa destino (por ejemplo «Calificado» o «Ganado») y pon el modo webhook en **Automático**.
+
+   Con **Requiere aprobación**, el envío queda pendiente hasta que un supervisor lo apruebe.
+6. **Valida el flujo completo.** Mueve un contacto de prueba a esa etapa. En unos segundos debe aparecer una fila nueva en la hoja y una entrega correcta en la actividad del webhook.
+
+</Steps>
+
+:::tip
+Una combinación habitual: etapa «Calificado» en **Automático** y etapa «Ganado» en **Requiere aprobación**.
+:::
+
+## Snappli → HubSpot (con n8n)
+
+No hay conector nativo con HubSpot: usa n8n como puente para crear o actualizar contactos cuando cambia el pipeline.
+
+**Necesitas:** una cuenta de HubSpot (el plan gratuito sirve), n8n con credenciales de HubSpot y el evento `contact.stage.entered` suscrito.
+
+<Steps>
+
+1. **Crea un workflow en n8n:** nodo **Webhook** (POST) → nodo **HubSpot** «Create or Update Contact». Mapea `body.contact.email`, `body.contact.phone` y `body.contact.displayName`.
+2. **Mapea la etapa del pipeline.** Usa `body.pipeline.stageName` para actualizar una propiedad personalizada en HubSpot (por ejemplo `snappli_stage`) o para crear una nota. El payload también incluye `previousStageName` si necesitas lógica condicional.
+3. **Conecta la URL de n8n en Snappli.** Crea un webhook en **Configuración → Webhooks** con la URL de producción de n8n y pulsa **Enviar prueba**.
+4. **Activa el modo webhook en el pipeline.** Configura la etapa que debe disparar la sincronización (**Automático** o **Manual**) y valida con un contacto real.
+
+</Steps>
+
+## Zapier y Make
+
+El flujo es el mismo que con n8n: un trigger **Webhook** (en Zapier, «Webhooks by Zapier → Catch Hook») seguido de la acción que quieras (Sheets, CRM, Slack…). Pega la URL que te den en **Configuración → Webhooks** y usa **Enviar prueba** para que la herramienta detecte los campos del payload.
+
+## Relacionado
+
+<LinkCard title="Webhooks" description="Eventos, cabeceras, payload y verificación HMAC." href="/desarrolladores/webhooks/" />
+<LinkCard title="Pipeline y acciones" description="Modos de webhook por etapa." href="/producto/pipeline/" />
