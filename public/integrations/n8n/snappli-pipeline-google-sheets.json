@@ -1,0 +1,141 @@
+{
+  "name": "Snappli → Google Sheets (leads)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "snappli-leads",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "a1b2c3d4-snappli-webhook",
+      "name": "Snappli Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "webhookId": "snappli-leads"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "field-sentAt",
+              "name": "Fecha",
+              "value": "={{ $json.body?.sentAt ?? $json.sentAt ?? $now }}",
+              "type": "string"
+            },
+            {
+              "id": "field-event",
+              "name": "Evento",
+              "value": "={{ $json.body?.event ?? $json.event ?? '' }}",
+              "type": "string"
+            },
+            {
+              "id": "field-name",
+              "name": "Nombre",
+              "value": "={{ $json.body?.contact?.displayName ?? $json.contact?.displayName ?? '' }}",
+              "type": "string"
+            },
+            {
+              "id": "field-email",
+              "name": "Email",
+              "value": "={{ $json.body?.contact?.email ?? $json.contact?.email ?? '' }}",
+              "type": "string"
+            },
+            {
+              "id": "field-phone",
+              "name": "Teléfono",
+              "value": "={{ $json.body?.contact?.phone ?? $json.contact?.phone ?? '' }}",
+              "type": "string"
+            },
+            {
+              "id": "field-stage",
+              "name": "Etapa",
+              "value": "={{ $json.body?.pipeline?.stageName ?? $json.pipeline?.stageName ?? '' }}",
+              "type": "string"
+            },
+            {
+              "id": "field-channel",
+              "name": "Canal",
+              "value": "={{ $json.body?.conversation?.channel ?? $json.conversation?.channel ?? '' }}",
+              "type": "string"
+            },
+            {
+              "id": "field-tags",
+              "name": "Tags",
+              "value": "={{ ($json.body?.contact?.tags ?? $json.contact?.tags ?? []).join(', ') }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b2c3d4e5-map-fields",
+      "name": "Mapear campos Snappli",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [480, 300]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "PEGA_AQUI_EL_ID_DE_TU_GOOGLE_SHEET",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Leads",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {}
+        },
+        "options": {}
+      },
+      "id": "c3d4e5f6-google-sheets",
+      "name": "Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [720, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "CONFIGURA_TUS_CREDENCIALES",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Snappli Webhook": {
+      "main": [
+        [
+          {
+            "node": "Mapear campos Snappli",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mapear campos Snappli": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": false,
+    "instanceId": "snappli-demo-template"
+  }
+}

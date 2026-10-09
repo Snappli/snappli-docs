@@ -16,7 +16,7 @@ Puedes crear **varios webhooks** por organización (por ejemplo, uno para tu CRM
 5. Elige los **eventos suscritos**.
 6. (Opcional) filtra por **etapa** del pipeline (eventos de etapa) o por **etiqueta** (`contact.tag.assigned`). Si lo dejas vacío, recibes todas.
 
-El panel también incluye historial de entregas, aprobaciones pendientes y recetas para n8n, Zapier y HubSpot.
+La página también incluye el historial de entregas y las aprobaciones pendientes. Para guías paso a paso (webhook.site, tu propio backend, n8n, Google Sheets, HubSpot, Zapier) consulta las [recetas de webhooks](/desarrolladores/webhooks-recetas/).
 
 ## Eventos
 
@@ -118,5 +118,5 @@ Usa el **cuerpo crudo** (raw body) tal cual lo recibes, antes de parsear el JSON
 - Las entregas con **aprobación** quedan pendientes hasta que alguien las aprueba.
 
 :::tip
-En **Configuración → Webhooks** tienes ejemplos de payload y un botón de prueba para validar tu endpoint.
+Cada webhook en **Configuración → Webhooks** tiene un botón **Enviar prueba** para validar tu endpoint. Si es tu primera vez, sigue la [prueba rápida con webhook.site](/desarrolladores/webhooks-recetas/#prueba-rápida-con-webhooksite).
 :::

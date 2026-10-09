@@ -89,6 +89,7 @@ export default defineConfig({
 						{ label: 'Autenticación', slug: 'desarrolladores/autenticacion' },
 						{ label: 'API de contactos', slug: 'desarrolladores/contactos' },
 						{ label: 'Webhooks', slug: 'desarrolladores/webhooks' },
+						{ label: 'Recetas de webhooks', slug: 'desarrolladores/webhooks-recetas' },
 						{ label: 'Instalar el widget', slug: 'desarrolladores/widget' },
 					],
 				},
