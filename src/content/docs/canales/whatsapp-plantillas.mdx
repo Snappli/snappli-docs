@@ -1,0 +1,78 @@
+---
+title: Plantillas de WhatsApp
+description: Crea plantillas de WhatsApp desde Snappli, envíalas a revisión de Meta y evita los rechazos más comunes.
+---
+
+import { Steps, LinkCard } from '@astrojs/starlight/components';
+
+Las **plantillas** son mensajes que Meta revisa y aprueba antes de que puedas usarlos. Las necesitas para:
+
+- Escribir a un contacto **fuera de la ventana de 24 horas** desde su último mensaje.
+- Hacer **envíos masivos** y campañas de WhatsApp.
+- Las acciones de etapa del pipeline que **envían una plantilla** (solo en Snappli completo).
+
+Puedes crearlas y gestionarlas desde **Configuración → Plantillas WhatsApp**, sin entrar en WhatsApp Manager. También llegas desde el menú de la línea en **Canales** (o desde **Configuración → WhatsApp** en Snappli para WhatsApp).
+
+:::note
+Solo los **propietarios y administradores** pueden crear o eliminar plantillas. Los agentes pueden usar las aprobadas en el inbox.
+:::
+
+## Crear una plantilla
+
+<Steps>
+
+1. Pulsa **Nueva plantilla**.
+2. Escribe un **nombre** (minúsculas, números y guion bajo, por ejemplo `recordatorio_cita`). No se puede cambiar después.
+3. Elige la **categoría** y el **idioma**:
+   - **Utilidad**: avisos sobre algo que el cliente ya pidió o contrató (confirmaciones, recordatorios, estado de pedidos).
+   - **Marketing**: ofertas, promociones, novedades o reactivar clientes.
+4. Escribe el **mensaje**. Usa **Añadir variable** para insertar `{{1}}`, `{{2}}`… en los datos que cambian (nombre, fecha, número de pedido). Admite formato de WhatsApp: `*negrita*`, `_cursiva_`, `~tachado~`.
+5. Rellena un **ejemplo** para cada variable. Meta los usa para revisar la plantilla; no se envían a tus contactos.
+6. Opcional: añade **encabezado**, **pie** y hasta 10 **botones** (respuestas rápidas, hasta 2 enlaces y 1 botón de llamada).
+7. Revisa la **vista previa** y pulsa **Enviar a revisión**.
+
+</Steps>
+
+La plantilla aparece como **En revisión**. Meta suele responder en minutos, aunque puede tardar hasta 24 horas. Cuando la aprueba o rechaza, los propietarios y administradores reciben un **email** con el resultado, y la lista se actualiza sola.
+
+## Estados
+
+| Estado | Qué significa |
+| --- | --- |
+| **En revisión** | Meta la está revisando. Aún no se puede enviar. |
+| **Aprobada** | Lista para usar en el inbox, envíos masivos, campañas y pipeline. |
+| **Rechazada** | Meta no la aprobó. Verás el motivo en la lista y en el email. |
+| **Pausada** | Meta la pausó temporalmente por quejas de los destinatarios. |
+| **Desactivada** | Meta la desactivó por baja calidad. Ya no se puede enviar. |
+
+## Evitar rechazos
+
+Snappli comprueba antes de enviarla las reglas que más rechazos causan. Además:
+
+- **Mensaje completo**: debe entenderse aunque no se vean los valores de las variables.
+- **Variables**: no empieces ni termines el mensaje con una variable, no pongas dos seguidas y numéralas en orden (`{{1}}`, `{{2}}`…).
+- **Categoría correcta**: si el mensaje incluye una oferta o un descuento, es **Marketing**. Meta cambia la categoría o rechaza la plantilla si no coincide.
+- **Enlaces**: usa tu dominio; evita los acortadores. Un enlace puede terminar en `{{1}}` para que cada contacto reciba el suyo (por ejemplo `https://tutienda.com/pedidos/{{1}}`).
+- **Tono**: evita mayúsculas en exceso, signos repetidos y amenazas o urgencias falsas.
+
+## Corregir una plantilla rechazada
+
+Las plantillas no se editan una vez enviadas. Abre el menú de la plantilla, elige **Duplicar**, corrige lo necesario y envíala con un **nombre nuevo**.
+
+## Eliminar una plantilla
+
+Desde el menú de la plantilla, **Eliminar**. Ten en cuenta que:
+
+- Las campañas, envíos o acciones de pipeline que la usen dejarán de enviarse.
+- Meta no permite reutilizar el mismo nombre durante unas semanas.
+
+## Problemas frecuentes
+
+**«El token de la línea no tiene permiso para gestionar plantillas».** Ocurre en líneas conectadas manualmente con un token sin el permiso `whatsapp_business_management`. Vuelve a conectar la línea **con Facebook** o genera un token con ese permiso. Mientras tanto, puedes crear las plantillas en WhatsApp Manager: aparecerán igualmente en Snappli.
+
+**«Ya existe una plantilla con este nombre e idioma».** Usa otro nombre o elige otro idioma para la misma plantilla.
+
+## Relacionado
+
+<LinkCard title="WhatsApp" description="Conectar tu número y la ventana de 24 horas." href="/canales/whatsapp/" />
+<LinkCard title="Campañas" description="Envíos masivos con plantillas aprobadas." href="/producto/campanias/" />
