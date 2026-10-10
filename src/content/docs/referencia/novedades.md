@@ -9,6 +9,7 @@ Registro de cambios destacados. Las fechas siguen el formato AAAA-MM-DD.
 
 ## 2026-10
 
+- **Crea plantillas de WhatsApp desde Snappli** — editor con vista previa, validación de las reglas de Meta, estado de revisión y aviso por email cuando Meta aprueba o rechaza. Ver [Plantillas de WhatsApp](/canales/whatsapp-plantillas/).
 - **Nuevos planes y precios** — se actualizan precios y cupos de Snappli completo y Snappli para WhatsApp, con **cobros por uso** opcionales para contactos, créditos de IA y minutos de voz. Ver [Facturación y uso](/cuenta/facturacion/).
 - **Minutos de voz con IA** — las llamadas atendidas por la IA ahora se miden en minutos, con cupo por plan. Ver [Minutos de voz con IA](/producto/voz-minutos/).
 - **Campañas de email más seguras** — Snappli deja de enviar campañas a direcciones que rebotan o marcan spam. Ver [Campañas](/producto/campanias/#rebotes-y-spam-en-email).
