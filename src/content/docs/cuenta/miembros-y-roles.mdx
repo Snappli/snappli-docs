@@ -12,7 +12,7 @@ Gestiona a las personas de tu organización en **Configuración → Miembros**.
 | Rol | Puede… |
 |-----|--------|
 | **Propietario** | Todo, incluida la facturación. Único que factura. |
-| **Administrador** | Configurar la empresa, invitar miembros y ver todas las conversaciones. |
+| **Administrador** | Configurar la empresa, invitar miembros y ver todas las conversaciones. No pertenece a un equipo ni entra en el reparto automático; puede tomar o asignar conversaciones a mano. |
 | **Supervisor** | Ver y repartir las conversaciones de sus agentes y la cola sin asignar de su equipo, y ver los informes de su grupo. No configura la empresa. |
 | **Agente** | Atender el inbox de su equipo. |
 | **Solo lectura** | Ver informes e historial, sin responder. Con equipo, solo el de su equipo; sin equipo, toda la organización. |
@@ -36,15 +36,15 @@ Un equipo puede tener **varios supervisores**, cada uno con sus propios agentes:
 
 En **Editar miembro**, la opción **Recibe conversaciones** decide si la persona entra en el reparto automático y en la lista de destinos al transferir. Si está apagada, solo atiende las conversaciones que tome a mano.
 
-Viene **apagada por defecto para los supervisores** y encendida para el resto; puedes cambiarla para cualquier miembro que atienda conversaciones.
+Viene **apagada por defecto para los supervisores** y encendida para los agentes. Puedes elegirla al invitar o cambiarla después.
 
 ## Invitar miembros
 
 <Steps>
 
 1. En **Configuración → Miembros**, pulsa invitar.
-2. Escribe el email y elige el rol (**Administrador**, **Supervisor**, **Agente** o **Solo lectura**).
-3. Para **Supervisor** y **Agente**, asigna un **equipo** (obligatorio). Para un **Agente** puedes elegir además a quién **reporta**.
+2. Escribe el email, elige el **equipo** y el rol (**Administrador**, **Supervisor**, **Agente** o **Solo lectura**).
+3. Para **Supervisor** y **Agente** el equipo es obligatorio; un **Administrador** no tiene equipo. Para un **Agente** puedes elegir además a quién **reporta**, y para supervisores y agentes si **reciben conversaciones**.
 4. Para **Solo lectura**, el equipo es opcional: sin equipo verá toda la organización.
 5. Envía la invitación; la persona la acepta desde su correo.
 
