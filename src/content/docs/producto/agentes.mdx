@@ -66,9 +66,33 @@ El agente deja de responder y pasa la conversación al inbox cuando se cumple al
 Empieza con un alcance estrecho (p. ej. horarios + FAQs de envíos) y amplíalo cuando veas qué preguntan tus clientes.
 :::
 
+## Qué puede hacer el agente
+
+Además de responder, el agente decide en cada respuesta si necesita hacer algo más:
+
+| Acción | Cuándo la usa |
+|--------|---------------|
+| **Pasar a un humano** | El contacto pide una persona, está muy molesto o el caso encaja con tus reglas de **Paso a humanos** |
+| **Enviar un archivo** | El contacto lo pide o tus instrucciones lo indican. Solo archivos del equipo habilitados para la IA, uno por respuesta |
+| **Compartir un contacto** | El contacto pide hablar con alguien concreto (solo WhatsApp). Solo contactos compartibles, uno por respuesta |
+| **Resolver la conversación** | El contacto confirma que no necesita nada más. Solo si lo activas (ver abajo) |
+
+Las palabras clave y la política de quejas siguen funcionando siempre como red de seguridad, aunque el agente no decida escalar.
+
 ## Escalación
 
-Cuando el asistente escala, la conversación entra a la **cola del equipo** en el inbox con el contexto previo, de forma que el agente humano no pida al cliente que repita. Genera el evento `conversation.escalated` (útil para [webhooks](/desarrolladores/webhooks/)).
+Cuando el asistente escala, la conversación entra a la **cola del equipo** en el inbox con el contexto previo, de forma que el agente humano no pida al cliente que repita. En el chat aparece una **nota interna** con el motivo y un resumen de lo que pidió el contacto; el contacto no la ve. Genera el evento `conversation.escalated` (útil para [webhooks](/desarrolladores/webhooks/)).
+
+## Resolución por la IA
+
+Por defecto solo un agente humano resuelve conversaciones. Si quieres que la IA cierre las que ya quedaron atendidas, activa **Permitir que la IA resuelva conversaciones** en **Automatizaciones**, pestaña **Políticas**.
+
+Con la opción activa:
+
+- La IA resuelve solo cuando el contacto confirma que terminó (por ejemplo *«gracias, eso era todo»*), y se despide.
+- Nunca resuelve si en esa misma respuesta pasa la conversación a un humano.
+- Si el contacto vuelve a escribir, la conversación se reabre y, durante las siguientes 72 horas, la IA recuerda de qué hablaron.
+- En el historial de la conversación queda como **Resuelta por la IA**, y en [Informes](/producto/informes/) se cuentan las conversaciones cerradas por la IA.
 
 ## Relacionado
 
