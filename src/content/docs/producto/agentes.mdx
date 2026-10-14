@@ -49,6 +49,54 @@ El agente deja de responder y pasa la conversación al inbox cuando se cumple al
 	<figcaption>Reglas y palabras clave de escalación.</figcaption>
 </figure>
 
+## Configuración general
+
+Los ajustes comunes a todos los agentes IA están en **Automatizaciones → Configuración general**, organizados en cuatro pestañas:
+
+| Pestaña | Qué configuras |
+|---------|----------------|
+| **Identidad** | Nombre y avatar del agente, tono, longitud de las respuestas, tratamiento (tú o usted) y saludo inicial |
+| **Comportamiento IA** | Políticas, resolución por la IA, contexto del negocio, instrucciones globales y vista previa del prompt |
+| **Atención humana** | [Horario de atención](#horario-de-atención), asignación automática a agentes y aviso de cola |
+| **Automatización** | Etiquetado automático de contactos, avance automático de etapas del embudo y a qué equipo se aplica |
+
+### Comportamiento IA
+
+- **Políticas** — reglas que la IA respeta siempre, por ejemplo no prometer descuentos sin autorización o [derivar quejas formales](#quejas-formales).
+- **Permitir que la IA resuelva conversaciones** — ver [Resolución por la IA](#resolución-por-la-ia).
+- **Contexto del negocio** (opcional) — solo se usa al **generar** las instrucciones globales; la IA no lo lee en las conversaciones. Si quieres que lo tenga en cuenta, inclúyelo en las instrucciones.
+- **Instrucciones globales** — texto que la IA sigue en todas las conversaciones. Puedes escribirlo o pulsar **Generar instrucciones** para crear un borrador a partir de la identidad, las políticas y el contexto, y editarlo antes de guardar.
+- **Vista previa del prompt** — muestra la parte común que reciben todos los agentes, con los cambios sin guardar. Cada equipo añade después su identidad, sus instrucciones y su conocimiento.
+
+### Atención humana
+
+- **Horario de atención** — cuándo hay personas para atender las conversaciones que pasan a humanos. Ver [Horario de atención](#horario-de-atención).
+- **Asignación automática a agentes** — a quién se puede asignar una conversación cuando la IA la pasa a un humano, vence el tiempo de inactividad o la mueve una regla del embudo. Las transferencias manuales no cambian.
+
+  | Opción | A quién se asigna |
+  |--------|-------------------|
+  | **Solo agentes disponibles** | Conectados, en estado Disponible y por debajo de su máximo de conversaciones. Si no hay ninguno, la conversación espera en la cola del equipo |
+  | **Agentes conectados** | Conectados, aunque estén Ocupados. Nunca a desconectados ni a quien llegó a su máximo |
+  | **Cualquier agente del equipo** | Prioriza disponibles, luego ocupados y, como último recurso, desconectados o al máximo |
+
+- **Avisar si una conversación espera en cola** — interruptor que avisa a propietarios, administradores y supervisores del equipo cuando una conversación pasada a humanos lleva más de los minutos que definas sin que ningún agente la tome. Solo avisa dentro del horario de atención. Puedes apagarlo.
+
+## Horario de atención
+
+El horario indica cuándo hay personas disponibles. Con **Respetar horario de atención** activo, fuera de horario la IA sigue respondiendo, pero no se asigna la conversación a nadie: queda en la cola del equipo y el contacto recibe el **aviso fuera de horario**.
+
+- **Zona horaria** — se usa la de la organización (se cambia en [Organización](/cuenta/organizacion/)). El editor muestra la hora actual en esa zona y si ahora está abierto o cerrado.
+- **Turnos** — hasta **3 turnos por día**, para jornadas partidas (p. ej. 09:00–13:00 y 15:00–19:00).
+- **Turnos nocturnos** — un turno puede terminar al día siguiente; por ejemplo 22:00–02:00 se muestra como **22:00–02:00 (+1)**.
+- **24 h** — marca un día como abierto todo el día.
+- **Copiar** — copia el horario de un día a otros días de la semana.
+- **Feriados y días cerrados** — hasta **30 fechas**, cada una con su nombre (p. ej. *Navidad*). Ese día se considera cerrado aunque el día de la semana esté abierto.
+- **Aviso fuera de horario** (opcional) — mensaje que recibe el contacto cuando escribe con la atención cerrada.
+
+## Snappli para WhatsApp
+
+En **Snappli para WhatsApp** ([wa.snappli.io](https://wa.snappli.io)), el editor del agente incluye una sección **Atención humana** con el [horario de atención](#horario-de-atención), la asignación automática a agentes y el aviso de cola, que también puedes desactivar.
+
 ## Flujo recomendado
 
 <Steps>
@@ -79,13 +127,23 @@ Además de responder, el agente decide en cada respuesta si necesita hacer algo 
 
 Las palabras clave y la política de quejas siguen funcionando siempre como red de seguridad, aunque el agente no decida escalar.
 
+## Cómo responde la IA
+
+- **Mensajes durante una respuesta** — si el contacto escribe mientras la IA está respondiendo, esos mensajes también se contestan.
+- **Solo texto** — la IA responde solo a texto; si recibe un audio, pide al contacto que escriba.
+- **Si la IA no puede responder** — si falla o se agotan los créditos de IA del plan, la conversación pasa a la cola humana del equipo con una nota interna que explica el motivo.
+
+### Quejas formales
+
+Con la política **Derivar quejas formales** activa, si el contacto escribe «queja», «reclamo» o «reclamación», la conversación pasa de inmediato a una persona del equipo. Además, la IA ofrece hablar con alguien ante una queja formal.
+
 ## Escalación
 
 Cuando el asistente escala, la conversación entra a la **cola del equipo** en el inbox con el contexto previo, de forma que el agente humano no pida al cliente que repita. En el chat aparece una **nota interna** con el motivo y un resumen de lo que pidió el contacto; el contacto no la ve. Genera el evento `conversation.escalated` (útil para [webhooks](/desarrolladores/webhooks/)).
 
 ## Resolución por la IA
 
-Por defecto solo un agente humano resuelve conversaciones. Si quieres que la IA cierre las que ya quedaron atendidas, activa **Permitir que la IA resuelva conversaciones** en **Automatizaciones**, pestaña **Políticas**.
+Por defecto solo un agente humano resuelve conversaciones. Si quieres que la IA cierre las que ya quedaron atendidas, activa **Permitir que la IA resuelva conversaciones** en **Automatizaciones → Configuración general**, pestaña **Comportamiento IA**. Requiere que las skills del agente estén activas en la plataforma.
 
 Con la opción activa:
 
