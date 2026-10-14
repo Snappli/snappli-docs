@@ -9,31 +9,50 @@ Gestiona a las personas de tu organización en **Configuración → Miembros**.
 
 ## Roles
 
-| Rol | Etiqueta en la app | Puede… |
-|-----|--------------------|--------|
-| **Propietario** | Propietario | Todo, incluida la facturación. Único que factura. |
-| **Gerente** | Gerente | Configurar la empresa, invitar miembros y ver todo el equipo. |
-| **Agente** | Agente | Atender el inbox de su equipo. |
-| **Solo lectura** | Solo lectura | Ver informes e historial, sin responder. |
+| Rol | Puede… |
+|-----|--------|
+| **Propietario** | Todo, incluida la facturación. Único que factura. |
+| **Administrador** | Configurar la empresa, invitar miembros y ver todas las conversaciones. |
+| **Supervisor** | Ver y repartir las conversaciones de sus agentes y la cola sin asignar de su equipo, y ver los informes de su grupo. No configura la empresa. |
+| **Agente** | Atender el inbox de su equipo. |
+| **Solo lectura** | Ver informes e historial, sin responder. Con equipo, solo el de su equipo; sin equipo, toda la organización. |
 
 :::note
-La facturación y la configuración de desarrolladores están reservadas normalmente al **Propietario** (y en parte a **Gerente**).
+La facturación y la configuración de desarrolladores están reservadas normalmente al **Propietario** (y en parte al **Administrador**).
 :::
+
+## Supervisores y sus agentes
+
+Un equipo puede tener **varios supervisores**, cada uno con sus propios agentes:
+
+- Al invitar o editar a un **Agente**, elige en **Reporta a** el supervisor de su equipo (opcional).
+- El supervisor ve las conversaciones asignadas a él y a sus agentes, y las **sin asignar** de su equipo para poder repartirlas.
+- Solo puede asignar o transferir conversaciones **entre sus agentes**. Mover una conversación a otro equipo o a los agentes de otro supervisor lo hace un administrador.
+- Si una conversación se transfiere a un agente de otro supervisor, deja de verla el primero y pasa a verla el segundo.
+- Recibe los avisos de conversaciones que esperan demasiado en la cola de su equipo.
+- Si un supervisor cambia de rol o de equipo, sus agentes quedan sin supervisor.
+
+## Recibe conversaciones
+
+En **Editar miembro**, la opción **Recibe conversaciones** decide si la persona entra en el reparto automático y en la lista de destinos al transferir. Si está apagada, solo atiende las conversaciones que tome a mano.
+
+Viene **apagada por defecto para los supervisores** y encendida para el resto; puedes cambiarla para cualquier miembro que atienda conversaciones.
 
 ## Invitar miembros
 
 <Steps>
 
 1. En **Configuración → Miembros**, pulsa invitar.
-2. Escribe el email y elige el rol (**Gerente**, **Agente** o **Solo lectura**).
-3. Para **Agente** y **Solo lectura**, asigna un **equipo** (obligatorio).
-4. Envía la invitación; la persona la acepta desde su correo.
+2. Escribe el email y elige el rol (**Administrador**, **Supervisor**, **Agente** o **Solo lectura**).
+3. Para **Supervisor** y **Agente**, asigna un **equipo** (obligatorio). Para un **Agente** puedes elegir además a quién **reporta**.
+4. Para **Solo lectura**, el equipo es opcional: sin equipo verá toda la organización.
+5. Envía la invitación; la persona la acepta desde su correo.
 
 </Steps>
 
 ## Disponibilidad de agentes
 
-Cada agente puede marcar su **disponibilidad** desde el selector de estado en la barra superior. La asignación automática de conversaciones tiene en cuenta a los agentes disponibles.
+Cada agente puede marcar su **disponibilidad** desde el selector de estado en la barra superior. La asignación automática de conversaciones tiene en cuenta a los agentes disponibles que **reciben conversaciones**.
 
 ## Relacionado
 
