@@ -80,7 +80,9 @@ Campos adicionales según el evento:
 |--------|-------|
 | `contact.stage.entered`, `contact.webhook.manual` | `pipeline` (`stageId`, `stageName`, `previousStageId`, `previousStageName`) y `conversation` (`id`, `channel`, `lastMessageAt`) |
 | `contact.tag.assigned` | `tag` (`id`, `name`, `source`) |
-| `conversation.escalated` | `conversation` y `reason` |
+| `conversation.escalated` | `conversation`, `reason` y `summary` |
+
+En `conversation.escalated`, `reason` es el motivo del traspaso que indicó la IA, la intención detectada si no hay motivo, o `idle_timeout` si escaló por inactividad. `summary` es el resumen que la IA escribió para el agente humano; puede venir en `null` o no venir.
 
 ## Verificación HMAC
 
