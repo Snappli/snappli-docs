@@ -1,0 +1,52 @@
+---
+title: Agenda
+description: Seguimientos con fecha para volver a llamar o escribir a un contacto.
+---
+
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+
+La **Agenda** es la lista de seguimientos del equipo. Un seguimiento es un pendiente con fecha sobre un contacto: llamar, escribir, una reunión u otra tarea.
+
+Está en el menú principal, entre Inbox y Contactos.
+
+## Nota y seguimiento
+
+Una **nota** guarda contexto para el equipo y no obliga a nadie a hacer nada. No tiene fecha ni responsable.
+
+Un **seguimiento** sí: tiene tipo, texto, fecha y hora, y una persona encargada. Cuando se cumple, se marca como hecho. Si hay que dejarlo para otro momento, se cambia la fecha.
+
+El **pipeline** sigue diciendo en qué etapa está el contacto. No es el lugar del pendiente.
+
+## Crear uno
+
+En la ficha del contacto, sección **Seguimientos**:
+
+1. Elige el tipo (llamar, escribir, reunión u otro).
+2. Pon la fecha, la hora y qué hay que hacer.
+3. Si eres supervisor o administrador, puedes asignarlo a otro miembro. Un agente lo deja asignado a sí mismo.
+4. Guarda con **Agendar**.
+
+## Verlos
+
+La Agenda tiene tres vistas:
+
+- **Día** — lista del día, de la hora más temprana a la más tardía. Es la vista de trabajo.
+- **Semana** — siete columnas.
+- **Mes** — rejilla. Al pulsar un día se abre ese día.
+
+Arriba quedan siempre los **vencidos**: pendientes cuya fecha ya pasó. El ítem del menú muestra cuántos hay entre los de hoy y los vencidos.
+
+Cada seguimiento abre la ficha del contacto. Desde ahí, o desde la propia Agenda, se puede marcar **Hecho** o **Cambiar fecha**.
+
+Un agente ve solo los suyos. Un supervisor, un administrador o un lector ve los de todo el equipo. Supervisor y administrador pueden filtrar por persona. El lector no puede crearlos ni completarlos.
+
+Las horas se muestran en la zona horaria de **Mi cuenta → Preferencias**.
+
+En el Panel, si hay algo para hoy o vencido, aparece un enlace a la Agenda. En la tabla y el kanban de contactos, la ficha marca **Hoy** o **Vencido** cuando el próximo seguimiento pendiente cae en ese día o ya pasó.
+
+## Relacionado
+
+<CardGrid>
+	<LinkCard title="Contactos" description="Ficha, notas y datos del contacto." href="/producto/contactos/" />
+	<LinkCard title="Pipeline y acciones" description="Etapas del embudo." href="/producto/pipeline/" />
+</CardGrid>

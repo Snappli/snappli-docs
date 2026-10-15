@@ -53,6 +53,7 @@ export default defineConfig({
 					items: [
 						{ label: 'Inbox', slug: 'producto/inbox' },
 						{ label: 'Contactos', slug: 'producto/contactos' },
+						{ label: 'Agenda', slug: 'producto/agenda' },
 						{ label: 'Pipeline y acciones', slug: 'producto/pipeline' },
 						{ label: 'Agentes IA', slug: 'producto/agentes' },
 						{ label: 'Base de conocimiento', slug: 'producto/base-de-conocimiento' },

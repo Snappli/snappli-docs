@@ -89,7 +89,10 @@ Por defecto solo un agente humano resuelve conversaciones. Si quieres que la IA 
 
 Con la opción activa:
 
-- La IA resuelve solo cuando el contacto confirma que terminó (por ejemplo *«gracias, eso era todo»*), y se despide.
+- Cuando ya respondió y no queda nada pendiente, pregunta si necesita algo más y avisa que, si no, dará por resuelta la consulta.
+- Si el contacto dice que no (también *«nada más»*, *«ok gracias»* o un 👍), se despide y resuelve en el momento.
+- Si no contesta, la conversación se resuelve sola al cumplirse el tiempo configurado en esa misma sección (30 minutos por defecto; 0 lo desactiva y deja la escalada por inactividad).
+- Si el silencio llega con algo pendiente, no se cierra: aplica la escalada por inactividad del asistente, si está configurada.
 - Nunca resuelve si en esa misma respuesta pasa la conversación a un humano.
 - Si el contacto vuelve a escribir, la conversación se reabre y, durante las siguientes 72 horas, la IA recuerda de qué hablaron.
 - En el historial de la conversación queda como **Resuelta por la IA**, y en [Informes](/producto/informes/) se cuentan las conversaciones cerradas por la IA.
