@@ -8,7 +8,7 @@ sidebar:
 | Término | Definición |
 |---------|------------|
 | **Organización** | Tenant: tu empresa en Snappli |
-| **Canal** | WhatsApp, Instagram, Messenger, email o widget |
+| **Canal** | WhatsApp, Instagram, Messenger, Telegram, email o widget |
 | **Contacto** | Persona o lead en el CRM |
 | **Conversación** | Hilo de mensajes con un contacto en un canal |
 | **Agente** | Usuario humano del inbox |
