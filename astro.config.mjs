@@ -70,6 +70,7 @@ export default defineConfig({
 						{ label: 'WhatsApp', slug: 'canales/whatsapp' },
 						{ label: 'Plantillas de WhatsApp', slug: 'canales/whatsapp-plantillas' },
 						{ label: 'Instagram y Messenger', slug: 'canales/instagram-messenger' },
+						{ label: 'Telegram', slug: 'canales/telegram' },
 						{ label: 'Email', slug: 'canales/email' },
 						{ label: 'Widget web', slug: 'canales/widget' },
 					],

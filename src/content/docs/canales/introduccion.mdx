@@ -1,6 +1,6 @@
 ---
 title: Visión general de canales
-description: Conecta WhatsApp, Instagram, Messenger, email y widget web.
+description: Conecta WhatsApp, Instagram, Messenger, Telegram, email y widget web.
 ---
 
 import { LinkCard, CardGrid } from '@astrojs/starlight/components';
@@ -19,13 +19,14 @@ Los **canales** son los medios por los que llegan mensajes a tu inbox. Se gestio
 <CardGrid>
 	<LinkCard title="WhatsApp" description="Conecta con Meta (recomendado) o manualmente." href="/canales/whatsapp/" />
 	<LinkCard title="Instagram y Messenger" description="Mensajería de tus páginas de Meta." href="/canales/instagram-messenger/" />
+	<LinkCard title="Telegram" description="Conecta tu bot con el token de @BotFather." href="/canales/telegram/" />
 	<LinkCard title="Email" description="Conexión de correo y verificación de dominio." href="/canales/email/" />
 	<LinkCard title="Widget web" description="Chat embebido en tu sitio." href="/canales/widget/" />
 </CardGrid>
 
 ## Enrutamiento
 
-Cada canal (línea de WhatsApp, conexión de email, página de Meta o widget) define cómo se reparten sus conversaciones:
+Cada canal (línea de WhatsApp, conexión de email, página de Meta, bot de Telegram o widget) define cómo se reparten sus conversaciones:
 
 - **Automático** — el orquestador elige el equipo.
 - **Áreas limitadas** — restringe a ciertos equipos.
