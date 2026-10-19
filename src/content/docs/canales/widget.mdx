@@ -29,6 +29,15 @@ Pega el snippet de instalación antes de `</body>` en las páginas donde quieras
 Los **orígenes permitidos** deben coincidir con el dominio real donde cargas el widget, o el chat no se inicializará.
 :::
 
+## Datos del visitante
+
+Quien escribe desde el widget llega sin ningún dato. Por eso, cuando la IA atiende el chat, pide siempre el **nombre** y el **número de WhatsApp** del visitante, aunque las instrucciones del asistente no lo digan:
+
+- Primero responde lo que el visitante pregunta y después pide un dato a la vez.
+- Lo que el visitante escribe se guarda en su contacto. El teléfono se guarda con el código de país; si no lo indica, se usa el de Ecuador (+593).
+- Si el visitante prefiere no darlos, la IA sigue atendiendo y vuelve a pedirlos cuando muestra interés (precios, cotización, cita) o antes de pasarlo con una persona.
+- Antes de pasar la conversación a una persona, la IA espera esos datos, salvo que el visitante insista en hablar con alguien o sea urgente.
+
 ## Relacionado
 
 <LinkCard title="Instalación para desarrolladores" description="Snippet y clave pública." href="/desarrolladores/widget/" />
