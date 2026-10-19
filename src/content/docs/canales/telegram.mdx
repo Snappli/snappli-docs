@@ -1,0 +1,65 @@
+---
+title: Telegram
+description: Conecta un bot de Telegram y atiende sus chats desde el inbox.
+---
+
+import { Steps, LinkCard } from '@astrojs/starlight/components';
+
+Los mensajes que la gente le escribe a tu **bot de Telegram** llegan al mismo inbox que el resto de canales. Se conecta en **Configuración → Canales** con el token del bot. No hace falta revisión de Telegram ni configurar webhooks.
+
+## Crear el bot
+
+Si todavía no tienes un bot:
+
+<Steps>
+
+1. En Telegram, abre [@BotFather](https://t.me/BotFather) y envía `/newbot`.
+2. Elige un nombre (el que verán tus clientes) y un usuario que termine en `bot`, por ejemplo `MiTiendaBot`.
+3. BotFather te responde con el **token** del bot, algo como `123456789:AAH…`. Guárdalo: quien lo tenga controla el bot.
+
+</Steps>
+
+Si ya tienes un bot, envía `/mybots` a BotFather, elige el bot y pulsa **API Token**.
+
+## Conectar el bot
+
+<Steps>
+
+1. En **Canales**, añade un canal y elige **Telegram**.
+2. Pega el token del bot. El nombre del canal es opcional: si lo dejas vacío, se usa el nombre del bot.
+3. Define el **enrutamiento** y pulsa **Conectar bot**.
+4. Snappli comprueba el token y registra el webhook. Desde ese momento, lo que escriban al bot llega al inbox.
+
+</Steps>
+
+Comparte el enlace `https://t.me/<usuario del bot>` en tu web o tus redes para que los clientes te escriban.
+
+:::note
+Un bot solo puede estar conectado a una organización de Snappli a la vez. Si lo usabas con otra herramienta, esta deja de recibir mensajes al conectarlo aquí, porque Telegram solo permite un webhook por bot.
+:::
+
+## Qué se puede enviar y recibir
+
+| | Recibir | Enviar |
+|---|---|---|
+| Texto | Sí | Sí |
+| Imágenes | Sí | Sí |
+| Documentos | Sí (hasta 20 MB) | Sí |
+| Notas de voz y audio | Sí | Sí |
+| Contactos compartidos | Sí | No |
+| Stickers, videos y ubicaciones | Se avisa en el chat; ábrelos en Telegram | No |
+
+- El **agente IA** responde los mensajes de texto. Los audios, archivos y stickers pasan a tu equipo.
+- Solo se atienden **chats privados** con el bot. Los mensajes en grupos y canales se ignoran.
+- Telegram no permite que un bot escriba primero: el cliente tiene que iniciar el chat (por ejemplo, con **Iniciar**).
+
+## Problemas frecuentes
+
+- **El canal dice «No recibe mensajes».** Telegram rechazó el webhook. Abre el canal y guarda de nuevo para reintentarlo.
+- **«Token del bot inválido o revocado».** Regeneraste el token en BotFather. Abre el canal, pega el token nuevo y guarda.
+- **«El contacto bloqueó al bot».** El cliente detuvo el bot en Telegram. No se le pueden enviar mensajes hasta que vuelva a escribir.
+
+## Relacionado
+
+<LinkCard title="Visión general de canales" description="Todos los canales disponibles." href="/canales/introduccion/" />
+<LinkCard title="Inbox" description="Atiende Telegram junto al resto de canales." href="/producto/inbox/" />
