@@ -31,11 +31,20 @@ Si prefieres conectar con tus propias credenciales de la API de WhatsApp Cloud:
 <Steps>
 
 1. En **Canales → WhatsApp**, elige **Configuración manual**.
-2. Introduce las **credenciales**: nombre (label), Phone Number ID, Access Token, Verify Token, WABA ID y teléfono a mostrar.
+2. Introduce las **credenciales**: nombre (label), Phone Number ID, Access Token, Verify Token, WABA ID y teléfono a mostrar. El **WABA ID** es el que WhatsApp Manager muestra como «Messaging Account ID».
 3. Configura la **URL de webhook** y el **Verify Token** en tu app de Meta con los datos que te indica el asistente.
 4. Define el **enrutamiento** (a qué equipo va) y guarda.
 
 </Steps>
+
+Al guardar, Snappli comprueba con Meta que:
+
+- El **Phone Number ID** pertenece a ese **WABA ID**.
+- El **token** tiene acceso a la cuenta de WhatsApp Business.
+
+Si algo no coincide, verás el error y la línea **no se guarda** hasta que lo corrijas.
+
+Además, Snappli **suscribe automáticamente** tu cuenta de WhatsApp Business a los webhooks de la app, así que ya no tienes que activar «Suscribir webhooks» a mano en Meta. Si la suscripción automática falla, sigue siendo necesario activarla a mano en tu app de Meta.
 
 ## Plantillas y ventana de 24 horas
 

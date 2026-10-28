@@ -9,6 +9,10 @@ Registro de cambios destacados. Las fechas siguen el formato AAAA-MM-DD.
 
 ## 2026-10
 
+- **Plantillas de WhatsApp más completas** (2026-10-28) — encabezado con **imagen, video o PDF**; cada variable se rellena sola con un dato del contacto (incluidos campos personalizados), de la empresa o a mano al enviar, también en campañas y pipeline; las **respuestas rápidas** que toca el cliente llegan al inbox y la IA les responde. Ver [Plantillas de WhatsApp](/canales/whatsapp-plantillas/).
+- **Archivos de WhatsApp en el inbox** (2026-10-28) — las imágenes, stickers, documentos y videos que envían los clientes ya aparecen en el chat. Ver [Inbox](/producto/inbox/#lo-que-te-envían-por-whatsapp).
+- **Conexión manual de WhatsApp verificada** (2026-10-28) — al guardar, Snappli comprueba el Phone Number ID, el WABA ID y el token, y suscribe la cuenta a los webhooks automáticamente. Ver [WhatsApp](/canales/whatsapp/#método-2-configuración-manual).
+
 - **El widget pide nombre y WhatsApp** — la IA pide estos datos a quien escribe desde la web y los guarda en su contacto. Además, la IA sigue mejor el hilo de la conversación: no se vuelve a presentar, no repite información ni reenvía archivos que ya envió. Ver [Widget web](/canales/widget/#datos-del-visitante).
 - **Atención humana y horario de atención** — hasta 3 turnos por día, turnos nocturnos, días de 24 h, feriados y aviso de cola con interruptor. La configuración general de automatización se reorganiza en las pestañas Identidad, Comportamiento IA, Atención humana y Automatización. Ver [Agentes IA](/producto/agentes/#configuración-general).
 - **La IA responde mejor** — contesta los mensajes que llegan mientras responde y, si falla o se agotan los créditos de IA, pasa la conversación a una persona con una nota interna. Ver [Cómo responde la IA](/producto/agentes/#cómo-responde-la-ia).

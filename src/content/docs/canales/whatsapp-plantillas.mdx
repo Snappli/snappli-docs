@@ -1,6 +1,6 @@
 ---
 title: Plantillas de WhatsApp
-description: Crea plantillas de WhatsApp desde Snappli, envíalas a revisión de Meta y evita los rechazos más comunes.
+description: Crea plantillas de WhatsApp desde Snappli con encabezado de texto, imagen, video o PDF, variables que se rellenan solas y botones, y evita los rechazos de Meta.
 ---
 
 import { Steps, LinkCard } from '@astrojs/starlight/components';
@@ -26,14 +26,87 @@ Solo los **propietarios y administradores** pueden crear o eliminar plantillas. 
 3. Elige la **categoría** y el **idioma**:
    - **Utilidad**: avisos sobre algo que el cliente ya pidió o contrató (confirmaciones, recordatorios, estado de pedidos).
    - **Marketing**: ofertas, promociones, novedades o reactivar clientes.
-4. Escribe el **mensaje**. Usa **Añadir variable** para insertar `{{1}}`, `{{2}}`… en los datos que cambian (nombre, fecha, número de pedido). Admite formato de WhatsApp: `*negrita*`, `_cursiva_`, `~tachado~`.
-5. Rellena un **ejemplo** para cada variable. Meta los usa para revisar la plantilla; no se envían a tus contactos.
-6. Opcional: añade **encabezado**, **pie** y hasta 10 **botones** (respuestas rápidas, hasta 2 enlaces y 1 botón de llamada).
-7. Revisa la **vista previa** y pulsa **Enviar a revisión**.
+4. Opcional: añade un **encabezado** de texto, imagen, video o PDF (ver [Encabezado](#encabezado)).
+5. Escribe el **mensaje**. Usa **Añadir variable** para insertar `{{1}}`, `{{2}}`… en los datos que cambian (nombre, fecha, número de pedido). Admite formato de WhatsApp: `*negrita*`, `_cursiva_`, `~tachado~`.
+6. Para cada variable, escribe un **ejemplo** y elige con qué **rellenarla** al enviar (ver [Variables](#variables-y-rellenar-con)).
+7. Opcional: añade un **pie** y hasta 10 **botones** (ver [Botones](#botones)).
+8. Revisa la **vista previa** y pulsa **Enviar a revisión**.
 
 </Steps>
 
 La plantilla aparece como **En revisión**. Meta suele responder en minutos, aunque puede tardar hasta 24 horas. Cuando la aprueba o rechaza, los propietarios y administradores reciben un **email** con el resultado, y la lista se actualiza sola.
+
+Si algo impide crearla, el error aparece junto al botón y la pantalla salta al **primer campo con problema**.
+
+### Campos de la plantilla
+
+| Campo | Obligatorio | Qué es |
+| --- | --- | --- |
+| **Nombre** | Sí | Identifica la plantilla. Minúsculas, números y guion bajo. |
+| **Categoría** | Sí | Utilidad o Marketing. |
+| **Idioma** | Sí | El idioma en que está escrito el mensaje. |
+| **Encabezado** | No | Una línea de texto o un archivo (imagen, video o PDF) que aparece arriba del mensaje. |
+| **Mensaje** | Sí | El texto principal. Puede llevar variables. |
+| **Pie** | No | Una línea corta y en gris al final, por ejemplo «Responde BAJA para no recibir más mensajes». |
+| **Botones** | No | Hasta 10: respuestas rápidas, enlaces y un botón de llamada. |
+
+## Encabezado
+
+El encabezado es lo primero que ve el cliente. Puede ser:
+
+| Tipo | Formatos | Tamaño máximo |
+| --- | --- | --- |
+| **Texto** | Una línea. Admite una variable (`{{1}}`) con **Añadir variable**. | — |
+| **Imagen** | JPG o PNG | 5 MB |
+| **Video** | MP4 | 16 MB |
+| **PDF** | PDF | 16 MB |
+
+Con imagen, video o PDF, el archivo que subes cumple dos funciones: es el **ejemplo que revisa Meta** y es también el **archivo que recibe cada cliente** cuando envías la plantilla. Si más adelante quieres enviar otro archivo (por ejemplo, el catálogo del mes nuevo), abre la plantilla y cámbialo; no hace falta crear otra.
+
+:::tip
+Usa un encabezado de imagen para promociones y uno de PDF para enviar cotizaciones, menús o catálogos. Así el archivo llega junto con el mensaje, incluso fuera de la ventana de 24 horas.
+:::
+
+## Variables y «Rellenar con»
+
+Las variables `{{1}}`, `{{2}}`… son los huecos del mensaje que cambian en cada envío. Cada una tiene dos datos:
+
+- **Ejemplo**: un valor de muestra, como «María» o «15 de noviembre». Solo lo usa **Meta para revisar** la plantilla; nunca se envía a tus contactos.
+- **Rellenar con**: de dónde saca Snappli el valor real al enviar. Puedes elegir:
+
+| Opción | Ejemplos |
+| --- | --- |
+| **Un dato del contacto** | Nombre, Apellido, Teléfono, Email o cualquiera de tus [campos personalizados](/producto/contactos/) |
+| **Un dato de la empresa** | Nombre de la organización, fecha del envío |
+| **Escribir al enviar** | Tú (o tu agente) escribes el valor en cada envío |
+
+Por ejemplo, en `Hola {{1}}, tu cita es el {{2}}`, puedes rellenar `{{1}}` con **Nombre** y `{{2}}` con un campo personalizado **Fecha de cita**. Cada contacto recibe su propio mensaje sin que tengas que escribir nada.
+
+Meta no guarda esta elección: la guarda **Snappli** y la usa en todos los envíos de la plantilla, ya sea desde el inbox, campañas, envíos masivos o acciones del pipeline.
+
+Puedes cambiar «Rellenar con» en cualquier momento desde el **detalle de la plantilla**, sin volver a enviarla a revisión. También funciona con las plantillas que creaste en **WhatsApp Manager**: ábrelas en Snappli y elige con qué rellenar cada variable.
+
+## Botones
+
+Los botones aparecen debajo del mensaje. Se definen al crear la plantilla y son **fijos**: todos los clientes reciben los mismos botones.
+
+| Botón | Qué pasa cuando el cliente lo toca | ¿Se entera Snappli? |
+| --- | --- | --- |
+| **Respuesta rápida** | Se envía a tu número un mensaje con el texto del botón (por ejemplo «Confirmar»). | **Sí.** Llega al inbox como un mensaje normal, marcado como respuesta rápida, y la IA le responde como a cualquier otro mensaje. |
+| **Enlace** | Se abre una página web. Si la dirección termina en `{{1}}`, cada cliente recibe su propio enlace (por ejemplo `https://tutienda.com/pedidos/1234`). | No. WhatsApp no avisa de los clics. |
+| **Llamar** | Se abre el teclado del teléfono con el número que indicaste. | No. |
+
+Puedes añadir hasta 10 botones: respuestas rápidas, hasta 2 enlaces y 1 botón de llamada. La vista previa los muestra en el **orden real**: las respuestas rápidas siempre van primero, porque Meta lo exige.
+
+:::tip
+Las respuestas rápidas son ideales para que el cliente decida con un toque: «Confirmar», «Cancelar» o «Hablar con una persona». Como llegan al inbox, la IA o tu equipo pueden seguir la conversación desde ahí.
+:::
+
+## Enviar una plantilla
+
+Cuando eliges una plantilla aprobada (en el inbox, una campaña, un envío masivo o una acción de pipeline), cada variable aparece **ya rellena** con el dato que elegiste en «Rellenar con» para ese contacto. Puedes cambiar el valor solo para ese envío.
+
+Si al contacto le falta el dato (por ejemplo, el campo personalizado está vacío), Snappli avisa con **«Falta el valor de `{{2}}`…»** y **no envía** el mensaje. Completa el dato en la ficha del contacto o escríbelo a mano y vuelve a intentarlo.
 
 ## Estados
 
@@ -51,13 +124,19 @@ Snappli comprueba antes de enviarla las reglas que más rechazos causan. Además
 
 - **Mensaje completo**: debe entenderse aunque no se vean los valores de las variables.
 - **Variables**: no empieces ni termines el mensaje con una variable, no pongas dos seguidas y numéralas en orden (`{{1}}`, `{{2}}`…).
+- **Ejemplos realistas**: escribe ejemplos parecidos a los datos reales («María», «15 de noviembre»), no «prueba» ni «xxx».
 - **Categoría correcta**: si el mensaje incluye una oferta o un descuento, es **Marketing**. Meta cambia la categoría o rechaza la plantilla si no coincide.
-- **Enlaces**: usa tu dominio; evita los acortadores. Un enlace puede terminar en `{{1}}` para que cada contacto reciba el suyo (por ejemplo `https://tutienda.com/pedidos/{{1}}`).
+- **Enlaces**: usa tu dominio; evita los acortadores.
 - **Tono**: evita mayúsculas en exceso, signos repetidos y amenazas o urgencias falsas.
 
-## Corregir una plantilla rechazada
+## Cambiar una plantilla
 
-Las plantillas no se editan una vez enviadas. Abre el menú de la plantilla, elige **Duplicar**, corrige lo necesario y envíala con un **nombre nuevo**.
+Una vez enviada a Meta, el texto, los botones y la categoría no se pueden cambiar. Desde el detalle de la plantilla sí puedes cambiar:
+
+- El **archivo del encabezado** (imagen, video o PDF).
+- Con qué se **rellena** cada variable.
+
+Para cambiar algo más, o para corregir una plantilla rechazada, abre el menú de la plantilla, elige **Duplicar**, corrige lo necesario y envíala con un **nombre nuevo**.
 
 ## Eliminar una plantilla
 
@@ -66,13 +145,20 @@ Desde el menú de la plantilla, **Eliminar**. Ten en cuenta que:
 - Las campañas, envíos o acciones de pipeline que la usen dejarán de enviarse.
 - Meta no permite reutilizar el mismo nombre durante unas semanas.
 
-## Problemas frecuentes
+## Errores frecuentes
+
+**«La línea no tiene acceso a esa cuenta de WhatsApp Business».** El **WABA ID** guardado en la línea no es el correcto. Ve a **Canales**, edita la línea y revisa el WABA ID (en WhatsApp Manager aparece como «Messaging Account ID»).
 
 **«El token de la línea no tiene permiso para gestionar plantillas».** Ocurre en líneas conectadas manualmente con un token sin el permiso `whatsapp_business_management`. Vuelve a conectar la línea **con Facebook** o genera un token con ese permiso. Mientras tanto, puedes crear las plantillas en WhatsApp Manager: aparecerán igualmente en Snappli.
 
 **«Ya existe una plantilla con este nombre e idioma».** Usa otro nombre o elige otro idioma para la misma plantilla.
 
+**«Falta el valor de `{{2}}`…» al enviar.** El contacto no tiene el dato con el que se rellena esa variable. Complétalo en su ficha o escribe el valor en ese envío.
+
+**El archivo del encabezado no se sube.** Revisa el formato y el tamaño: imagen JPG o PNG hasta 5 MB, video MP4 hasta 16 MB o PDF hasta 16 MB.
+
 ## Relacionado
 
 <LinkCard title="WhatsApp" description="Conectar tu número y la ventana de 24 horas." href="/canales/whatsapp/" />
 <LinkCard title="Campañas" description="Envíos masivos con plantillas aprobadas." href="/producto/campanias/" />
+<LinkCard title="Pipeline y acciones" description="Enviar una plantilla al entrar a una etapa." href="/producto/pipeline/" />
