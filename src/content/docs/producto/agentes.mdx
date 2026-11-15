@@ -122,10 +122,22 @@ Además de responder, el agente decide en cada respuesta si necesita hacer algo 
 |--------|---------------|
 | **Pasar a un humano** | El contacto pide una persona, está muy molesto o el caso encaja con tus reglas de **Paso a humanos** |
 | **Enviar un archivo** | El contacto lo pide o tus instrucciones lo indican. Solo archivos del equipo habilitados para la IA, uno por respuesta |
-| **Compartir un contacto** | El contacto pide hablar con alguien concreto (solo WhatsApp). Solo contactos compartibles, uno por respuesta |
+| **Compartir un contacto** | El contacto pide hablar con alguien concreto o con un área que tiene contacto compartible (en vez de pasarlo a un asesor). Solo contactos compartibles con IA activada, uno por respuesta |
+| **Compartir una ubicación** | El contacto pregunta por una sede, su dirección o cómo llegar. Solo ubicaciones con IA activada, una por respuesta. La IA también usa su dirección, horario y teléfono para responder |
 | **Resolver la conversación** | El contacto confirma que no necesita nada más. Solo si lo activas (ver abajo) |
 
 Las palabras clave y la política de quejas siguen funcionando siempre como red de seguridad, aunque el agente no decida escalar.
+
+### Contactos, ubicaciones y archivos en cada canal
+
+El agente puede compartirlos en todos los canales escritos. Cada canal los recibe en su formato propio cuando lo tiene y, si no, como texto:
+
+| Canal | Contacto | Ubicación | Archivo |
+|-------|----------|-----------|---------|
+| WhatsApp, Telegram y widget web | Tarjeta de contacto | Pin en el mapa | Adjunto |
+| Instagram y Messenger | Texto con teléfono y enlace de WhatsApp | Dirección y enlace de Google Maps | Imágenes adjuntas; otros archivos, enlace de descarga |
+| Email y SMS | Texto con teléfono y enlace de WhatsApp | Dirección y enlace de Google Maps | Enlace de descarga (válido 7 días) |
+| Voz | La IA lo dice en la llamada | La IA dice la dirección | — |
 
 ## Cómo responde la IA
 
