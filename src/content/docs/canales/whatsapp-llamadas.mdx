@@ -1,0 +1,90 @@
+---
+title: Llamadas de WhatsApp
+description: Recibe en Snappli las llamadas que tus clientes hacen desde WhatsApp y decide quién contesta, tu equipo o la IA.
+---
+
+import { Steps, LinkCard } from '@astrojs/starlight/components';
+import PlanTable from '../../../components/PlanTable.astro';
+
+Con las **llamadas de WhatsApp**, tus clientes te llaman desde el mismo chat de WhatsApp, con el botón de llamar, y la llamada entra en Snappli. Contesta un agente desde su navegador o, si nadie puede, la IA de voz.
+
+En esta versión solo se reciben llamadas: Snappli no llama a tus clientes por WhatsApp.
+
+## Qué necesitas
+
+- Un plan de **Snappli completo**. Los planes de Snappli para WhatsApp no incluyen llamadas.
+- Una línea de WhatsApp conectada a la **API de WhatsApp Cloud**. Los números que también usan la app **WhatsApp Business** en el teléfono (coexistencia) no admiten llamadas por la API: es una restricción de Meta.
+- Para que contesten tus agentes: que tengan **Snappli abierto en el navegador** con el micrófono permitido. Solo suena a los que están conectados.
+- Para que conteste la IA: **minutos de voz con IA** en tu plan (desde Pro).
+
+<PlanTable product="full" rows={['whatsappCalls', 'voiceMinutes']} />
+
+**Llamadas a la vez** cuenta las que están sonando o en curso al mismo tiempo en toda la empresa. Si llega una más, el cliente oye el mensaje de respaldo.
+
+## Activar las llamadas
+
+<Steps>
+
+1. Ve a **Configuración → Canales**.
+2. En la línea de WhatsApp, abre el menú **⋯** y elige **Llamadas**.
+3. Activa **Recibir llamadas de WhatsApp**.
+4. Elige **quién contesta**, el **tiempo de timbre** y el **horario**, y pulsa **Guardar cambios**.
+
+</Steps>
+
+Al activarlas, Snappli configura el número en Meta y tus clientes empiezan a ver el botón de llamar en el chat. Meta puede tardar un tiempo en mostrarlo en todos los teléfonos.
+
+Para dejar de recibir llamadas, desactiva el mismo interruptor: el botón desaparece del chat. Si eliminas la línea, las llamadas se desactivan antes en Meta.
+
+## Quién contesta
+
+| Modo | Qué pasa |
+|---|---|
+| **Agentes primero, después la IA** (por defecto) | Suena a la vez a todos los agentes conectados que pueden atender esa conversación. Si nadie contesta en el tiempo de timbre, es fuera de horario o no hay nadie conectado, contesta la IA. |
+| **Solo agentes** | Igual, pero si nadie contesta el cliente oye el mensaje de respaldo y la llamada queda **perdida**. |
+| **Solo la IA** | Contesta siempre la IA de voz, como en el canal de voz. |
+
+Si tu plan no incluye minutos de voz con IA, solo puedes usar **Solo agentes**.
+
+### Qué agentes suenan
+
+Suenan los agentes que podrían recibir la conversación del cliente: los del **equipo de la conversación** o, si no tiene, los del **equipo por defecto de la línea**. Tienen que estar disponibles (en línea u ocupados) y con Snappli abierto. El primero que contesta se queda la llamada y la conversación se le asigna. A los demás les deja de sonar.
+
+### Horario
+
+Fuera de horario no suena a nadie: la llamada pasa directamente a la IA o al mensaje de respaldo, según el modo. Puedes usar el **horario de atención de la empresa** (el mismo de la automatización) o uno **propio de la línea**, con sus feriados.
+
+### Mensaje de respaldo
+
+Es lo que oye el cliente antes de colgar cuando nadie puede atender: nadie contesta en **Solo agentes**, se superó el límite de llamadas a la vez o la IA no tiene minutos. Si lo dejas vacío, se usa el mensaje por defecto de la plataforma.
+
+## En el inbox
+
+Cada llamada queda en la **conversación de WhatsApp** del cliente, junto a sus mensajes:
+
+- **Llamada de WhatsApp entrante** mientras suena.
+- **En curso**, con quién atiende.
+- **Terminada**, con la duración y quién atendió (un agente o la IA).
+- **Perdida**, si nadie la atendió. La conversación queda pendiente para que alguien le escriba.
+
+Una llamada del cliente abre la **ventana de 24 horas** de WhatsApp igual que un mensaje: después de una llamada perdida puedes escribirle sin plantilla.
+
+Al agente le suena en el navegador como **Llamada de WhatsApp**, con el nombre del contacto, y durante la llamada tiene un enlace a la conversación.
+
+## Costes
+
+- Las llamadas que **inicia el cliente** no tienen coste de Meta.
+- Si contesta la **IA**, los minutos se descuentan de tus [minutos de voz con IA](/producto/voz-minutos/), igual que en el canal de voz.
+- Si contesta un **agente**, no se gastan minutos de IA.
+
+## Limitaciones
+
+- Solo llamadas entrantes. Snappli no inicia llamadas de WhatsApp.
+- Los agentes contestan desde el navegador. La app móvil muestra la llamada en la conversación, pero no la recibe.
+- No se graban las llamadas.
+
+## Relacionado
+
+<LinkCard title="WhatsApp" description="Conectar tu número de WhatsApp Business." href="/canales/whatsapp/" />
+<LinkCard title="Minutos de voz con IA" description="Cuántos minutos incluye tu plan y cómo se cuentan." href="/producto/voz-minutos/" />
+<LinkCard title="Equipos" description="Quién recibe cada conversación." href="/producto/equipos/" />
