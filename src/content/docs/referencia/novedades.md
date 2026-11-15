@@ -7,6 +7,10 @@ sidebar:
 
 Registro de cambios destacados. Las fechas siguen el formato AAAA-MM-DD.
 
+## 2026-11
+
+- **Archivos, notas de voz y ubicación en el widget web** (2026-11-14) — los visitantes ya pueden enviar fotos, documentos, notas de voz y su ubicación desde el chat de tu sitio, y ven las imágenes, archivos, tarjetas de contacto y ubicaciones que les envías desde el inbox. Ver [Widget web](/canales/widget/#archivos-notas-de-voz-y-ubicación).
+
 ## 2026-10
 
 - **Plantillas de WhatsApp más completas** (2026-10-28) — encabezado con **imagen, video o PDF**; cada variable se rellena sola con un dato del contacto (incluidos campos personalizados), de la empresa o a mano al enviar, también en campañas y pipeline; las **respuestas rápidas** que toca el cliente llegan al inbox y la IA les responde. Ver [Plantillas de WhatsApp](/canales/whatsapp-plantillas/).
