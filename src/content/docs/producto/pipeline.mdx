@@ -26,9 +26,25 @@ Mueves contactos entre etapas desde la vista kanban de contactos o al editar el 
 
 El editor de etapa tiene tres pestañas:
 
-1. **General** — nombre, color y descripción.
+1. **General** — nombre, color, descripción y si **la IA puede mover contactos a esta etapa**.
 2. **Acciones** — automatizaciones al entrar a la etapa (ver abajo).
-3. **Campos** — campos del contacto que son **obligatorios** antes de poder entrar a la etapa.
+3. **Campos** — campos del contacto que son **obligatorios** antes de poder entrar a la etapa, y los **documentos** que exige.
+
+### Etapas que solo mueve una persona
+
+Desactiva **La IA puede mover contactos a esta etapa** en las etapas que debe decidir alguien del equipo (por ejemplo, *Ganado* o *Inscrito*). La etapa muestra el aviso **Solo personas**: la IA no mete contactos en ella ni los saca, pero tu equipo sí puede moverlos.
+
+### Documentos obligatorios
+
+Si tienes [campos de tipo Archivo](/producto/contactos/#documentos-del-contacto), en la pestaña **Campos** eliges para cada uno:
+
+| Opción | Para entrar a la etapa |
+|--------|------------------------|
+| **No exigir** | No hace falta el documento |
+| **Subido** | Debe estar guardado (por revisar o aprobado). Uno rechazado cuenta como que falta |
+| **Aprobado** | Alguien del equipo debe haberlo aprobado |
+
+Un flujo típico: una etapa *En validación* que exige los documentos **subidos** (la IA puede llevar ahí al contacto cuando los envía todos) y una etapa *Inscrito* o *Ganado*, solo para personas, que los exige **aprobados** y dispara el webhook a tu sistema.
 
 ## Acciones de etapa
 
@@ -36,7 +52,7 @@ Las **acciones** se ejecutan automáticamente cuando un contacto **entra** a la 
 
 | Acción | Qué hace | Configuración |
 |--------|----------|---------------|
-| **Webhook** | Envía un evento `contact.stage.entered` a tu integración | Modo **automático** o **con aprobación** |
+| **Webhook** | Envía un evento `contact.stage.entered` a tu integración, con los [documentos del contacto](/desarrolladores/webhooks/#documentos-del-contacto) | Modo **automático** o **con aprobación** |
 | **Añadir etiqueta** | Asigna etiquetas de contacto | Hasta 20 etiquetas |
 | **Nota interna** | Crea una nota (admite variables del contacto) | Texto de la nota |
 | **Asignar** | Asigna la conversación | Auto (round-robin), a un usuario o a un equipo |

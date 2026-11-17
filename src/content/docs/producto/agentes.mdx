@@ -29,6 +29,8 @@ El editor del asistente tiene varias pestañas:
 
 Escribe el rol, el tono y los límites del agente. Puedes insertar variables del contacto (por ejemplo `{{contact.firstName}}`) desde los menús **Contacto**, **Recopilar** y **Etiquetas**, y usar **Mejorar con IA** para pulir el texto.
 
+Si recibes [documentos del contacto](/producto/contactos/#documentos-del-contacto), usa `{{missing_documents}}` (menú **Recopilar → Documentos que faltan**) para que el agente sepa cuáles faltan o fueron rechazados. Por ejemplo: `Cuando quiera inscribirse, pide estos documentos: {{missing_documents}}`. El agente ve siempre el estado de cada documento, pero solo los pide si tus instrucciones lo dicen.
+
 <figure class="docs-shot docs-shot--narrow">
 	<Image src={agenteInstrucciones} alt="Pestaña Instrucciones del agente IA del equipo Ventas, con el texto de instrucciones y una variable del contacto resaltada." />
 	<figcaption>Instrucciones del agente del equipo Ventas.</figcaption>
