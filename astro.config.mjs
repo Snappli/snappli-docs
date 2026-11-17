@@ -61,6 +61,7 @@ export default defineConfig({
 						{ label: 'Equipos', slug: 'producto/equipos' },
 						{ label: 'Informes', slug: 'producto/informes' },
 						{ label: 'Minutos de voz con IA', slug: 'producto/voz-minutos' },
+						{ label: 'Llamadas IA salientes', slug: 'producto/llamadas-ia-salientes' },
 					],
 				},
 				{

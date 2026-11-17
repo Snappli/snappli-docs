@@ -1,0 +1,102 @@
+---
+title: Llamadas IA salientes
+description: Programa llamadas en las que la IA llama a tus contactos por WhatsApp o por teléfono, con un objetivo, y te deja el resultado en el chat.
+---
+
+import { Steps, LinkCard } from '@astrojs/starlight/components';
+import PlanTable from '../../../components/PlanTable.astro';
+import { ADDONS, formatUsd } from '../../../data/pricing';
+
+Con las **llamadas IA salientes**, la IA de tu equipo llama a un contacto con un **objetivo** (por ejemplo, «confirmar la cita del jueves») y deja el **resultado y un resumen** en el chat y en las notas del contacto. Puedes programar una llamada suelta desde la ficha del contacto o llamar a todo un segmento con una [campaña de llamadas](/producto/campanias/#campañas-de-llamadas-ia).
+
+:::note[En beta]
+Las llamadas IA salientes están en beta y se activan por cuenta. Escríbenos a soporte si quieres probarlas.
+:::
+
+## Planes
+
+<PlanTable product="full" rows={['outboundAiCalls', 'voiceMinutes']} />
+
+Las llamadas salientes no están en Snappli para WhatsApp.
+
+## Desde qué línea se llama
+
+| Línea | Qué necesitas |
+|-------|---------------|
+| **WhatsApp** | Una línea de WhatsApp con las [llamadas de WhatsApp](/canales/whatsapp-llamadas/) activadas. El contacto tiene que **dar permiso** para recibir llamadas (ver abajo). |
+| **Teléfono** | Un canal de voz con una **troncal SIP** de tu proveedor de telefonía. |
+
+## Programar una llamada
+
+<Steps>
+
+1. Abre el contacto (desde **Contactos** o desde el chat) y ve a la sección **Llamadas IA**.
+2. Pulsa **Programar**.
+3. Escribe el **objetivo**: qué debe lograr la IA. Si quieres, añade **instrucciones** (por ejemplo, una promoción que puede ofrecer).
+4. Elige la línea, cuándo llamar (**lo antes posible** o una fecha y hora) y cuántos **intentos** hacer si no contesta.
+5. Pulsa **Programar llamada**.
+
+</Steps>
+
+En la misma sección ves el estado de cada llamada (programada, esperando permiso, llamando, en curso, terminada), el resultado y el resumen. Puedes **cancelar** una llamada mientras no haya empezado.
+
+## Qué sabe la IA al llamar
+
+La IA usa las **instrucciones del equipo** del canal y, además:
+
+- El **objetivo** y las instrucciones de la llamada.
+- El [Resumen IA](/producto/contactos/#resumen-ia) del contacto: lo que habló contigo por todos los canales.
+- Los **últimos mensajes** del contacto.
+- Si lo necesita, puede **buscar en su historial** un dato concreto (un pedido, una fecha).
+
+Al empezar se presenta como asistente virtual de tu empresa y explica el motivo de la llamada. Puede pasar la llamada a una persona de tu equipo igual que en las llamadas que recibes.
+
+## Resultado de la llamada
+
+Antes de despedirse, la IA registra uno de estos resultados:
+
+| Resultado | Qué significa |
+|-----------|---------------|
+| **Objetivo cumplido** | Se logró lo que pedías. |
+| **No le interesa** | El contacto dijo que no. |
+| **Pidió que lo llamen luego** | No era buen momento; la nota dice cuándo prefiere. |
+| **Pasó a un agente** | La IA transfirió la llamada a tu equipo. |
+| **Buzón de voz** | Contestó un buzón o una grabación. La IA no deja mensaje y cuelga. |
+| **Pidió no ser llamado** | El contacto no quiere más llamadas (ver abajo). |
+| **No contestó / Ocupado** | No se pudo hablar con el contacto. |
+
+Al terminar, en el chat del contacto aparece un mensaje con el resultado, la nota y un **resumen** de la conversación, y se guarda como nota del contacto.
+
+## Reglas que se respetan siempre
+
+- **Horario:** solo se llama de **lunes a viernes de 9:00 a 19:00 y los sábados de 9:00 a 13:00**, en la hora local del país del contacto. Una llamada programada fuera de ese horario espera al siguiente tramo.
+- **Reintentos:** si no contesta, está ocupado o salta el buzón, se vuelve a intentar cada 2 horas hasta el número de intentos que elegiste.
+- **No llamar:** si el contacto pide que no lo vuelvan a llamar, queda marcado y no se le hacen más llamadas salientes, ni sueltas ni de campañas.
+- **Capacidad:** las llamadas salientes usan como mucho la **mitad** de las llamadas con IA simultáneas, para que siempre haya hueco para las que recibes. En WhatsApp se deja además una línea libre.
+- **Minutos:** si se acaban los minutos de voz del plan y no tienes activado el uso extra, las llamadas esperan.
+
+## Permiso de llamada en WhatsApp
+
+Meta solo deja que una empresa llame por WhatsApp a quien le haya dado **permiso**. Snappli lo gestiona solo:
+
+1. Si el contacto ya dio permiso, se le llama directamente.
+2. Si no, Snappli le envía por el chat la **solicitud de permiso de llamada** de WhatsApp. Esto solo es posible si el contacto **te escribió en las últimas 24 horas**.
+3. Cuando el contacto acepta, la llamada sale en la siguiente revisión (en menos de un minuto, dentro del horario). Si rechaza o no responde en 7 días, la llamada se da por terminada con **Sin permiso de llamada**.
+
+El permiso puede ser temporal (7 días) o permanente, según lo que elija el contacto. Meta limita cuántas solicitudes puedes enviar a un mismo contacto y retira el permiso si deja de contestar varias llamadas seguidas.
+
+## Costos
+
+| Concepto | Quién lo paga |
+|----------|---------------|
+| La **IA** de la llamada | Se descuenta de tus [minutos de voz con IA](/producto/voz-minutos/), igual que una llamada que recibes. Si se acaban, minutos extra a {formatUsd(ADDONS.full.voiceMinute)} por minuto. |
+| Las llamadas que **no contestan** | No gastan minutos: la IA solo empieza cuando contestan. |
+| El tiempo con una **persona de tu equipo** tras una transferencia | No gasta minutos. |
+| **Meta** (llamadas por WhatsApp) | Meta cobra a tu cuenta de WhatsApp Business las llamadas que inicia tu empresa, según sus tarifas por país. |
+| **Proveedor SIP** (llamadas por teléfono) | Tu proveedor de telefonía te cobra la llamada según su tarifa. |
+
+## Relacionado
+
+<LinkCard title="Campañas" description="Llama a todo un segmento con una campaña de llamadas IA." href="/producto/campanias/" />
+<LinkCard title="Minutos de voz con IA" description="Minutos incluidos y uso extra." href="/producto/voz-minutos/" />
+<LinkCard title="Llamadas de WhatsApp" description="Activa las llamadas en tu línea de WhatsApp." href="/canales/whatsapp-llamadas/" />
