@@ -40,8 +40,35 @@ En **Configuración → Campos de contacto** creas campos propios. Tipos disponi
 | `BOOLEAN` | Sí / No |
 | `EMAIL` | Correo |
 | `IMAGE` | Imagen |
+| `FILE` | Documento del contacto (imagen o PDF) con revisión. Ver [Documentos del contacto](#documentos-del-contacto) |
 
 Cada campo tiene visibilidad configurable (siempre visible, ocultar cuando esté vacío u ocultar siempre) y puede tener opciones condicionales. Los equipos también pueden definir campos propios.
+
+## Documentos del contacto
+
+Un campo de tipo **Archivo** guarda un documento que te envía el contacto: una cédula, un título, un comprobante de pago, un contrato… Al crearlo eliges qué admite (**imagen**, **PDF** o ambos) y su **tamaño máximo**.
+
+Cada documento tiene un estado:
+
+| Estado | Significa |
+|--------|-----------|
+| **Por revisar** | Se recibió y nadie lo ha revisado todavía |
+| **Aprobado** | Alguien del equipo lo revisó y lo dio por bueno |
+| **Rechazado** | No sirve (por ejemplo, está borroso); queda guardado el motivo |
+
+Formas de guardarlo:
+
+- **Desde el chat** — debajo de cada imagen o documento que te envía el contacto aparece **Guardar como…**; elige el campo.
+- **Subiéndolo** — en la ficha del contacto, **Subir** (por ejemplo, si te llegó por email).
+- **Por la IA** — con **La IA lo reconoce en el chat** activado, si el contacto envía una imagen que es ese documento, la IA la guarda sola. Escribe en la **descripción** del campo cómo es el documento para que lo reconozca bien.
+
+En la ficha del contacto ves la miniatura y el estado, y puedes **Aprobar**, **Rechazar** con motivo, **Reemplazar** o **Quitar**. Un archivo nuevo o reemplazado siempre vuelve a **Por revisar**, y todos los cambios quedan en el registro de auditoría.
+
+:::note[Lo que nunca hace la IA]
+La IA no aprueba documentos ni reemplaza uno que ya está por revisar o aprobado. Al contacto solo le confirma que **lo recibió**: nunca le dice que está validado ni que su pago está confirmado hasta que alguien del equipo lo aprueba. Si un documento fue rechazado, le explica el motivo y le pide que lo envíe de nuevo.
+:::
+
+Por ahora la IA reconoce documentos en **imágenes**; los PDF se guardan con **Guardar como…** o **Subir**. En el [pipeline](/producto/pipeline/#documentos-obligatorios) puedes exigir que un documento esté subido o aprobado para entrar a una etapa.
 
 ## Etiquetas de contacto
 
