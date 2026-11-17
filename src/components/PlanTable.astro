@@ -26,6 +26,7 @@ type RowKey =
 	| 'recipientsPerMonth'
 	| 'campaignEmails'
 	| 'voiceMinutes'
+	| 'whatsappCalls'
 	| 'reports'
 	| 'api'
 	| 'priorityOnboarding';
@@ -49,6 +50,7 @@ const DEFAULT_ROWS: Record<Props['product'], RowKey[]> = {
 		'recipientsPerSend',
 		'campaignEmails',
 		'voiceMinutes',
+		'whatsappCalls',
 		'reports',
 		'api',
 		'priorityOnboarding',
@@ -102,6 +104,10 @@ const ROWS: Record<RowKey, { label: string; value: (plan: Plan) => string }> = {
 	},
 	campaignEmails: { label: 'Emails de campaña/mes', value: (p) => limit(p.campaignEmails) },
 	voiceMinutes: { label: 'Minutos de voz con IA/mes', value: (p) => limit(p.voiceMinutes) },
+	whatsappCalls: {
+		label: 'Llamadas de WhatsApp a la vez',
+		value: (p) => limit(p.whatsappCalls),
+	},
 	reports: {
 		label: product === 'full' ? 'Embudo e informes' : 'Informes',
 		value: (p) => check(p.reports),
