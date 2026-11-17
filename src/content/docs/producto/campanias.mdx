@@ -41,7 +41,14 @@ Si a un contacto le falta el dato de una variable (por ejemplo, un campo persona
 ## Programación y recurrencia
 
 - **Programación** — define fecha y hora de envío.
-- **Recurrencia** — `Ninguna`, `Diaria`, `Semanal` o `Mensual`, con intervalo (1–12) y fecha de fin opcional.
+- **Recurrencia** — repite la campaña con una fecha de fin opcional:
+  - **Diaria**: cada 1–12 días, con la opción **Solo días laborables** (lunes a viernes).
+  - **Semanal**: cada 1–12 semanas, en los **días de la semana** que marques (por ejemplo, lunes, miércoles y viernes).
+  - **Mensual**: cada 1–12 meses, en los **días del mes** que marques y/o el **último día del mes**. En los meses que no tienen un día (por ejemplo, el 31 en abril) se envía el último día.
+
+Cada repetición sale a la **hora del primer envío**, en la zona horaria de tu organización, y vuelve a leer el segmento: entra quien se sumó y sale quien ya no cumple los filtros. Antes de lanzar verás las próximas fechas.
+
+Si al llegar una repetición el envío anterior sigue en curso (por ejemplo, llamadas con reintentos pendientes), esa repetición se salta y se programa la siguiente.
 
 ## Estados
 
@@ -57,6 +64,9 @@ En una campaña de llamadas, la IA llama a cada contacto del segmento con el **o
 - Se omite a quien **pidió no ser llamado** y a quien no tiene teléfono.
 - En una campaña **recurrente**, no se vuelve a llamar a quien la misma campaña ya llamó en los **últimos 30 días**.
 - Si **pausas** la campaña, las llamadas pendientes esperan; si la cancelas, se cancelan.
+- **Máximo de llamadas por día**: reparte una campaña grande en varios días. Al llegar al tope, las pendientes siguen al día siguiente.
+- **Horario de llamadas**: por defecto lunes a viernes de 9:00 a 19:00 y sábados de 9:00 a 13:00. Puedes poner un horario propio, con varios turnos por día y festivos. Las horas son las del país de cada contacto.
+- Antes de lanzar ves cuántos contactos se llamarán, cuántos días tardará con el tope y los minutos que puede gastar frente a los que te quedan.
 - No gastan el cupo de envíos: cada llamada usa [minutos de voz con IA](/producto/voz-minutos/).
 
 Las campañas de llamadas están en beta (ver [Llamadas IA salientes](/producto/llamadas-ia-salientes/)).
