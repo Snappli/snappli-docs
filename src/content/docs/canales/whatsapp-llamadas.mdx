@@ -10,11 +10,15 @@ Con las **llamadas de WhatsApp**, tus clientes te llaman desde el mismo chat de 
 
 En esta versión solo se reciben llamadas: Snappli no llama a tus clientes por WhatsApp.
 
+:::note[En piloto]
+Las llamadas de WhatsApp se están habilitando por empresa. Si no ves la opción **Llamadas** en tu línea, escríbenos a soporte.
+:::
+
 ## Qué necesitas
 
 - Un plan de **Snappli completo**. Los planes de Snappli para WhatsApp no incluyen llamadas.
 - Una línea de WhatsApp conectada a la **API de WhatsApp Cloud**. Los números que también usan la app **WhatsApp Business** en el teléfono (coexistencia) no admiten llamadas por la API: es una restricción de Meta.
-- Para que contesten tus agentes: que tengan **Snappli abierto en el navegador** con el micrófono permitido. Solo suena a los que están conectados.
+- Para que contesten tus agentes: que tengan **Snappli abierto en el navegador** (snappli.io) con el micrófono permitido. En su menú de usuario aparece **Llamadas** con el estado de la conexión. Solo suena a los que están conectados.
 - Para que conteste la IA: **minutos de voz con IA** en tu plan (desde Pro).
 
 <PlanTable product="full" rows={['whatsappCalls', 'voiceMinutes']} />
@@ -28,7 +32,7 @@ En esta versión solo se reciben llamadas: Snappli no llama a tus clientes por W
 1. Ve a **Configuración → Canales**.
 2. En la línea de WhatsApp, abre el menú **⋯** y elige **Llamadas**.
 3. Activa **Recibir llamadas de WhatsApp**.
-4. Elige **quién contesta**, el **tiempo de timbre** y el **horario**, y pulsa **Guardar cambios**.
+4. Elige **quién contesta**, el **tiempo de timbre** y el **horario** (y, si contesta la IA, su voz y los tiempos de inactividad), y pulsa **Guardar cambios**.
 
 </Steps>
 
@@ -53,6 +57,15 @@ Suenan los agentes que podrían recibir la conversación del cliente: los del **
 ### Horario
 
 Fuera de horario no suena a nadie: la llamada pasa directamente a la IA o al mensaje de respaldo, según el modo. Puedes usar el **horario de atención de la empresa** (el mismo de la automatización) o uno **propio de la línea**, con sus feriados.
+
+### Cuando contesta la IA
+
+La IA atiende con el asistente y la base de conocimiento del equipo, igual que en el chat. Además:
+
+- **Pasa la llamada a una persona** si el cliente lo pide o el caso lo necesita. Suena al agente del equipo de la conversación y, al contestar, la llamada pasa a él. Si nadie contesta, la IA retoma la llamada, le dice al cliente que un asesor le escribirá **por el chat de WhatsApp** y la conversación queda pendiente.
+- **Cuelga cuando terminó**: si el cliente no necesita nada más, se despide y cuelga. El cliente puede seguir por el chat.
+- **Cuelga si el cliente deja de responder**: tras un silencio pregunta «¿Sigues ahí?» y, si tampoco hay respuesta, se despide invitando a seguir por el chat y cuelga. Por defecto son **20 segundos** de silencio y **15 segundos** después de la pregunta; los cambias por línea en **Si el cliente deja de responder** y **Colgar sin respuesta**.
+- **Duración máxima**: una llamada con la IA dura como mucho 15 minutos; al llegar, se despide y cuelga.
 
 ### Mensaje de respaldo
 
@@ -80,7 +93,7 @@ Al agente le suena en el navegador como **Llamada de WhatsApp**, con el nombre d
 ## Limitaciones
 
 - Solo llamadas entrantes. Snappli no inicia llamadas de WhatsApp.
-- Los agentes contestan desde el navegador. La app móvil muestra la llamada en la conversación, pero no la recibe.
+- Los agentes contestan desde el navegador en snappli.io. Snappli para WhatsApp (wa.snappli.io) y la app móvil muestran la llamada en la conversación, pero no la reciben.
 - No se graban las llamadas.
 
 ## Relacionado
