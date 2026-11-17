@@ -27,6 +27,8 @@ export type Plan = {
 	voiceMinutes: number;
 	/** Llamadas de WhatsApp a la vez (sonando o en curso). `0` = no incluidas. */
 	whatsappCalls: number;
+	/** Llamadas IA salientes (sueltas y campañas de llamadas). */
+	outboundAiCalls: boolean;
 	reports: boolean;
 	api: boolean;
 	priorityOnboarding: boolean;
@@ -49,6 +51,7 @@ export const FULL_PLANS: Plan[] = [
 		campaignEmails: 0,
 		voiceMinutes: 0,
 		whatsappCalls: 2,
+		outboundAiCalls: false,
 		reports: true,
 		api: false,
 		priorityOnboarding: false,
@@ -69,6 +72,7 @@ export const FULL_PLANS: Plan[] = [
 		campaignEmails: 15_000,
 		voiceMinutes: 60,
 		whatsappCalls: 5,
+		outboundAiCalls: true,
 		reports: true,
 		api: true,
 		priorityOnboarding: false,
@@ -89,6 +93,7 @@ export const FULL_PLANS: Plan[] = [
 		campaignEmails: 40_000,
 		voiceMinutes: 200,
 		whatsappCalls: 10,
+		outboundAiCalls: true,
 		reports: true,
 		api: true,
 		priorityOnboarding: true,
@@ -110,6 +115,7 @@ export const FULL_PLANS: Plan[] = [
 		campaignEmails: 100_000,
 		voiceMinutes: 500,
 		whatsappCalls: 20,
+		outboundAiCalls: true,
 		reports: true,
 		api: true,
 		priorityOnboarding: true,
@@ -133,6 +139,7 @@ export const WS_PLANS: Plan[] = [
 		campaignEmails: 0,
 		voiceMinutes: 0,
 		whatsappCalls: 0,
+		outboundAiCalls: false,
 		reports: false,
 		api: false,
 		priorityOnboarding: false,
@@ -153,6 +160,7 @@ export const WS_PLANS: Plan[] = [
 		campaignEmails: 0,
 		voiceMinutes: 0,
 		whatsappCalls: 0,
+		outboundAiCalls: false,
 		reports: false,
 		api: false,
 		priorityOnboarding: false,
@@ -173,6 +181,7 @@ export const WS_PLANS: Plan[] = [
 		campaignEmails: 0,
 		voiceMinutes: 0,
 		whatsappCalls: 0,
+		outboundAiCalls: false,
 		reports: true,
 		api: false,
 		priorityOnboarding: false,
@@ -193,6 +202,7 @@ export const WS_PLANS: Plan[] = [
 		campaignEmails: 0,
 		voiceMinutes: 0,
 		whatsappCalls: 0,
+		outboundAiCalls: false,
 		reports: true,
 		api: false,
 		priorityOnboarding: false,
