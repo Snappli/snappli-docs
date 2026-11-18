@@ -1,0 +1,199 @@
+---
+title: Conectores
+description: Conecta la API de tu sistema (agenda, pedidos, stock, tickets) para que la IA de Snappli la consulte o actúe durante la conversación, y envía eventos para que Snappli mande plantillas de WhatsApp.
+---
+
+import { Steps, LinkCard, CardGrid } from '@astrojs/starlight/components';
+
+Un **conector** deja que la IA de Snappli llame a la API de tu sistema mientras atiende a un contacto: consultar horarios libres, el estado de un pedido o el stock, reservar una cita, abrir un ticket. Cada llamada posible es una **operación**. Además, tu sistema puede enviar **eventos** a Snappli para que mande una plantilla de WhatsApp al contacto (un recordatorio, un pedido enviado).
+
+:::note[Disponibilidad]
+Los conectores están incluidos en el plan **Pro** o superior de Snappli completo (Pro, Business o Enterprise). Se configuran en **Configuración → Desarrolladores → Conectores**.
+:::
+
+## Cómo funciona
+
+<Steps>
+
+1. Creas el conector con la **URL base** de tu API y su autenticación. Puedes empezar con una plantilla (agenda, pedidos, catálogo, tickets) o importar las operaciones de un **OpenAPI 3**.
+2. Defines las **operaciones**: método y ruta, qué parámetros pide la IA, cuáles pone Snappli desde la ficha del contacto y qué campos de la respuesta ve la IA.
+3. En la conversación, la IA decide cuándo usar cada operación por su nombre y su descripción. Si es una escritura, primero pide confirmación al contacto.
+4. Snappli llama a tu API, recorta la respuesta a los campos que definiste y se la pasa a la IA. Cada llamada queda en el **registro** del conector.
+
+</Steps>
+
+## Requisitos de tu API
+
+| Requisito | Detalle |
+|---|---|
+| **URL** | HTTPS pública. Snappli bloquea las IP privadas y las redes internas, así que `localhost` no sirve: usa un entorno de pruebas accesible o un túnel |
+| **Tiempo** | 8 segundos por defecto, configurable de 1 a 20 |
+| **Tamaño** | Respuesta de 1 MB como máximo |
+| **Redirecciones** | Hasta 3, solo al mismo host |
+| **Ritmo** | 60 llamadas por minuto por defecto, configurable hasta 600 |
+| **Formato** | JSON. Si la respuesta no es JSON, la IA recibe el texto tal cual |
+
+Una lectura que responde `5xx` o no conecta se reintenta una vez. Una escritura **nunca** se reintenta.
+
+### Autenticación
+
+| Tipo | Cómo la envía Snappli |
+|---|---|
+| Ninguna | Sin credenciales |
+| API key en cabecera | En la cabecera que indiques (`x-api-key` por defecto) |
+| API key en la URL | En el parámetro que indiques (`api_key` por defecto) |
+| Bearer | `Authorization: Bearer <token>` |
+| Basic | `Authorization: Basic …` con el usuario y la contraseña |
+
+El secreto se guarda cifrado y nunca se vuelve a mostrar. Puedes añadir hasta 20 cabeceras fijas más. Cada petición lleva además `User-Agent: Snappli-Connectors/1.0` y `Accept: application/json`.
+
+## Operaciones
+
+| Campo | Para qué |
+|---|---|
+| **Nombre** | Minúsculas, números y `_` (hasta 40). La IA ve la herramienta como `<conector>_<operación>` |
+| **Descripción** | Lo que lee la IA para decidir cuándo usarla (de 10 a 600 caracteres). Di cuándo usarla y qué devuelve |
+| **Tipo** | **Lectura** o **Escritura** |
+| **Método y ruta** | `GET`, `POST`, `PUT`, `PATCH` o `DELETE`, y una ruta que empieza con `/` con parámetros entre llaves: `/orders/{pedido}` o `/slots?fecha={fecha}` |
+| **Parámetros** | Los que pide la IA: texto, número, entero o sí/no, con descripción y valores permitidos |
+| **Parámetros ligados** | Los que pone Snappli desde la ficha del contacto (ver abajo) |
+| **Cuerpo** | Plantilla JSON con `"{parametro}"`. Sin plantilla, el cuerpo son los parámetros |
+| **Campos de la respuesta** (`responseMap`) | Qué ve la IA: `{"horarios": "$.slots[*].hora", "estado": "$.status"}` |
+| **Texto de confirmación** | Obligatorio en las escrituras: `Reservo {servicio} el {fecha} a las {hora}. ¿Confirmas?` |
+
+En la query, un parámetro sin valor se quita entero: con `/slots?fecha={fecha}&sede={sede}` y sin `sede`, la petición va a `/slots?fecha=2026-12-01`.
+
+### Parámetros ligados al contacto
+
+Para identificar al cliente en tu sistema, no dejes que la IA escriba el teléfono o el email: lígalos a la ficha del contacto. Snappli los rellena con `contact.phone`, `contact.email`, `contact.name`, `contact.id` o un campo personalizado (`contact.field.<clave>`).
+
+Si la operación tiene **Requiere contacto identificado**, solo se ejecuta cuando el contacto está identificado (por ejemplo, escribe desde su WhatsApp verificado). Si no, la IA le pide que se identifique.
+
+### Lo que ve la IA
+
+La IA recibe solo los campos del `responseMap`, recortados a **2048 caracteres**. Sin `responseMap` recibe el JSON entero recortado, que suele ser ruido. Las rutas admiten `$.a.b`, `$.lista[0].id` y `$.items[*].nombre` (todos los elementos).
+
+Puedes comprobarlo antes de configurarlo con el [CLI](/desarrolladores/herramientas/#probar-conectores-y-eventos):
+
+```sh
+npx @snappli/cli connectors check-response --file respuesta.json --map '{"horarios":"$.slots[*].hora"}'
+```
+
+### Errores
+
+Responde con el código HTTP correcto (`400`, `404`, `409`…) y un JSON legible, por ejemplo `{"error": "Ese horario ya está ocupado"}`. La IA lo lee y se lo explica al contacto con sus palabras.
+
+### Escrituras idempotentes
+
+Las escrituras llevan la cabecera `idempotency-key`, igual para la misma conversación, operación y parámetros. Si la acción ya se hizo bien en las últimas 24 horas, Snappli no la repite. Guarda esa clave con un índice único en tu sistema: si llega repetida, devuelve el resultado anterior sin repetir la acción.
+
+## Probar y revisar
+
+- **Probar** en cada operación ejecuta la llamada con valores de ejemplo, también para los parámetros ligados, y muestra la respuesta y lo que leería la IA. Una escritura de prueba se ejecuta de verdad en tu sistema, por eso hay que marcarlo.
+- **Registro** muestra las últimas 50 llamadas con el código, la latencia y el error. Se conservan 90 días.
+- Marca el conector con **Datos sensibles** (salud, finanzas) para que el registro no guarde valores y se conserve 30 días.
+- Elige en qué **áreas** puede usarlo la IA, o déjalo para todas.
+
+## Eventos entrantes
+
+Tu sistema avisa a Snappli de algo que pasó (cita mañana, pedido enviado) y Snappli manda una **plantilla aprobada de WhatsApp** al contacto, con una nota interna en su conversación.
+
+<Steps>
+
+1. En el conector, abre **Eventos** y actívalos. Snappli muestra el **secreto** una sola vez (`whsec_…`) y la URL del endpoint.
+2. Crea una **regla** por tipo de evento:
+   - el **tipo** (por ejemplo `pedido.enviado`);
+   - cómo buscar al contacto: por **teléfono** o **email**, con la ruta en los datos (`$.telefono`);
+   - la **plantilla** y su idioma;
+   - las **variables** de la plantilla, una ruta por línea en orden (`$.pedido` para `{{1}}`…).
+3. Envía el evento desde tu sistema.
+
+</Steps>
+
+### Petición
+
+```http
+POST https://api.snappli.io/api/integrations/connectors/<id>/events
+Content-Type: application/json
+x-snappli-timestamp: 1763400000
+x-snappli-signature: sha256=5f2b…
+x-snappli-event-id: pedido-PED-123-enviado
+
+{"type": "pedido.enviado", "data": {"telefono": "+593991234567", "pedido": "PED-123"}}
+```
+
+| Cabecera | Valor |
+|---|---|
+| `x-snappli-timestamp` | Epoch en segundos. Se aceptan 5 minutos de diferencia con el reloj de Snappli |
+| `x-snappli-signature` | `sha256=` + el HMAC SHA-256 en hex de `timestamp.cuerpo`, con el secreto de eventos |
+| `x-snappli-event-id` | Id único del evento: de 6 a 100 caracteres (`A-Z`, `a-z`, `0-9`, `_ . : -`). Uno repetido se ignora |
+
+:::caution[La firma lleva prefijo]
+A diferencia de los [webhooks](/desarrolladores/webhooks/#verificación-hmac), que firman en hex sin prefijo, la firma de los eventos empieza con `sha256=`.
+:::
+
+Usa un id **estable** de tu sistema (`pedido-PED-123-enviado`), no uno aleatorio: así, si reintentas, Snappli no manda el mensaje dos veces.
+
+Al buscar por teléfono, Snappli compara los últimos 9 dígitos: `0991234567` y `+593991234567` son el mismo contacto.
+
+### Respuesta
+
+Si la firma es válida, Snappli responde siempre `200` con el resultado:
+
+| `status` | Significado |
+|---|---|
+| `sent` | Se envió la plantilla. Trae `messageId` y `conversationId` |
+| `ignored` · `no_mapping` | No hay una regla activa para ese `type` |
+| `ignored` · `no_contact` | No se encontró el contacto con la ruta de la regla |
+| `ignored` · `duplicate` | Ese `x-snappli-event-id` ya se recibió |
+| `failed` | La regla existe pero el envío falló; el motivo va en `reason` |
+
+Un `401` significa que la firma no vale, que la hora está fuera de margen, que falta el id del evento o que el conector no tiene los eventos activos. No reintentes un `ignored`. Un `failed` o un error de red sí, con el **mismo** id.
+
+### Ejemplo
+
+Con el SDK (`npm install @snappli/sdk`):
+
+```js
+import { sendConnectorEvent, connectorEventsUrl } from '@snappli/sdk';
+
+const { result } = await sendConnectorEvent({
+  url: connectorEventsUrl(process.env.SNAPPLI_CONNECTOR_ID),
+  secret: process.env.SNAPPLI_CONNECTOR_EVENT_SECRET,
+  type: 'pedido.enviado',
+  data: { telefono: '+593991234567', pedido: 'PED-123' },
+  eventId: 'pedido-PED-123-enviado',
+});
+// result.status: 'sent' | 'ignored' | 'failed'
+```
+
+Sin SDK:
+
+```js
+import crypto from 'node:crypto';
+
+const body = JSON.stringify({ type: 'pedido.enviado', data: { telefono: '+593991234567', pedido: 'PED-123' } });
+const timestamp = String(Math.floor(Date.now() / 1000));
+const signature =
+  'sha256=' + crypto.createHmac('sha256', process.env.SNAPPLI_CONNECTOR_EVENT_SECRET).update(`${timestamp}.${body}`).digest('hex');
+
+await fetch(`https://api.snappli.io/api/integrations/connectors/${connectorId}/events`, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'x-snappli-timestamp': timestamp,
+    'x-snappli-signature': signature,
+    'x-snappli-event-id': 'pedido-PED-123-enviado',
+  },
+  body,
+});
+```
+
+Firma exactamente el texto que envías: si lo vuelves a serializar después de firmar, la firma no coincide.
+
+## Siguiente
+
+<CardGrid>
+	<LinkCard title="CLI y MCP" description="Prueba respuestas y eventos desde la terminal o tu agente." href="/desarrolladores/herramientas/" />
+	<LinkCard title="Webhooks" description="Snappli avisa a tu sistema cuando algo cambia." href="/desarrolladores/webhooks/" />
+</CardGrid>

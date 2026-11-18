@@ -88,7 +88,7 @@ Campos adicionales según el evento:
 |--------|-------|
 | `contact.stage.entered`, `contact.webhook.manual` | `pipeline` (`stageId`, `stageName`, `previousStageId`, `previousStageName`) y `conversation` (`id`, `channel`, `lastMessageAt`) |
 | `contact.tag.assigned` | `tag` (`id`, `name`, `source`) |
-| `conversation.escalated` | `conversation`, `reason` y `summary` |
+| `conversation.escalated` | `conversation`, `reason`, `summary`, `departmentId` y `departmentName` (el área a la que se pasó, o `null`) |
 
 ### Documentos del contacto
 
@@ -147,10 +147,50 @@ function verify(secret, timestamp, rawBody, signature) {
 Usa el **cuerpo crudo** (raw body) tal cual lo recibes, antes de parsear el JSON. Reparsear y volver a serializar puede cambiar bytes y romper la verificación.
 :::
 
+### Con el SDK
+
+En Node 20 o superior, `@snappli/sdk` verifica la firma y la hora en tiempo constante y te devuelve el evento con sus tipos:
+
+```js
+import express from 'express';
+import { verifyWebhook, SnappliWebhookError } from '@snappli/sdk';
+
+// express.raw: el cuerpo llega sin parsear.
+app.post('/webhooks/snappli', express.raw({ type: 'application/json' }), (req, res) => {
+  let event;
+  try {
+    event = verifyWebhook(req.body, req.headers, process.env.SNAPPLI_WEBHOOK_SECRET);
+  } catch (error) {
+    if (error instanceof SnappliWebhookError) return res.status(401).json({ error: error.reason });
+    throw error;
+  }
+  // event.trigger.deliveryId es la Idempotency-Key: ignora las repetidas.
+  res.json({ data: { id: '…' } });
+});
+```
+
+`error.reason` dice por qué no vale: `missing_signature`, `bad_signature`, `timestamp_out_of_range`, `invalid_json`… Para descargar los documentos, `downloadDocument(event.contact.documents.<clave>)`.
+
+## Probar en local
+
+No hace falta mover contactos en el panel para probar tu receptor. El [CLI](/desarrolladores/herramientas/) envía webhooks firmados igual que Snappli:
+
+```sh
+npx @snappli/cli webhooks trigger contact.stage.entered \
+  --to http://localhost:3000/webhooks/snappli --secret "$SNAPPLI_WEBHOOK_SECRET" \
+  --repeat --with-documents
+```
+
+- `--repeat` reenvía la misma entrega, como un reintento: comprueba que tu sistema la procesa una sola vez.
+- `--with-documents` incluye documentos que se pueden descargar de verdad y te dice si tu receptor los descargó.
+- `--mapping '{"fields":{"id_pedido":"$.data.id"}}'` muestra qué rellenaría el [mapeo de la respuesta](#leer-la-respuesta).
+
+Si la firma no valida, `npx @snappli/cli webhooks verify` te dice por qué.
+
 ## Entrega y reintentos
 
 - Responde con un código **`2xx`** en menos de **15 segundos**.
-- Ante fallo, Snappli **reintenta hasta 3 veces** con backoff exponencial (desde 2 s).
+- Un código distinto de `2xx`, un error de red o pasar de 15 segundos cuentan como fallo. Snappli hace **hasta 3 intentos** en total, con backoff exponencial (desde 2 s).
 - Si se agotan los reintentos, queda una **nota en el contacto** con el error para que el equipo lo vea. El contacto no cambia de etapa.
 - Puedes reintentar manualmente una entrega desde el panel.
 - Las entregas con **aprobación** quedan pendientes hasta que alguien las aprueba.

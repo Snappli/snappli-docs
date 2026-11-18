@@ -5,7 +5,7 @@ description: Cómo empezar con la API pública de Snappli.
 
 import { LinkCard, Steps, CardGrid } from '@astrojs/starlight/components';
 
-La **API pública** de Snappli te permite leer datos de tu organización (hoy, contactos) desde tus propios sistemas. Para eventos en tiempo real usa [webhooks](/desarrolladores/webhooks/).
+La **API pública** de Snappli te permite leer datos de tu organización (hoy, contactos) desde tus propios sistemas. Para eventos en tiempo real usa [webhooks](/desarrolladores/webhooks/), y para que la IA consulte o actúe en tu sistema durante la conversación, [conectores](/desarrolladores/conectores/).
 
 ## Requisitos
 
@@ -28,8 +28,11 @@ Todas las rutas públicas cuelgan de `/api/v1`.
 2. Autentica con `Authorization: Bearer sk_…` — ver [Autenticación](/desarrolladores/autenticacion/).
 3. Llama a los [endpoints de contactos](/desarrolladores/contactos/).
 4. Suscribe [webhooks](/desarrolladores/webhooks/) si necesitas eventos.
+5. Prueba tu receptor en local con el [CLI](/desarrolladores/herramientas/): `npx @snappli/cli webhooks trigger contact.stage.entered --to http://localhost:3000/webhooks/snappli --repeat`.
 
 </Steps>
+
+Si trabajas con un agente (Claude Code, Cursor, Codex), dale el [servidor MCP y la skill](/desarrolladores/herramientas/#con-tu-agente) de Snappli.
 
 ## Referencia interactiva
 
@@ -41,4 +44,6 @@ Dentro de la app, **Configuración → API** incluye una referencia interactiva 
 	<LinkCard title="Autenticación" description="API keys Bearer y errores." href="/desarrolladores/autenticacion/" />
 	<LinkCard title="API de contactos" description="Listar y obtener contactos." href="/desarrolladores/contactos/" />
 	<LinkCard title="Webhooks" description="Eventos firmados con HMAC." href="/desarrolladores/webhooks/" />
+	<LinkCard title="Conectores" description="La IA llama a tu API; tu sistema envía eventos." href="/desarrolladores/conectores/" />
+	<LinkCard title="CLI y MCP" description="Prueba la integración desde la terminal o tu agente." href="/desarrolladores/herramientas/" />
 </CardGrid>

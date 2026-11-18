@@ -46,11 +46,19 @@ Sin intermediarios: Snappli envía los eventos directo a un endpoint que tú con
 1. **Expón un endpoint que reciba `POST`.** Debe ser accesible desde internet, aceptar un cuerpo JSON y responder `2xx` en menos de 15 segundos. Consulta la [forma del payload](/desarrolladores/webhooks/#forma-del-payload).
 
    Responde rápido y procesa en segundo plano si tu lógica tarda: Snappli reintenta si no recibe un `2xx` a tiempo.
-2. **Pega la URL en Snappli.** En **Configuración → Webhooks**, crea un webhook con la URL de tu endpoint y elige los eventos que te interesan.
-3. **¿Tu endpoint exige autenticación?** Si está detrás de un token, API key o Basic Auth, añade el nombre y valor de esa cabecera al webhook (por ejemplo `Authorization: Bearer …`). Snappli la incluye en cada entrega.
-4. **Verifica que el evento viene de Snappli.** Configura un **secret**. Cada entrega llega con `X-Snappli-Signature` y `X-Snappli-Timestamp`; valida la firma antes de procesar (ver [Verificación HMAC](/desarrolladores/webhooks/#verificación-hmac)).
-5. **Evita procesar el mismo evento dos veces.** Cada payload incluye `trigger.deliveryId`, único por entrega. Guarda los IDs ya procesados para ignorar reintentos duplicados.
-6. **Prueba y valida el historial.** Usa **Enviar prueba** y confirma que tu endpoint respondió `2xx`. En **Actividad** ves el resultado real de cada evento.
+2. **Pruébalo en local.** Antes de publicarlo, envía webhooks firmados a tu servidor de desarrollo con el [CLI](/desarrolladores/herramientas/):
+
+   ```sh
+   npx @snappli/cli webhooks trigger contact.stage.entered \
+     --to http://localhost:3000/webhooks/snappli --secret tu_secret --repeat
+   ```
+
+   Hay ejemplos completos con Express, Next.js y una API para conector en [github.com/Snappli/snappli-cli](https://github.com/Snappli/snappli-cli/tree/main/examples).
+3. **Pega la URL en Snappli.** En **Configuración → Webhooks**, crea un webhook con la URL de tu endpoint y elige los eventos que te interesan.
+4. **¿Tu endpoint exige autenticación?** Si está detrás de un token, API key o Basic Auth, añade el nombre y valor de esa cabecera al webhook (por ejemplo `Authorization: Bearer …`). Snappli la incluye en cada entrega.
+5. **Verifica que el evento viene de Snappli.** Configura un **secret**. Cada entrega llega con `X-Snappli-Signature` y `X-Snappli-Timestamp`; valida la firma antes de procesar (ver [Verificación HMAC](/desarrolladores/webhooks/#verificación-hmac)).
+6. **Evita procesar el mismo evento dos veces.** Cada entrega lleva `Idempotency-Key` (el mismo valor que `trigger.deliveryId`), igual en todos los reintentos. Guarda las claves ya procesadas para ignorar los repetidos.
+7. **Prueba y valida el historial.** Usa **Enviar prueba** y confirma que tu endpoint respondió `2xx`. En **Actividad** ves el resultado real de cada evento.
 
 </Steps>
 
