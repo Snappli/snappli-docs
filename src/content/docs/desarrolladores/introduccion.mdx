@@ -5,7 +5,7 @@ description: Cómo empezar con la API pública de Snappli.
 
 import { LinkCard, Steps, CardGrid } from '@astrojs/starlight/components';
 
-La **API pública** de Snappli te permite leer datos de tu organización (hoy, contactos) desde tus propios sistemas. Para eventos en tiempo real usa [webhooks](/desarrolladores/webhooks/), y para que la IA consulte o actúe en tu sistema durante la conversación, [conectores](/desarrolladores/conectores/).
+La **API pública** de Snappli te permite leer datos de tu organización desde tus propios sistemas: contactos y, para depurar tus integraciones, las de webhook y su historial de entregas. Para eventos en tiempo real usa [webhooks](/desarrolladores/webhooks/), y para que la IA consulte o actúe en tu sistema durante la conversación, [conectores](/desarrolladores/conectores/).
 
 ## Requisitos
 
@@ -18,13 +18,21 @@ La **API pública** de Snappli te permite leer datos de tu organización (hoy, c
 https://api.snappli.io/api
 ```
 
-Todas las rutas públicas cuelgan de `/api/v1`.
+Todas las rutas públicas cuelgan de `/api/v1`:
+
+| Endpoint | Permiso |
+|---|---|
+| `GET /v1/me` | Cualquiera |
+| `GET /v1/contacts`, `GET /v1/contacts/:id` | `contacts:read` |
+| `GET /v1/webhook-integrations`, `GET /v1/webhook-integrations/:id`, `POST /v1/webhook-integrations/:id/mapping-preview` | `webhooks:read` |
+| `GET /v1/webhook-deliveries`, `GET /v1/webhook-deliveries/:id` | `webhooks:read` |
+| `POST /v1/webhook-integrations/:id/test`, `POST /v1/webhook-deliveries/:id/retry` | `webhooks:test` |
 
 ## Arranque rápido
 
 <Steps>
 
-1. Crea una API key en **Configuración → API**.
+1. Crea una API key en **Configuración → API** con los [permisos](/desarrolladores/autenticacion/#permisos) que necesites.
 2. Autentica con `Authorization: Bearer sk_…` — ver [Autenticación](/desarrolladores/autenticacion/).
 3. Llama a los [endpoints de contactos](/desarrolladores/contactos/).
 4. Suscribe [webhooks](/desarrolladores/webhooks/) si necesitas eventos.
@@ -44,6 +52,7 @@ Dentro de la app, **Configuración → API** incluye una referencia interactiva 
 	<LinkCard title="Autenticación" description="API keys Bearer y errores." href="/desarrolladores/autenticacion/" />
 	<LinkCard title="API de contactos" description="Listar y obtener contactos." href="/desarrolladores/contactos/" />
 	<LinkCard title="Webhooks" description="Eventos firmados con HMAC." href="/desarrolladores/webhooks/" />
+	<LinkCard title="API de webhooks" description="Integraciones, entregas, pruebas y reintentos." href="/desarrolladores/webhooks-api/" />
 	<LinkCard title="Conectores" description="La IA llama a tu API; tu sistema envía eventos." href="/desarrolladores/conectores/" />
 	<LinkCard title="CLI y MCP" description="Prueba la integración desde la terminal o tu agente." href="/desarrolladores/herramientas/" />
 </CardGrid>

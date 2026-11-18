@@ -95,6 +95,7 @@ export default defineConfig({
 						{ label: 'API de contactos', slug: 'desarrolladores/contactos' },
 						{ label: 'Webhooks', slug: 'desarrolladores/webhooks' },
 						{ label: 'Recetas de webhooks', slug: 'desarrolladores/webhooks-recetas' },
+						{ label: 'API de webhooks', slug: 'desarrolladores/webhooks-api' },
 						{ label: 'Conectores', slug: 'desarrolladores/conectores' },
 						{ label: 'CLI y MCP', slug: 'desarrolladores/herramientas' },
 						{ label: 'Instalar el widget', slug: 'desarrolladores/widget' },

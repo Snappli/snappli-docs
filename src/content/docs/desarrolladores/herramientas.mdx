@@ -103,17 +103,40 @@ npx @snappli/cli events send pedido.enviado --connector <id-del-conector> \
 
 Snappli envía de verdad la plantilla de WhatsApp al contacto, por eso hace falta `--yes`. Para probar solo la firma contra un servidor tuyo, usa `--to http://localhost:…` (sin `--yes`).
 
+## Con API key
+
+Con una [API key](/desarrolladores/autenticacion/) ves lo que pasó en Snappli de verdad: qué envió, qué respondió tu servidor y qué guardó el mapeo. Cada comando necesita un [permiso](/desarrolladores/autenticacion/#permisos) de la key; si falta, el error dice cuál (`missingScopes`).
+
+```sh
+npx @snappli/cli login --api-key sk_…   # o: echo "$SNAPPLI_API_KEY" | npx @snappli/cli login
+npx @snappli/cli whoami
+```
+
+`login` comprueba la key y la guarda solo para tu usuario (permisos 0600) en la carpeta de configuración (`~/.config/snappli`, `$XDG_CONFIG_HOME/snappli` o `%APPDATA%\snappli` en Windows). Cada comando usa `--api-key`, si no `SNAPPLI_API_KEY` y si no la key guardada. `logout` la borra.
+
+| Comando | Qué hace | Permiso |
+|---|---|---|
+| `whoami` | Organización, permisos de la key y los que le faltan | — |
+| `webhooks list` / `webhooks get <id>` | Integraciones de webhook, sin secretos | `webhooks:read` |
+| `webhooks deliveries [--integration id] [--status FAILED] [--limit 20] [--page 1]` | Historial de entregas | `webhooks:read` |
+| `webhooks deliveries get <id>` | Una entrega: payload, cabeceras, respuesta de tu servidor y mapeo | `webhooks:read` |
+| `webhooks mapping-preview <id> --response r.json` | Qué rellenaría el mapeo guardado con esa respuesta | `webhooks:read` |
+| `webhooks test <id> --yes` | **Enviar prueba**, como en el panel | `webhooks:test` |
+| `webhooks retry <deliveryId> --yes` | Reintenta una entrega | `webhooks:test` |
+
+`test` y `retry` envían de verdad a la URL configurada en la integración, por eso necesitan `--yes`. Detalle de cada endpoint en [API de webhooks](/desarrolladores/webhooks-api/).
+
 ## Con tu agente
 
 <Tabs>
 <TabItem label="Claude Code">
 
 ```sh
-claude mcp add snappli -- npx -y @snappli/cli mcp
+claude mcp add snappli --env SNAPPLI_API_KEY=sk_… -- npx -y @snappli/cli mcp
 npx @snappli/cli skill install
 ```
 
-`skill install` copia la skill a `.claude/skills/snappli/` del proyecto. También puedes instalar el plugin, que trae la skill y el servidor MCP: está en la carpeta `packages/cli/plugin` del repositorio.
+La key es opcional: sin ella funcionan las herramientas que no consultan tu cuenta. `skill install` copia la skill a `.claude/skills/snappli/` del proyecto. También puedes instalar el plugin, que trae la skill y el servidor MCP: está en la carpeta `packages/cli/plugin` del repositorio.
 
 </TabItem>
 <TabItem label="Cursor y otros">
@@ -123,7 +146,11 @@ Añade el servidor a la configuración MCP del cliente (en Cursor, `.cursor/mcp.
 ```json
 {
   "mcpServers": {
-    "snappli": { "command": "npx", "args": ["-y", "@snappli/cli", "mcp"] }
+    "snappli": {
+      "command": "npx",
+      "args": ["-y", "@snappli/cli", "mcp"],
+      "env": { "SNAPPLI_API_KEY": "sk_…" }
+    }
   }
 }
 ```
@@ -142,12 +169,21 @@ Herramientas del servidor MCP:
 | `snappli_verify_webhook_signature` | Comprueba una firma y explica el fallo |
 | `snappli_send_connector_event` | Envía un evento de conector |
 | `snappli_check_connector_response` | Lo que leería la IA de una respuesta de tu API |
+| `snappli_account` | Organización y permisos de la key (con key) |
+| `snappli_webhook_integrations` | Integraciones de webhook, sin secretos (`webhooks:read`) |
+| `snappli_webhook_deliveries` | Historial y detalle de entregas (`webhooks:read`) |
+| `snappli_preview_mapping` | Qué rellenaría el mapeo guardado (`webhooks:read`) |
+| `snappli_test_webhook` | Enviar prueba (`webhooks:test`, solo con `SNAPPLI_ALLOW_WRITE=1`) |
+| `snappli_retry_delivery` | Reintentar una entrega (`webhooks:test`, solo con `SNAPPLI_ALLOW_WRITE=1`) |
+
+Las herramientas con key usan `SNAPPLI_API_KEY` o la guardada con `npx @snappli/cli login`. Sin `SNAPPLI_ALLOW_WRITE=1`, las de prueba y reintento ni aparecen.
 
 ## Seguridad
 
 - El CLI no envía telemetría: solo llama a Snappli y a las URLs que indicas.
 - `trigger` envía solo a la URL que pasas, nunca a la configurada en Snappli.
-- Lo que tiene efectos reales necesita permiso explícito: `--yes` en el CLI o la variable `SNAPPLI_ALLOW_WRITE=1` en el servidor MCP. Hoy eso es enviar un evento a Snappli, que manda un WhatsApp.
+- Lo que tiene efectos reales necesita permiso explícito: `--yes` en el CLI o la variable `SNAPPLI_ALLOW_WRITE=1` en el servidor MCP. Eso es enviar un evento a Snappli, que manda un WhatsApp, y enviar una prueba o reintentar una entrega, que llegan a la URL configurada.
+- Dale a la key solo los permisos que necesites: para depurar basta `webhooks:read`.
 - No pongas la API key ni los secretos en el código ni en la configuración que subes a git: usa el `.env`.
 
 ## Salida
@@ -159,4 +195,5 @@ Todos los comandos escriben JSON en la salida estándar, para que lo lean script
 <CardGrid>
 	<LinkCard title="Webhooks" description="Eventos, cabeceras, payload y verificación." href="/desarrolladores/webhooks/" />
 	<LinkCard title="Conectores" description="Una API que la IA de Snappli puede llamar." href="/desarrolladores/conectores/" />
+	<LinkCard title="API de webhooks" description="Integraciones, entregas, pruebas y reintentos." href="/desarrolladores/webhooks-api/" />
 </CardGrid>

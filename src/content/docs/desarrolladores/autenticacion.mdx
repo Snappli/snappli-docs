@@ -12,7 +12,7 @@ Todas las peticiones a la API pública requieren una **API key** en la cabecera 
 <Steps>
 
 1. Ve a **Configuración → API**.
-2. Crea una clave con un nombre descriptivo.
+2. Crea una clave con un nombre descriptivo y elige sus [permisos](#permisos).
 3. Copia el secreto **`sk_…`** — solo se muestra completo **una vez**.
 4. Guárdalo en un secreto de tu backend o CI, nunca en el frontend público.
 
@@ -37,20 +37,47 @@ curl -sS https://api.snappli.io/api/v1/contacts \
   -H "Authorization: Bearer sk_..."
 ```
 
-## Alcance y límites
+## Permisos
 
-- La clave es a nivel de **organización**: da acceso a los endpoints públicos de tu organización.
-- No hay scopes por recurso: cualquier clave válida puede leer los endpoints disponibles.
+Cada clave tiene permisos que eliges al crearla. Dale solo los que necesite la integración que la usa.
+
+| Permiso | Qué permite |
+|---|---|
+| `contacts:read` | [Leer contactos](/desarrolladores/contactos/) |
+| `webhooks:read` | Ver integraciones de webhook (sin secretos), su historial de entregas y la vista previa del mapeo. Ver [API de webhooks](/desarrolladores/webhooks-api/) |
+| `webhooks:test` | Enviar una prueba y reintentar entregas. **Llegan de verdad** a la URL configurada |
+| `connectors:read` | Reservado para la API de conectores (próximamente) |
+| `connectors:test` | Reservado para probar operaciones de conectores (próximamente) |
+
+Los permisos de una clave no se pueden cambiar: crea otra con los que necesites y revoca la anterior. Las claves creadas antes de que existieran los permisos solo tienen `contacts:read`, el acceso que ya tenían.
+
+Para ver los permisos de una clave: `GET /api/v1/me` o `npx @snappli/cli whoami`.
+
+## Límites
+
+- La clave es a nivel de **organización**: da acceso a los datos de tu organización según sus permisos.
+- Cada clave puede hacer **120 peticiones por minuto**. Si te pasas, la respuesta es `429` con la cabecera `Retry-After` (segundos hasta que puedas reintentar).
 - El acceso requiere el plan **Pro** o superior de Snappli completo. El plan Starter no incluye API.
 
 ## Errores de autenticación
 
 | Código | Significado |
 |--------|-------------|
-| `401` | API key ausente o inválida |
-| `403` | Tu plan no incluye acceso a la API (`PLAN_LIMIT_REACHED`); sube a Pro o superior |
+| `401` | API key ausente, inválida o revocada |
+| `403` | A la clave le falta un permiso (`missingScopes`), o tu plan no incluye acceso a la API (`PLAN_LIMIT_REACHED`) |
+| `429` | Más de 120 peticiones por minuto con esa clave; espera los segundos de `Retry-After` |
 
-Ejemplo de respuesta `403`:
+Respuesta `403` por un permiso que falta:
+
+```json
+{
+  "statusCode": 403,
+  "message": "La API key no tiene el permiso webhooks:read",
+  "missingScopes": ["webhooks:read"]
+}
+```
+
+Respuesta `403` por el plan:
 
 ```json
 {
@@ -67,3 +94,4 @@ Trata las API keys como contraseñas. Si se filtra una clave, **revócala** en e
 ## Siguiente
 
 <LinkCard title="API de contactos" description="Endpoints, parámetros y respuestas." href="/desarrolladores/contactos/" />
+<LinkCard title="API de webhooks" description="Integraciones, entregas, pruebas y reintentos." href="/desarrolladores/webhooks-api/" />
