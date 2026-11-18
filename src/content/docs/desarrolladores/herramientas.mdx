@@ -123,8 +123,13 @@ npx @snappli/cli whoami
 | `webhooks mapping-preview <id> --response r.json` | Qué rellenaría el mapeo guardado con esa respuesta | `webhooks:read` |
 | `webhooks test <id> --yes` | **Enviar prueba**, como en el panel | `webhooks:test` |
 | `webhooks retry <deliveryId> --yes` | Reintenta una entrega | `webhooks:test` |
+| `connectors list` / `connectors get <id>` | Conectores y operaciones, como los ve la IA, sin secretos | `connectors:read` |
+| `connectors logs <id>` | Últimas 50 llamadas, con código, latencia y error | `connectors:read` |
+| `connectors test <id> <operación> [--args a.json] [--bound b.json] [--allow-write]` | Llama a tu API como lo haría la IA y muestra lo que leería | `connectors:test` |
 
-`test` y `retry` envían de verdad a la URL configurada en la integración, por eso necesitan `--yes`. Detalle de cada endpoint en [API de webhooks](/desarrolladores/webhooks-api/).
+`webhooks test` y `webhooks retry` envían de verdad a la URL configurada en la integración, por eso necesitan `--yes`. Detalle de cada endpoint en [API de webhooks](/desarrolladores/webhooks-api/).
+
+En `connectors test`, la operación puede ser su id o su nombre. `--args` lleva los argumentos que mandaría la IA, y `--bound` los valores de ejemplo para los parámetros ligados al contacto (`{"contact.phone":"+593…"}`). Una operación de escritura se ejecuta de verdad en tu sistema, por eso necesita `--allow-write`. Ver [API de conectores](/desarrolladores/conectores/#api-de-conectores).
 
 ## Con tu agente
 
@@ -175,6 +180,9 @@ Herramientas del servidor MCP:
 | `snappli_preview_mapping` | Qué rellenaría el mapeo guardado (`webhooks:read`) |
 | `snappli_test_webhook` | Enviar prueba (`webhooks:test`, solo con `SNAPPLI_ALLOW_WRITE=1`) |
 | `snappli_retry_delivery` | Reintentar una entrega (`webhooks:test`, solo con `SNAPPLI_ALLOW_WRITE=1`) |
+| `snappli_connectors` | Conectores y operaciones, sin secretos (`connectors:read`) |
+| `snappli_connector_logs` | Últimas llamadas de un conector (`connectors:read`) |
+| `snappli_test_connector_operation` | Probar una operación (`connectors:test`; las escrituras solo con `SNAPPLI_ALLOW_WRITE=1`) |
 
 Las herramientas con key usan `SNAPPLI_API_KEY` o la guardada con `npx @snappli/cli login`. Sin `SNAPPLI_ALLOW_WRITE=1`, las de prueba y reintento ni aparecen.
 
@@ -182,7 +190,7 @@ Las herramientas con key usan `SNAPPLI_API_KEY` o la guardada con `npx @snappli/
 
 - El CLI no envía telemetría: solo llama a Snappli y a las URLs que indicas.
 - `trigger` envía solo a la URL que pasas, nunca a la configurada en Snappli.
-- Lo que tiene efectos reales necesita permiso explícito: `--yes` en el CLI o la variable `SNAPPLI_ALLOW_WRITE=1` en el servidor MCP. Eso es enviar un evento a Snappli, que manda un WhatsApp, y enviar una prueba o reintentar una entrega, que llegan a la URL configurada.
+- Lo que tiene efectos reales necesita permiso explícito: `--yes` en el CLI o la variable `SNAPPLI_ALLOW_WRITE=1` en el servidor MCP. Eso es enviar un evento a Snappli, que manda un WhatsApp, enviar una prueba o reintentar una entrega, que llegan a la URL configurada, y probar una operación de escritura de un conector, que se ejecuta en tu sistema.
 - Dale a la key solo los permisos que necesites: para depurar basta `webhooks:read`.
 - No pongas la API key ni los secretos en el código ni en la configuración que subes a git: usa el `.env`.
 

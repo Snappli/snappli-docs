@@ -94,6 +94,41 @@ Las escrituras llevan la cabecera `idempotency-key`, igual para la misma convers
 - Marca el conector con **Datos sensibles** (salud, finanzas) para que el registro no guarde valores y se conserve 30 días.
 - Elige en qué **áreas** puede usarlo la IA, o déjalo para todas.
 
+## API de conectores
+
+Lo mismo se puede hacer desde tu sistema, desde el [CLI](/desarrolladores/herramientas/#con-api-key) o desde tu agente, con una [API key](/desarrolladores/autenticacion/#permisos). Además del permiso de la key, tu plan debe incluir conectores.
+
+| Endpoint | Permiso | Qué hace |
+|---|---|---|
+| `GET /api/v1/connectors` | `connectors:read` | Conectores con sus operaciones, como los ve la IA |
+| `GET /api/v1/connectors/:id` | `connectors:read` | Un conector |
+| `GET /api/v1/connectors/:id/logs` | `connectors:read` | Las últimas 50 llamadas, de la IA y de pruebas |
+| `POST /api/v1/connectors/:id/operations/:operationId/test` | `connectors:test` | **Probar** una operación |
+
+Nunca se devuelve el secreto de autenticación (`authSecretConfigured` dice si existe), ni los valores de las cabeceras por defecto (`defaultHeaderNames` lleva solo sus nombres).
+
+Para probar una operación, envía los argumentos que mandaría la IA y valores de ejemplo para los parámetros ligados:
+
+```bash
+curl -sS -X POST https://api.snappli.io/api/v1/connectors/cn_…/operations/op_…/test \
+  -H "Authorization: Bearer sk_..." -H "Content-Type: application/json" \
+  -d '{"args":{"fecha":"2026-12-01"},"boundValues":{"contact.phone":"+593991234567"},"allowWrite":false}'
+```
+
+```json
+{ "ok": true, "status": 200, "text": "{\"horarios\":[\"10:00\",\"11:30\"]}", "mapped": true }
+```
+
+`text` es lo que leería la IA, ya recortado y con el `responseMap` aplicado; si la llamada falla, es el error legible. `mapped: false` avisa de que la operación no tiene `responseMap`. Una escritura se ejecuta de verdad en tu sistema: sin `"allowWrite": true` la petición devuelve `400` y no se ejecuta. Cada prueba queda en el registro del conector y en el de auditoría de la organización.
+
+Con el CLI:
+
+```bash
+npx @snappli/cli connectors list
+npx @snappli/cli connectors test cn_… disponibilidad --args '{"fecha":"2026-12-01"}'
+npx @snappli/cli connectors logs cn_…
+```
+
 ## Eventos entrantes
 
 Tu sistema avisa a Snappli de algo que pasó (cita mañana, pedido enviado) y Snappli manda una **plantilla aprobada de WhatsApp** al contacto, con una nota interna en su conversación.
