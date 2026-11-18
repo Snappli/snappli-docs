@@ -1,0 +1,162 @@
+---
+title: CLI y MCP
+description: Prueba tu integración con Snappli desde la terminal o desde tu agente (Claude Code, Cursor, Codex) con el CLI, el servidor MCP, la skill y el SDK.
+---
+
+import { Steps, Tabs, TabItem, LinkCard, CardGrid } from '@astrojs/starlight/components';
+
+Herramientas para construir y probar **tu lado** de la integración sin esperar a que alguien mueva contactos en el panel:
+
+| Herramienta | Qué es |
+|---|---|
+| **CLI** (`npx @snappli/cli`) | Envía webhooks firmados a tu servidor, verifica firmas, recibe entregas en local, envía eventos de conector y revisa respuestas de tu API |
+| **Servidor MCP** (`snappli mcp`) | Las mismas operaciones como herramientas para tu agente |
+| **Skill** | Instrucciones para que tu agente escriba la integración bien a la primera (firma, dedupe, documentos, conectores) |
+| **SDK** (`@snappli/sdk`) | `verifyWebhook`, `downloadDocument`, `sendConnectorEvent` y los tipos del payload, para Node 20 o superior |
+
+El código es abierto (MIT): [github.com/Snappli/snappli-cli](https://github.com/Snappli/snappli-cli). Incluye ejemplos con Express, Next.js y una API para conector.
+
+## Instalación
+
+No hace falta instalar nada: usa `npx`. Necesitas Node 20 o superior.
+
+```sh
+npx @snappli/cli --help
+```
+
+Si lo usas a menudo, instálalo en tu proyecto (`npm install -D @snappli/cli`) y llámalo con `npx snappli`.
+
+Para empezar, `init` añade las variables al `.env` (vacías) y avisa si `.env` no está en `.gitignore`:
+
+```sh
+npx @snappli/cli init
+```
+
+| Variable | Para qué |
+|---|---|
+| `SNAPPLI_WEBHOOK_SECRET` | El secreto de tu webhook en **Configuración → Webhooks** |
+| `SNAPPLI_CONNECTOR_EVENT_SECRET` | El secreto de eventos del conector (ver [Conectores](/desarrolladores/conectores/#eventos-entrantes)) |
+| `SNAPPLI_API_KEY` | Tu [API key](/desarrolladores/autenticacion/) (`sk_…`), para la API pública |
+
+## Probar tu receptor de webhooks
+
+`webhooks trigger` firma y envía un webhook a tu servidor **igual que Snappli**: mismas cabeceras (`X-Snappli-Signature`, `X-Snappli-Timestamp`, `Idempotency-Key`…), mismo payload y mismo tiempo límite de 15 segundos.
+
+```sh
+npx @snappli/cli webhooks trigger contact.stage.entered \
+  --to http://localhost:3000/webhooks/snappli \
+  --secret "$SNAPPLI_WEBHOOK_SECRET" \
+  --repeat --with-documents
+```
+
+Te dice qué respondió tu servidor, cuánto tardó y si Snappli lo daría por bueno, con avisos si no es `2xx`, tarda demasiado o no responde JSON.
+
+| Opción | Qué prueba |
+|---|---|
+| `--repeat` | Reenvía la misma entrega (misma `Idempotency-Key`), como un reintento. Tu sistema debe procesarla una sola vez |
+| `--with-documents` | Añade dos documentos (uno aprobado y otro por revisar) con enlaces que de verdad se pueden descargar, y cuenta si tu receptor los descargó |
+| `--mapping '{"fields":{"id_pedido":"$.data.id"},"note":"Pedido {{id_pedido}}"}'` | Qué rellenaría el [mapeo de respuesta](/desarrolladores/webhooks/#leer-la-respuesta) con lo que respondió tu servidor |
+| `--header 'Authorization: Bearer …'` | La cabecera de autenticación que configuraste en el webhook |
+| `--file entrega.json` | Envía un payload propio (por ejemplo, uno copiado del historial) en vez del de ejemplo |
+
+Eventos: `contact.stage.entered`, `contact.webhook.manual`, `contact.created`, `contact.updated`, `contact.tag.assigned` y `conversation.escalated`. Para ver un payload sin enviarlo:
+
+```sh
+npx @snappli/cli webhooks example conversation.escalated --with-documents
+```
+
+### Por qué no valida una firma
+
+```sh
+npx @snappli/cli webhooks verify --secret "$SNAPPLI_WEBHOOK_SECRET" \
+  --timestamp 1763400000 --signature 9f86d0… --file cuerpo.json
+```
+
+Además de decir si la firma es válida, detecta las causas habituales: el cuerpo se reformateó, el archivo tiene un salto de línea final, el timestamp está en milisegundos o la firma lleva el prefijo `sha256=`. Para una entrega antigua copiada del historial, añade `--ignore-time`.
+
+### Ver lo que manda Snappli de verdad
+
+```sh
+npx @snappli/cli webhooks serve --port 4555 --secret "$SNAPPLI_WEBHOOK_SECRET"
+```
+
+Levanta un receptor local que verifica e imprime cada entrega (una línea JSON por entrega, marcando las repetidas). Para que Snappli llegue a él, exponlo con un túnel HTTPS (por ejemplo `cloudflared tunnel --url http://localhost:4555`), pon esa URL en el webhook y pulsa **Enviar prueba**. Con `--respond respuesta.json` decides qué responde.
+
+## Probar conectores y eventos
+
+Lo que leería la IA de la respuesta de tu API con el `responseMap` de la operación:
+
+```sh
+curl -s "https://api.tu-empresa.com/slots?fecha=2026-12-01" -H "x-api-key: …" \
+  | npx @snappli/cli connectors check-response --file - --map '{"horarios":"$.slots[*].hora"}'
+```
+
+Avisa si una ruta no existe, si la respuesta pasa de 1 MB o si lo que ve la IA se recorta.
+
+Enviar un [evento](/desarrolladores/conectores/#eventos-entrantes) firmado:
+
+```sh
+npx @snappli/cli events send pedido.enviado --connector <id-del-conector> \
+  --secret "$SNAPPLI_CONNECTOR_EVENT_SECRET" \
+  --data '{"telefono":"+593991234567","pedido":"PED-123"}' --yes
+```
+
+Snappli envía de verdad la plantilla de WhatsApp al contacto, por eso hace falta `--yes`. Para probar solo la firma contra un servidor tuyo, usa `--to http://localhost:…` (sin `--yes`).
+
+## Con tu agente
+
+<Tabs>
+<TabItem label="Claude Code">
+
+```sh
+claude mcp add snappli -- npx -y @snappli/cli mcp
+npx @snappli/cli skill install
+```
+
+`skill install` copia la skill a `.claude/skills/snappli/` del proyecto. También puedes instalar el plugin, que trae la skill y el servidor MCP: está en la carpeta `packages/cli/plugin` del repositorio.
+
+</TabItem>
+<TabItem label="Cursor y otros">
+
+Añade el servidor a la configuración MCP del cliente (en Cursor, `.cursor/mcp.json`):
+
+```json
+{
+  "mcpServers": {
+    "snappli": { "command": "npx", "args": ["-y", "@snappli/cli", "mcp"] }
+  }
+}
+```
+
+Para la skill, `npx @snappli/cli skill` imprime el texto: pégalo en `AGENTS.md` o en las reglas del proyecto.
+
+</TabItem>
+</Tabs>
+
+Herramientas del servidor MCP:
+
+| Herramienta | Qué hace |
+|---|---|
+| `snappli_webhook_example` | Payload de ejemplo de un evento |
+| `snappli_trigger_webhook` | Envía un webhook firmado a tu servidor (como `webhooks trigger`) |
+| `snappli_verify_webhook_signature` | Comprueba una firma y explica el fallo |
+| `snappli_send_connector_event` | Envía un evento de conector |
+| `snappli_check_connector_response` | Lo que leería la IA de una respuesta de tu API |
+
+## Seguridad
+
+- El CLI no envía telemetría: solo llama a Snappli y a las URLs que indicas.
+- `trigger` envía solo a la URL que pasas, nunca a la configurada en Snappli.
+- Lo que tiene efectos reales necesita permiso explícito: `--yes` en el CLI o la variable `SNAPPLI_ALLOW_WRITE=1` en el servidor MCP. Hoy eso es enviar un evento a Snappli, que manda un WhatsApp.
+- No pongas la API key ni los secretos en el código ni en la configuración que subes a git: usa el `.env`.
+
+## Salida
+
+Todos los comandos escriben JSON en la salida estándar, para que lo lean scripts y agentes. Añade `--pretty` para leerlo tú. Los errores salen como JSON en la salida de error (`{"error":{"code":"…","message":"…"}}`) con código de salida 1.
+
+## Siguiente
+
+<CardGrid>
+	<LinkCard title="Webhooks" description="Eventos, cabeceras, payload y verificación." href="/desarrolladores/webhooks/" />
+	<LinkCard title="Conectores" description="Una API que la IA de Snappli puede llamar." href="/desarrolladores/conectores/" />
+</CardGrid>

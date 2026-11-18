@@ -22,6 +22,12 @@ sidebar:
 | **Campaña** | Envío o secuencia hacia contactos |
 | **API key** | Secreto `sk_…` para la API pública |
 | **Webhook** | Notificación HTTP saliente hacia tu sistema |
+| **Idempotency-Key** | Cabecera con el id de la entrega de un webhook, igual en todos los reintentos; sirve para no procesarla dos veces |
+| **Conector** | Conexión con la API de tu sistema que la IA puede usar durante la conversación |
+| **Operación** | Cada llamada que la IA puede hacer a través de un conector (de lectura o de escritura) |
+| **Evento entrante** | Aviso firmado que tu sistema envía a Snappli para que mande una plantilla de WhatsApp al contacto |
+| **MCP** | Protocolo con el que tu agente de código (Claude Code, Cursor…) usa herramientas externas, como las de Snappli |
+| **Skill** | Instrucciones que le enseñan a tu agente de código a integrar con Snappli |
 | **Add-on / Complemento** | Extra de facturación (capacidad o funciones) que sumas sin cambiar de plan |
 | **Contacto activo** | Contacto con actividad en el mes; cuenta para el límite de contactos del plan |
 | **Fragmento de conocimiento** | Parte indexada de un documento de la base de conocimiento; el plan define cuántos puedes tener |
