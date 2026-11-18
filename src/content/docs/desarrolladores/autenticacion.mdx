@@ -46,8 +46,8 @@ Cada clave tiene permisos que eliges al crearla. Dale solo los que necesite la i
 | `contacts:read` | [Leer contactos](/desarrolladores/contactos/) |
 | `webhooks:read` | Ver integraciones de webhook (sin secretos), su historial de entregas y la vista previa del mapeo. Ver [API de webhooks](/desarrolladores/webhooks-api/) |
 | `webhooks:test` | Enviar una prueba y reintentar entregas. **Llegan de verdad** a la URL configurada |
-| `connectors:read` | Reservado para la API de conectores (próximamente) |
-| `connectors:test` | Reservado para probar operaciones de conectores (próximamente) |
+| `connectors:read` | Ver conectores y operaciones (sin secretos) y sus últimas llamadas. Ver [API de conectores](/desarrolladores/conectores/#api-de-conectores) |
+| `connectors:test` | Probar operaciones de un conector contra tu API. Las escrituras **se ejecutan de verdad** |
 
 Los permisos de una clave no se pueden cambiar: crea otra con los que necesites y revoca la anterior. Las claves creadas antes de que existieran los permisos solo tienen `contacts:read`, el acceso que ya tenían.
 

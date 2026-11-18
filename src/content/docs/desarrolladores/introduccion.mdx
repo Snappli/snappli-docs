@@ -5,7 +5,7 @@ description: Cómo empezar con la API pública de Snappli.
 
 import { LinkCard, Steps, CardGrid } from '@astrojs/starlight/components';
 
-La **API pública** de Snappli te permite leer datos de tu organización desde tus propios sistemas: contactos y, para depurar tus integraciones, las de webhook y su historial de entregas. Para eventos en tiempo real usa [webhooks](/desarrolladores/webhooks/), y para que la IA consulte o actúe en tu sistema durante la conversación, [conectores](/desarrolladores/conectores/).
+La **API pública** de Snappli te permite leer datos de tu organización desde tus propios sistemas: contactos y, para depurar tus integraciones, los webhooks con su historial de entregas y los conectores con sus llamadas. Para eventos en tiempo real usa [webhooks](/desarrolladores/webhooks/), y para que la IA consulte o actúe en tu sistema durante la conversación, [conectores](/desarrolladores/conectores/).
 
 ## Requisitos
 
@@ -27,6 +27,8 @@ Todas las rutas públicas cuelgan de `/api/v1`:
 | `GET /v1/webhook-integrations`, `GET /v1/webhook-integrations/:id`, `POST /v1/webhook-integrations/:id/mapping-preview` | `webhooks:read` |
 | `GET /v1/webhook-deliveries`, `GET /v1/webhook-deliveries/:id` | `webhooks:read` |
 | `POST /v1/webhook-integrations/:id/test`, `POST /v1/webhook-deliveries/:id/retry` | `webhooks:test` |
+| `GET /v1/connectors`, `GET /v1/connectors/:id`, `GET /v1/connectors/:id/logs` | `connectors:read` |
+| `POST /v1/connectors/:id/operations/:operationId/test` | `connectors:test` |
 
 ## Arranque rápido
 
