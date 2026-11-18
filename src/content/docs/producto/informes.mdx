@@ -1,26 +1,33 @@
 ---
 title: Informes
-description: Métricas de conversaciones, agentes, canales y pipeline.
+description: Resumen de la atención, IA, equipo y embudo del pipeline.
 ---
 
 import { LinkCard } from '@astrojs/starlight/components';
 
-Los **informes** (menú **Informes**) muestran cómo rinde tu operación. Puedes filtrar por fecha, equipo y agente, y exportar a CSV.
+Los **informes** (menú **Informes**) muestran de un vistazo cómo va tu atención. Puedes filtrar por fecha, equipo, canal y agente, y exportar cada sección a CSV. Cada cifra se compara con el período anterior, y el icono ⓘ explica cómo se calcula.
 
 ## Disponibilidad
 
 Los informes están incluidos en **todos los planes de Snappli completo** (Starter, Pro, Business y Enterprise) y en los planes **Pro** y **Business** de **Snappli para WhatsApp**. Ver [Facturación](/cuenta/facturacion/).
 
-## Pestañas disponibles
+## Secciones
 
-| Pestaña | Qué mide |
-|---------|----------|
-| **Resumen** | Vista general de actividad |
-| **Agentes** | Rendimiento por agente |
-| **Canales** | Volumen por canal (WhatsApp, email, widget, Instagram, Messenger, Telegram, manual) |
-| **Conversaciones** | Volumen, resolución y tiempos |
-| **Pipeline** | Avance de contactos por etapa |
-| **Automatización** | Actividad de los agentes IA |
+| Sección | Qué ves |
+|---------|---------|
+| **Resumen** | **Ahora mismo** (abiertas, pendientes, esperando agente y agentes en línea, se actualiza cada minuto), lo destacado del período, conversaciones nuevas y resueltas, contactos nuevos, 1ª respuesta, actividad frente al período anterior, % resuelto por la IA, **¿Cuándo te escriben?** (día y hora), canales y **¿De qué te escriben?** (etiquetas más usadas) |
+| **IA** | % de conversaciones que resolvió la IA, cuántas pasaron a una persona y quién contestó cada día |
+| **Equipo** | Los agentes que más resuelven, su tiempo de 1ª respuesta (desde que se les asigna la conversación) y la tabla completa |
+| **Embudo** | Contactos por etapa del pipeline, ganados, perdidos y % que avanza de una etapa a la siguiente. Solo en Snappli completo |
+
+En **Snappli para WhatsApp** no aparecen los filtros de equipo y canal ni la sección Embudo.
+
+### Ganados, perdidos y «avanza»
+
+El embudo usa el **tipo de etapa** de tu [pipeline](/producto/pipeline/#tipo-de-etapa):
+
+- **Avanza** cuenta las entradas a una etapa en curso que después pasaron a una etapa posterior o ganada. Pasar a una etapa perdida no cuenta como avance.
+- Las etapas **perdidas** se muestran aparte, fuera del embudo.
 
 ## Quién puede verlos
 

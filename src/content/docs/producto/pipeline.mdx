@@ -26,9 +26,21 @@ Mueves contactos entre etapas desde la vista kanban de contactos o al editar el 
 
 El editor de etapa tiene tres pestañas:
 
-1. **General** — nombre, color, descripción y si **la IA puede mover contactos a esta etapa**.
+1. **General** — nombre, color, descripción, **tipo de etapa** y si **la IA puede mover contactos a esta etapa**.
 2. **Acciones** — automatizaciones al entrar a la etapa (ver abajo).
 3. **Campos** — campos del contacto que son **obligatorios** antes de poder entrar a la etapa, y los **documentos** que exige.
+
+### Tipo de etapa
+
+Cada etapa es **En curso**, **Ganada** o **Perdida**:
+
+| Tipo | Úsalo para | En la lista |
+|------|------------|-------------|
+| **En curso** | Pasos intermedios (Nuevo, Calificado, En negociación…) | Sin distintivo |
+| **Ganada** | Cierres con éxito: venta, cliente, inscripción | 🏆 Ganada |
+| **Perdida** | Cierres sin éxito | ✕ Perdida |
+
+Las plantillas ya traen marcadas sus etapas de cierre (por ejemplo *Ganado* y *Perdido*). Los [informes](/producto/informes/#ganados-perdidos-y-avanza) usan el tipo para contar ganados y perdidos, y no cuentan como avance el paso a una etapa perdida.
 
 ### Etapas que solo mueve una persona
 
