@@ -1,0 +1,162 @@
+---
+title: API de webhooks
+description: Consulta tus integraciones de webhook y su historial de entregas, prueba y reintenta desde tu sistema.
+---
+
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+
+Con la API de webhooks ves desde tu sistema lo mismo que en **Configuración → Webhooks** del panel: qué integraciones tienes, qué envió Snappli en cada entrega, qué respondió tu servidor y qué guardó el mapeo de respuesta. También puedes enviar una prueba o reintentar una entrega.
+
+Todas las peticiones llevan `Authorization: Bearer sk_…` y necesitan un [permiso de la key](/desarrolladores/autenticacion/#permisos):
+
+| Permiso | Endpoints |
+|---|---|
+| Cualquiera | `GET /v1/me` |
+| `webhooks:read` | Listar y ver integraciones y entregas, vista previa del mapeo |
+| `webhooks:test` | Enviar una prueba y reintentar una entrega. **Llegan de verdad** a la URL configurada |
+
+Si prefieres la terminal o tu agente, el [CLI y el servidor MCP](/desarrolladores/herramientas/#con-api-key) hacen estas mismas llamadas.
+
+## Tu key
+
+```http
+GET /api/v1/me
+```
+
+```json
+{
+  "organization": { "id": "org_…", "name": "Mi empresa" },
+  "apiKey": {
+    "id": "key_…",
+    "name": "Integración ERP",
+    "keyPrefix": "sk_1a2b3c4d5",
+    "scopes": ["contacts:read", "webhooks:read"],
+    "createdAt": "2026-11-17T15:00:00.000Z"
+  },
+  "rateLimitPerMin": 120
+}
+```
+
+```bash
+curl -sS https://api.snappli.io/api/v1/me -H "Authorization: Bearer sk_..."
+# o
+npx @snappli/cli whoami
+```
+
+## Integraciones
+
+```http
+GET /api/v1/webhook-integrations
+GET /api/v1/webhook-integrations/:id
+```
+
+Devuelven la configuración de cada integración: URL, eventos suscritos, etapas, etiquetas y condiciones, duración de los enlaces de documentos, «No enviar si ya tiene…» y el mapeo de respuesta.
+
+El **secreto** y el **valor de la cabecera de autenticación** nunca se devuelven. En su lugar llegan `hasSecret` y `hasAuthHeaderValue` (`true` si están configurados).
+
+```json
+{
+  "id": "wh_…",
+  "label": "ERP",
+  "url": "https://erp.tu-empresa.com/webhooks/snappli",
+  "enabled": true,
+  "hasSecret": true,
+  "authHeaderName": "Authorization",
+  "hasAuthHeaderValue": true,
+  "subscribedEvents": ["contact.stage.entered"],
+  "stageIds": ["stage_…"],
+  "tagIds": [],
+  "conditions": null,
+  "fileUrlTtlHours": 72,
+  "skipIfFieldSet": "id_pedido",
+  "responseMapping": { "fields": { "id_pedido": "$.data.id" }, "addTagIds": [], "note": null },
+  "createdAt": "2026-11-01T10:00:00.000Z"
+}
+```
+
+### Vista previa del mapeo
+
+```http
+POST /api/v1/webhook-integrations/:id/mapping-preview
+Content-Type: application/json
+
+{ "body": "{\"data\":{\"id\":\"PED-123\"}}" }
+```
+
+`body` es la respuesta de tu servidor **como texto** (hasta 20 000 caracteres). Snappli aplica el mapeo **guardado** en la integración y devuelve qué rellenaría, sin enviar ni guardar nada:
+
+```json
+{
+  "fields": [{ "key": "id_pedido", "path": "$.data.id", "value": "PED-123", "saved": false }],
+  "tagsAdded": [],
+  "noteAdded": false,
+  "warnings": []
+}
+```
+
+Si la integración no tiene mapeo de respuesta, responde `400`.
+
+### Enviar una prueba
+
+```http
+POST /api/v1/webhook-integrations/:id/test
+```
+
+Es el botón **Enviar prueba** del panel. Necesita `webhooks:test`. Snappli envía un payload de prueba (`trigger.source: "TEST"`) a la URL configurada y espera la respuesta:
+
+```json
+{
+  "success": true,
+  "status": 200,
+  "responseBody": "{\"data\":{\"id\":\"PED-123\"}}",
+  "deliveryId": "dlv_…",
+  "mappingResult": { "fields": [{ "key": "id_pedido", "value": "PED-123", "saved": false }], "tagsAdded": [], "noteAdded": false, "warnings": [] }
+}
+```
+
+La prueba queda en el historial de entregas. No escribe en ningún contacto.
+
+## Entregas
+
+```http
+GET /api/v1/webhook-deliveries
+GET /api/v1/webhook-deliveries/:id
+```
+
+Parámetros del listado:
+
+| Parámetro | Tipo | Por defecto | Descripción |
+|---|---|---|---|
+| `page` | entero ≥ 1 | `1` | Página |
+| `limit` | entero 1–100 | `20` | Entregas por página |
+| `webhookIntegrationId` | string | — | Solo las de una integración |
+| `status` | `PENDING` · `SUCCESS` · `FAILED` · `APPROVAL_PENDING` · `APPROVED` · `REJECTED` · `SKIPPED` | — | Solo las de ese estado |
+
+Cada entrega trae el `payload` que se envió, `responseStatus`, `errorMessage`, `attempts`, `mappingResult` y las fechas. El detalle añade `requestHeaders` (la firma y la autenticación aparecen ocultas), `responseHeaders` y `responseBody`.
+
+El `payload` de una entrega real sirve para reproducirla contra tu servidor local:
+
+```bash
+npx @snappli/cli webhooks deliveries get dlv_… > entrega.json
+# guarda el campo payload en payload.json y:
+npx @snappli/cli webhooks trigger --file payload.json --to http://localhost:3000/webhooks/snappli
+```
+
+### Reintentar una entrega
+
+```http
+POST /api/v1/webhook-deliveries/:id/retry
+```
+
+Necesita `webhooks:test`. Vuelve a encolar la entrega y Snappli la envía de nuevo a la URL configurada, con la misma `Idempotency-Key`. Responde `{ "success": true }`; el resultado se ve después en el detalle de la entrega. Una entrega pendiente de aprobación se aprueba primero en el panel.
+
+## Registro
+
+Las pruebas y los reintentos hechos con una key quedan en el registro de auditoría de la organización, con el nombre de la key.
+
+## Siguiente
+
+<CardGrid>
+	<LinkCard title="Webhooks" description="Eventos, cabeceras, payload y verificación." href="/desarrolladores/webhooks/" />
+	<LinkCard title="CLI y MCP" description="Las mismas llamadas desde la terminal o tu agente." href="/desarrolladores/herramientas/" />
+</CardGrid>
