@@ -90,6 +90,42 @@ Para crear la plantilla, ve a **Integraciones → WhatsApp → Plantillas**, cre
 
 El permiso puede ser temporal (7 días) o permanente, según lo que elija el contacto. Meta limita cuántas solicitudes puedes enviar a un mismo contacto y retira el permiso si deja de contestar varias llamadas seguidas.
 
+## Rellamadas: «llámame más tarde»
+
+Si en una llamada con IA, entrante o saliente, el contacto pide que lo llamen después («llámame en 10 minutos», «mañana a las 3», «más tarde»), o acepta cuando la IA se lo ofrece, la IA **agenda la rellamada** y llama sola a esa hora.
+
+<Steps>
+
+1. La IA repite el día y la hora («te llamo mañana martes a las 3 de la tarde») y espera a que el contacto confirme. Nunca agenda una llamada que el contacto no pidió.
+2. La rellamada aparece en la [Agenda](/producto/agenda/) como un seguimiento de **llamada** con la marca **Gestiona IA**, junto con la frase con la que el contacto la pidió. En el chat queda un mensaje con la hora.
+3. A esa hora la IA llama por la misma línea (WhatsApp o teléfono), le recuerda que lo llama como quedaron y retoma el tema con el resumen de la llamada anterior.
+
+</Steps>
+
+**Horario.** Manda la hora que pidió el contacto, no el horario de la empresa: un pedido expreso del contacto permite llamar fuera de lunes a viernes de 8:00 a 20:00 (ver [Ley de Ecuador](#ley-de-ecuador)). Hay dos límites por línea:
+
+- **Límite duro** (por defecto de 7:00 a 21:00, todos los días): fuera de él la IA no agenda y propone otra hora. Por ejemplo, «llámame a las 10 de la noche» → «a esa hora no podemos llamarte, ¿te parece mañana a las 7?».
+- **Fuera del horario de atención:** se agenda igual, pero la IA avisa que a esa hora no hay asesores para transferir y solo se hace un intento. Lo puedes desactivar para que solo agende dentro del horario.
+
+**Si no contesta.** Se reintenta una vez, a los 15 minutos si la cita era en menos de una hora y a los 30 si no. Si tampoco contesta y la ventana de 24 horas de WhatsApp está abierta, se le escribe «te llamamos como quedamos, pero no pudimos comunicarnos». El seguimiento pierde la marca de IA y queda para una persona con el motivo.
+
+**Por WhatsApp**, si el contacto aún no dio permiso para recibir llamadas, se le pide en ese momento por el chat y la IA le dice que lo acepte.
+
+**Desde la Agenda, el chat o la ficha** se puede:
+
+- **Tomar** («Lo llamo yo»): la IA ya no llama y el seguimiento queda para ti.
+- **Cambiar fecha**: la IA llama a la nueva hora.
+- **Cancelar**: no llama nadie y el seguimiento queda hecho.
+- Marcarlo como **Hecho**: la IA ya no llama.
+
+**Se cancela sola** si el contacto llama antes: la IA que contesta sabe que había una rellamada pendiente y la atiende ahí. También si pide no ser llamado.
+
+**Límites.** Un contacto tiene como mucho una rellamada abierta (si pide otra hora, se mueve la que hay) y tres rellamadas en 7 días. Después, la IA le dice que lo llamará un asesor y crea un seguimiento para una persona.
+
+**Ajustes.** En **Canales**, en la configuración de la línea de voz o de las llamadas de WhatsApp, sección **Rellamadas con IA**: activarlas o no, permitir fuera del horario de atención y el límite duro.
+
+Si el contacto pide que lo llamen luego pero la IA no puede agendarlo (por ejemplo, la línea tiene las rellamadas apagadas), o pide hablar con una persona y no hay nadie disponible, se crea un seguimiento para una persona.
+
 ## Ley de Ecuador
 
 Si llamas a contactos de Ecuador, ten en cuenta la Ley Orgánica de Defensa del Consumidor:
