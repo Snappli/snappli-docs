@@ -24,7 +24,7 @@ Las llamadas salientes no están en Snappli para WhatsApp.
 | Línea | Qué necesitas |
 |-------|---------------|
 | **WhatsApp** | Una línea de WhatsApp con las [llamadas de WhatsApp](/canales/whatsapp-llamadas/) activadas. El contacto tiene que **dar permiso** para recibir llamadas (ver abajo). |
-| **Teléfono** | Un canal de voz con una **troncal SIP** de tu proveedor de telefonía. |
+| **Teléfono** | Un canal de voz con una **troncal SIP** de tu proveedor de telefonía y su **número saliente** (caller ID) configurado. Sin número saliente la línea no aparece para llamar: la ley exige llamar desde un número identificable y los operadores suelen rechazar esas llamadas. |
 
 ## Programar una llamada
 
@@ -33,7 +33,7 @@ Las llamadas salientes no están en Snappli para WhatsApp.
 1. Abre el contacto (desde **Contactos** o desde el chat) y ve a la sección **Llamadas IA**.
 2. Pulsa **Programar**.
 3. Escribe el **objetivo**: qué debe lograr la IA. Si quieres, añade **instrucciones** (por ejemplo, una promoción que puede ofrecer).
-4. Elige la línea, cuándo llamar (**lo antes posible** o una fecha y hora) y cuántos **intentos** hacer si no contesta.
+4. Elige la línea, cuándo llamar (**lo antes posible** o una fecha y hora) y cuántos **intentos** hacer si no contesta. Si llamas por WhatsApp, puedes elegir la **plantilla para pedir permiso** (ver [Permiso de llamada en WhatsApp](#permiso-de-llamada-en-whatsapp)).
 5. Pulsa **Programar llamada**.
 
 </Steps>
@@ -49,7 +49,7 @@ La IA usa las **instrucciones del equipo** del canal y, además:
 - Los **últimos mensajes** del contacto.
 - Si lo necesita, puede **buscar en su historial** un dato concreto (un pedido, una fecha).
 
-Al empezar se presenta como asistente virtual de tu empresa y explica el motivo de la llamada. Puede pasar la llamada a una persona de tu equipo igual que en las llamadas que recibes.
+Al empezar se presenta como asistente virtual de tu empresa y explica el motivo de la llamada. En las llamadas por **teléfono** pregunta además si el contacto tiene un momento antes de seguir; si dice que no, le ofrece llamar en otro momento o se despide. Por WhatsApp no hace falta: el contacto ya aceptó recibir llamadas. Puede pasar la llamada a una persona de tu equipo igual que en las llamadas que recibes.
 
 ## Resultado de la llamada
 
@@ -67,9 +67,11 @@ Antes de despedirse, la IA registra uno de estos resultados:
 
 Al terminar, en el chat del contacto aparece un mensaje con el resultado, la nota y un **resumen** de la conversación, y se guarda como nota del contacto.
 
+Si el contacto **pidió que lo llamen luego**, o pidió hablar con una persona y **no había nadie disponible**, se crea un [seguimiento](/producto/agenda/) de tipo llamada para hoy. Se asigna al agente de la conversación; si no hay, al dueño del contacto, a quien programó la llamada o creó la campaña y, por último, a un administrador.
+
 ## Reglas que se respetan siempre
 
-- **Horario:** solo se llama de **lunes a viernes de 9:00 a 19:00 y los sábados de 9:00 a 13:00**, en la hora local del país del contacto. Una llamada programada fuera de ese horario espera al siguiente tramo. En las [campañas de llamadas](/producto/campanias/#campañas-de-llamadas-ia) puedes poner un horario propio y un máximo de llamadas por día.
+- **Horario:** solo se llama de **lunes a viernes de 9:00 a 19:00**, en la hora local del país del contacto. Una llamada programada fuera de ese horario espera al siguiente tramo. En las [campañas de llamadas](/producto/campanias/#campañas-de-llamadas-ia) puedes poner un horario propio y un máximo de llamadas por día.
 - **Reintentos:** si no contesta, está ocupado o salta el buzón, se vuelve a intentar cada 2 horas hasta el número de intentos que elegiste.
 - **No llamar:** si el contacto pide que no lo vuelvan a llamar, queda marcado y no se le hacen más llamadas salientes, ni sueltas ni de campañas.
 - **Capacidad:** las llamadas salientes usan como mucho la **mitad** de las llamadas con IA simultáneas, para que siempre haya hueco para las que recibes. En WhatsApp se deja además una línea libre.
@@ -80,10 +82,23 @@ Al terminar, en el chat del contacto aparece un mensaje con el resultado, la not
 Meta solo deja que una empresa llame por WhatsApp a quien le haya dado **permiso**. Snappli lo gestiona solo:
 
 1. Si el contacto ya dio permiso, se le llama directamente.
-2. Si no, Snappli le envía por el chat la **solicitud de permiso de llamada** de WhatsApp. Esto solo es posible si el contacto **te escribió en las últimas 24 horas**.
-3. Cuando el contacto acepta, la llamada sale en la siguiente revisión (en menos de un minuto, dentro del horario). Si rechaza o no responde en 7 días, la llamada se da por terminada con **Sin permiso de llamada**.
+2. Si no, y el contacto **te escribió en las últimas 24 horas**, Snappli le envía por el chat la **solicitud de permiso de llamada** de WhatsApp: «Tu empresa quiere llamarte por WhatsApp. ¿Nos das permiso para llamarte?».
+3. Si no te escribió en las últimas 24 horas, se le envía la **plantilla para pedir permiso** que elegiste al programar la llamada o en la campaña. Sin plantilla, no se le puede llamar y la llamada queda como **Sin permiso de llamada**.
+4. Cuando el contacto acepta, la llamada sale en la siguiente revisión (en menos de un minuto, dentro del horario). Si rechaza o no responde en 7 días, la llamada se da por terminada con **Sin permiso de llamada**. Las campañas no le vuelven a pedir permiso a quien lo rechazó en los últimos 30 días.
+
+Para crear la plantilla, ve a **Integraciones → WhatsApp → Plantillas**, crea una nueva y activa **Pedir permiso para llamar por WhatsApp** (ver [Plantillas de WhatsApp](/canales/whatsapp-plantillas/#plantilla-para-pedir-permiso-de-llamada)). Meta tiene que aprobarla antes de poder usarla.
 
 El permiso puede ser temporal (7 días) o permanente, según lo que elija el contacto. Meta limita cuántas solicitudes puedes enviar a un mismo contacto y retira el permiso si deja de contestar varias llamadas seguidas.
+
+## Ley de Ecuador
+
+Si llamas a contactos de Ecuador, ten en cuenta la Ley Orgánica de Defensa del Consumidor:
+
+- Las llamadas comerciales que el contacto **no pidió** solo se permiten de **lunes a viernes de 8:00 a 20:00**, salvo que el contacto pida expresamente otra hora (art. 55). Por eso el horario por defecto no incluye sábados, y Snappli te avisa si pones un horario propio fuera de ese rango.
+- La llamada tiene que venir de un **número identificable** y el contacto tiene que **autorizarla**; si no la autoriza, no puede seguir.
+- Si tu empresa hace **cobranza**, el límite es más estricto: de lunes a viernes de 7:00 a 20:00, sin fines de semana ni feriados, una vez al día por el mismo medio y **sin excepción** aunque el cliente lo pida (art. 49).
+
+Cumplir la ley es responsabilidad de tu empresa. Esto es un resumen, no asesoría legal.
 
 ## Costos
 
