@@ -33,7 +33,7 @@ Las llamadas salientes no están en Snappli para WhatsApp.
 1. Abre el contacto (desde **Contactos** o desde el chat) y ve a la sección **Llamadas IA**.
 2. Pulsa **Programar**.
 3. Escribe el **objetivo**: qué debe lograr la IA. Si quieres, añade **instrucciones** (por ejemplo, una promoción que puede ofrecer).
-4. Elige la línea, cuándo llamar (**lo antes posible** o una fecha y hora) y cuántos **intentos** hacer si no contesta. Si llamas por WhatsApp, puedes elegir la **plantilla para pedir permiso** (ver [Permiso de llamada en WhatsApp](#permiso-de-llamada-en-whatsapp)).
+4. Elige la línea, cuándo llamar (**lo antes posible** o una fecha y hora) y cuántos **intentos** hacer si no contesta. Si llamas por WhatsApp, verás el estado de la **plantilla de permiso** (ver [Permiso de llamada en WhatsApp](#permiso-de-llamada-en-whatsapp)).
 5. Pulsa **Programar llamada**.
 
 </Steps>
@@ -83,10 +83,24 @@ Meta solo deja que una empresa llame por WhatsApp a quien le haya dado **permiso
 
 1. Si el contacto ya dio permiso, se le llama directamente.
 2. Si no, y el contacto **te escribió en las últimas 24 horas**, Snappli le envía por el chat la **solicitud de permiso de llamada** de WhatsApp: «Tu empresa quiere llamarte por WhatsApp. ¿Nos das permiso para llamarte?».
-3. Si no te escribió en las últimas 24 horas, se le envía la **plantilla para pedir permiso** que elegiste al programar la llamada o en la campaña. Sin plantilla, no se le puede llamar y la llamada queda como **Sin permiso de llamada**.
+3. Si no te escribió en las últimas 24 horas, se le envía la **plantilla de permiso de llamada**. Sin plantilla aprobada, no se le puede llamar y la llamada queda como **Sin permiso de llamada**.
 4. Cuando el contacto acepta, la llamada sale en la siguiente revisión (en menos de un minuto, dentro del horario). Si rechaza o no responde en 7 días, la llamada se da por terminada con **Sin permiso de llamada**. Las campañas no le vuelven a pedir permiso a quien lo rechazó en los últimos 30 días.
 
-Para crear la plantilla, ve a **Integraciones → WhatsApp → Plantillas**, crea una nueva y activa **Pedir permiso para llamar por WhatsApp** (ver [Plantillas de WhatsApp](/canales/whatsapp-plantillas/#plantilla-para-pedir-permiso-de-llamada)). Meta tiene que aprobarla antes de poder usarla.
+### La plantilla de permiso de llamada
+
+Snappli tiene una plantilla lista, igual que la de verificación de teléfonos. Solo hay que crearla **una vez por cuenta de WhatsApp**:
+
+<Steps>
+
+1. Abre **Canales → tu línea de WhatsApp → Llamadas de WhatsApp** (o el formulario de una campaña de llamadas por WhatsApp).
+2. En **Plantilla para pedir permiso de llamada**, pulsa **Crear plantilla de permiso**.
+3. Espera a que Meta la apruebe (suele tardar de minutos a horas). El estado pasa de **En revisión de Meta** a **Aprobada**.
+
+</Steps>
+
+Una vez aprobada se usa sola en campañas, llamadas programadas y rellamadas: no hay que elegirla en ningún sitio. Dice: «Queremos llamarte por WhatsApp para atenderte mejor. ¿Nos das permiso para llamarte?», con el botón de WhatsApp para aceptar.
+
+Si prefieres tu propio texto, crea una plantilla en **Integraciones → WhatsApp → Plantillas** con la opción **Pedir permiso para llamar por WhatsApp** (ver [Plantillas de WhatsApp](/canales/whatsapp-plantillas/#plantilla-para-pedir-permiso-de-llamada)). Podrás elegirla en la campaña o en la llamada en vez de la de Snappli.
 
 El permiso puede ser temporal (7 días) o permanente, según lo que elija el contacto. Meta limita cuántas solicitudes puedes enviar a un mismo contacto y retira el permiso si deja de contestar varias llamadas seguidas.
 
