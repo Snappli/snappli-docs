@@ -83,6 +83,7 @@ export default defineConfig({
 						{ label: 'Miembros y roles', slug: 'cuenta/miembros-y-roles' },
 						{ label: 'Organización', slug: 'cuenta/organizacion' },
 						{ label: 'Mi cuenta', slug: 'cuenta/mi-cuenta' },
+						{ label: 'Passkeys', slug: 'cuenta/passkeys' },
 						{ label: 'Facturación y uso', slug: 'cuenta/facturacion' },
 					],
 				},
