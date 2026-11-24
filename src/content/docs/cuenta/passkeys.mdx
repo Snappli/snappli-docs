@@ -1,0 +1,69 @@
+---
+title: Passkeys
+description: Entra a Snappli con tu huella, rostro o PIN, sin esperar el código por correo.
+---
+
+import { Steps, LinkCard } from '@astrojs/starlight/components';
+
+Una **passkey** te deja iniciar sesión con el bloqueo de tu dispositivo (huella, rostro o PIN) en lugar del código de 6 dígitos que llega por correo. Es más rápida y no se puede robar con un correo o una web falsa (*phishing*).
+
+El código por correo **sigue funcionando siempre**, así que no pierdes el acceso aunque borres todas tus passkeys.
+
+## Dónde funciona
+
+| Dónde | Crear passkeys | Entrar con passkey |
+|-------|----------------|--------------------|
+| **snappli.io** y **wa.snappli.io** (navegador) | Sí | Sí |
+| **App Snappli Agent** (Android) | Sí | Sí |
+| App en iPhone | Próximamente | Próximamente |
+
+Una passkey creada en snappli.io también sirve en wa.snappli.io, y al revés.
+
+## Agregar una passkey
+
+<Steps>
+
+1. Entra a Snappli con tu correo como siempre.
+
+2. **En la web:** ve a **Mi cuenta → Seguridad** (`/manage/account/security`) y pulsa **Agregar passkey**.
+   **En la app:** abre **Configuración → Passkeys** y pulsa **Agregar passkey en este dispositivo**.
+
+3. Confirma con la huella, el rostro o el PIN cuando el sistema te lo pida.
+
+</Steps>
+
+La passkey toma el nombre del gestor donde se guarda (por ejemplo *iCloud Keychain* o *Google Password Manager*). Desde la web puedes cambiarle el nombre.
+
+## Entrar con una passkey
+
+- **Web:** en la pantalla de inicio de sesión pulsa **Entrar con passkey**, o toca el campo **Email**: el navegador te ofrecerá tus passkeys guardadas.
+- **App:** en la pantalla de inicio pulsa **Entrar con passkey**.
+
+No hace falta escribir el correo: la passkey ya sabe a qué cuenta pertenece.
+
+## Varias passkeys
+
+Puedes tener hasta **20 passkeys** por cuenta. Lo recomendable es tener una por cada dispositivo o gestor que uses: si pierdes uno, entras con otro (o con el código por correo) y eliminas la que se perdió.
+
+Las passkeys marcadas como **Sincronizada** se copian entre tus dispositivos a través de tu gestor (iCloud, Google o un gestor como 1Password). Las demás solo existen en el dispositivo donde las creaste.
+
+## Eliminar una passkey
+
+En la web, ve a **Mi cuenta → Seguridad**, abre el menú **⋯** de la passkey y elige **Eliminar**. En la app, ve a **Configuración → Passkeys** y toca la papelera. Desde ese momento ya no sirve para entrar a Snappli.
+
+Bórrala también del gestor de contraseñas de tu dispositivo para que deje de aparecer como opción.
+
+## Preguntas frecuentes
+
+**¿Snappli guarda mi huella o mi rostro?**
+No. La verificación ocurre en tu dispositivo; Snappli solo guarda una clave pública que no sirve para suplantarte.
+
+**Mi equipo comparte un mismo usuario. ¿Sirven las passkeys?**
+Funcionan, pero lo recomendable es que cada persona tenga su propio usuario (ver [Miembros y roles](/cuenta/miembros-y-roles/)). Así cada uno registra sus passkeys y las acciones quedan a su nombre.
+
+**El navegador dice que este dispositivo ya tiene una passkey.**
+Ya registraste una passkey de Snappli en ese dispositivo o gestor. Puedes usarla directamente para entrar.
+
+## Relacionado
+
+<LinkCard title="Mi cuenta" description="Perfil, preferencias, seguridad y app móvil." href="/cuenta/mi-cuenta/" />
