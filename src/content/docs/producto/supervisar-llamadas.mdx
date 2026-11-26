@@ -1,11 +1,11 @@
 ---
 title: Supervisar llamadas en vivo
-description: Mira en vivo lo que se habla en las llamadas que atiende la IA y tómalas desde tu softphone si hace falta.
+description: Mira y escucha en vivo las llamadas que atiende la IA, y tómalas desde tu softphone si hace falta.
 ---
 
 import { Steps, LinkCard } from '@astrojs/starlight/components';
 
-Mientras la IA atiende una llamada, alguien de tu equipo puede ver **en vivo lo que dicen el cliente y la IA** y, si hace falta, **tomar la llamada**: la IA se despide y el cliente sigue hablando con esa persona sin colgar.
+Mientras la IA atiende una llamada, alguien de tu equipo puede ver **en vivo lo que dicen el cliente y la IA**, **escucharla** y, si hace falta, **tomar la llamada**: la IA se despide y el cliente sigue hablando con esa persona sin colgar.
 
 Funciona con las [llamadas de WhatsApp](/canales/whatsapp-llamadas/), el [número telefónico](/canales/numero-telefonico/) y las [llamadas IA salientes](/producto/llamadas-ia-salientes/). Solo en snappli.io: Snappli para WhatsApp y la app móvil no tienen llamadas con IA.
 
@@ -30,6 +30,16 @@ Cuando la IA está atendiendo llamadas que puedes ver, aparece abajo a la izquie
 
 También lo ves en el inbox: la conversación muestra la etiqueta **En llamada** y, al abrirla, el panel de la llamada aparece arriba del chat.
 
+## Escuchar la llamada
+
+En el panel de la llamada, pulsa **Escuchar**. Oyes al cliente y a la IA en tu navegador; ellos no te oyen. No necesitas el softphone.
+
+- Mientras escuchas puedes ajustar el **volumen**. Para terminar, pulsa **Dejar de escuchar**.
+- La escucha se corta sola cuando la IA deja la llamada (cuelga, la pasa a un agente o la toma alguien).
+- Pueden escuchar a la vez **hasta 3 personas** por llamada.
+- Queda registrado **quién escuchó** cada llamada y cuándo.
+- No se oyen los mensajes pregrabados, como el mensaje de respaldo.
+
 ## Tomar la llamada
 
 Para tomar una llamada necesitas el **softphone conectado** en tu navegador (el mismo con el que los agentes contestan las llamadas).
@@ -37,7 +47,7 @@ Para tomar una llamada necesitas el **softphone conectado** en tu navegador (el 
 <Steps>
 
 1. En el panel de la llamada, pulsa **Tomar llamada**.
-2. La IA le dice al cliente que lo pasa con un compañero, y tu softphone contesta solo.
+2. La IA le dice al cliente que lo pasa con un compañero, y tu softphone contesta solo. Si estabas escuchando, la escucha se corta antes.
 3. Sigues la llamada desde el softphone. La conversación queda asignada a ti.
 
 </Steps>
@@ -55,7 +65,6 @@ Lo puedes desactivar en **Automatizaciones → Configuración general → Compor
 ## Limitaciones
 
 - Solo se ven en vivo las llamadas que atiende la IA. Una llamada entre un agente y el cliente no se puede supervisar.
-- Por ahora se ve la transcripción, no se escucha el audio.
 - No se graban las llamadas.
 
 ## Relacionado
