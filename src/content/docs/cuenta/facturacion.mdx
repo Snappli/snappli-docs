@@ -5,7 +5,7 @@ description: Planes, complementos, cobros por uso y límites de capacidad.
 
 import { LinkCard } from '@astrojs/starlight/components';
 import PlanTable from '../../../components/PlanTable.astro';
-import { ADDONS, formatUsd, fullPlan } from '../../../data/pricing';
+import { ADDONS, PHONE_NUMBER, formatNumber, formatUsd, fullPlan } from '../../../data/pricing';
 
 La facturación está en **Configuración → Facturación** y solo la gestiona el **Propietario**. Tiene tres áreas: **Plan**, **Complementos** y **Uso**.
 
@@ -14,7 +14,7 @@ Snappli se ofrece en dos productos:
 - **Snappli completo** ([snappli.io](https://www.snappli.io)) — inbox multicanal, agentes IA, embudo, campañas, voz con IA y API.
 - **Snappli para WhatsApp** ([wa.snappli.io](https://wa.snappli.io)) — la versión enfocada solo en WhatsApp.
 
-Todos los precios están en dólares (USD). El pago **anual** equivale a **10 meses** del precio mensual (dos meses gratis).
+Todos los precios están en dólares (USD). El pago **anual** de los planes equivale a **10 meses** del precio mensual (dos meses gratis). En Ecuador, a los precios se les suma el **IVA ({PHONE_NUMBER.ecuadorVatPercent} %)**.
 
 ## Planes de Snappli completo
 
@@ -48,6 +48,8 @@ En **Complementos** amplías tu plan sin cambiarlo.
 | +1M créditos de IA | {formatUsd(ADDONS.full.aiCredits1M)} | Por uso (postpago). Se activa en **Uso** |
 | +1.000 emails de campaña | {formatUsd(ADDONS.full.campaignEmails1000)} | Se confirma al lanzar la campaña |
 | Minuto de voz con IA | {formatUsd(ADDONS.full.voiceMinute)} | Por uso (postpago). Se activa en **Uso** con un tope de minutos |
+| [Número telefónico](/canales/numero-telefonico/) | {formatUsd(ADDONS.full.phoneNumber)}/mes por número ({formatUsd(ADDONS.full.phoneNumberYearly)}/año) | Mensual, sin alta ni permanencia. Incluye {formatNumber(PHONE_NUMBER.includedAgentMinutes)} minutos con agente al mes |
+| Minuto extra con agente | {formatUsd(ADDONS.full.phoneAgentMinute)} | Por uso (postpago). Se activa en **Uso** con un tope de minutos. Solo con el número telefónico |
 | Onboarding asistido | {formatUsd(ADDONS.full.onboarding)} | Pago único |
 
 ### Snappli para WhatsApp
@@ -67,7 +69,8 @@ En **Uso** ves de un vistazo el consumo del mes:
 - **Próxima factura (estimado)**: plan + complementos + extras del mes, con lo que llevas consumido hoy.
 - **Anillos** de contactos activos, créditos de IA y minutos de voz.
 - **Una barra por recurso** (contactos, IA, conocimiento, voz, campañas, usuarios, equipos y canales). El color indica el estado: dentro del plan, cerca del límite (80%), agotado o con extra. Si pasaste lo incluido, el tramo extra aparece rayado.
-- **Desgloses**: qué documentos ocupan más fragmentos de conocimiento y cuántos minutos de voz fueron de llamadas entrantes, salientes o de campañas.
+- **Desgloses**: qué documentos ocupan más fragmentos de conocimiento y cuántos minutos de voz fueron de llamadas entrantes, salientes o de campañas, y por WhatsApp o por teléfono.
+- **Número telefónico** (si lo tienes): tus números y los **minutos con agente** usados e incluidos.
 - **Cuándo se reinicia** el cupo (el día 1 de cada mes, hora UTC).
 
 Pasa el cursor por la **ⓘ** de cada recurso para ver qué cuenta y su tarifa de extra.
@@ -86,6 +89,7 @@ Con el botón **⚙** de contactos, IA y voz activas los **cobros por uso** (pos
 - **Contactos activos** — se cobran en bloques de +100 contactos.
 - **Créditos de IA** — se cobran en bloques de +1M créditos.
 - **Minutos de voz con IA** — se cobran por minuto, hasta el **tope de minutos** que tú eliges. Ver [Minutos de voz con IA](/producto/voz-minutos/).
+- **Minutos con agente** (número telefónico) — se cobran por minuto, hasta el tope que eliges. Ver [Minutos con agente](/canales/numero-telefonico/#minutos-con-agente).
 
 Los **emails de campaña** adicionales no se activan en Uso: cuando una campaña supera los emails incluidos, Snappli te pide confirmar los bloques extra **al lanzarla**.
 

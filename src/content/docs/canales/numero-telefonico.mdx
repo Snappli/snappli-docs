@@ -1,0 +1,107 @@
+---
+title: Número telefónico
+description: Un número de Ecuador para recibir llamadas en Snappli, atendidas por tu equipo o por la IA de voz.
+---
+
+import { Steps, LinkCard } from '@astrojs/starlight/components';
+import { ADDONS, PHONE_NUMBER, formatNumber, formatUsd } from '../../../data/pricing';
+
+Con el complemento **Número telefónico**, Snappli te da un número de Ecuador para que tus clientes te llamen desde cualquier teléfono. La llamada entra en Snappli: la contesta tu equipo desde el navegador o la IA de voz, según lo que elijas.
+
+El número **solo recibe llamadas**. Para llamar a tus clientes, usa las [llamadas IA salientes por WhatsApp](/producto/llamadas-ia-salientes/).
+
+## Precio
+
+| Concepto | Precio |
+|----------|--------|
+| **Número telefónico** | {formatUsd(ADDONS.full.phoneNumber)}/mes por número ({formatUsd(ADDONS.full.phoneNumberYearly)}/año), sin costo de alta |
+| **Minutos con agente** incluidos | {formatNumber(PHONE_NUMBER.includedAgentMinutes)} al mes por número, en cualquier plan |
+| **Minuto extra con agente** | {formatUsd(ADDONS.full.phoneAgentMinute)} por minuto, solo si lo activas en **Uso** |
+| Llamadas que atiende la **IA** | Gastan tus [minutos de voz con IA](/producto/voz-minutos/), los mismos que las llamadas de WhatsApp |
+
+- En Ecuador, al precio se le suma el **IVA ({PHONE_NUMBER.ecuadorVatPercent} %)**, como a los planes.
+- **Sin permanencia:** puedes cancelarlo cuando quieras y el número sigue activo hasta el final del periodo pagado. Snappli no hace reembolsos por periodos ya pagados.
+- Está en **Snappli completo**. Snappli para WhatsApp no incluye el número telefónico.
+
+## Contratarlo
+
+<Steps>
+
+1. Ve a **Configuración → Facturación → Complementos** y añade **Número telefónico**. También llegas desde **Canales → Añadir canal → Teléfono**.
+2. Paga como el resto de tu suscripción.
+3. Snappli compra y asigna tu número. **Puede tardar unos días hábiles**: el operador pide documentos para cada número de Ecuador. Mientras tanto, en **Canales** verás **Número en preparación** y puedes dejar lista la configuración. Te avisamos por correo cuando esté activo.
+
+</Steps>
+
+Los minutos con agente están disponibles desde que pagas, aunque el número aún esté en preparación.
+
+## Quién contesta
+
+En **Canales**, en el menú del número, abre **Quién contesta**:
+
+| Modo | Qué pasa |
+|------|----------|
+| **Agentes primero, después la IA** | Suena a los agentes conectados. Si nadie contesta, es fuera de horario o no hay nadie, contesta la IA. |
+| **Solo agentes** | Suena a los agentes conectados. Si nadie contesta, el cliente oye el **mensaje de respaldo** y queda como **llamada perdida**. |
+| **Solo la IA** | Contesta siempre la IA de voz. |
+
+En el mismo panel eliges:
+
+- **Tiempo de timbre:** cuánto suena a los agentes (de 10 a 60 segundos; por defecto, 20) antes de pasar a la IA o dar la llamada por perdida.
+- **Horario de los agentes:** el de la empresa o uno propio del número. Fuera de horario no suena a nadie.
+- **Mensaje de respaldo:** lo que oye el cliente antes de colgar cuando nadie puede atenderlo. Si lo dejas vacío, se usa el mensaje por defecto.
+
+Para que suene a un agente, tiene que tener **Snappli abierto en el navegador** (snappli.io) con el micrófono permitido, igual que en las [llamadas de WhatsApp](/canales/whatsapp-llamadas/). Le suena como **Teléfono** con el nombre del contacto.
+
+Si contesta la IA, al empezar avisa de que es un **asistente virtual**. Lo exige la Ley Orgánica de Protección de Datos Personales de Ecuador.
+
+## Llamadas a la vez
+
+Cada número atiende hasta **{PHONE_NUMBER.concurrentCalls} llamadas a la vez**, sumando las de la IA y las de tus agentes. Si entra una más, el cliente oye el mensaje de respaldo y queda como llamada perdida. Si necesitas más, escríbenos.
+
+## Llamadas perdidas
+
+Si nadie atiende la llamada, porque nadie contestó, fue fuera de horario, la línea estaba llena o no quedaban minutos con agente:
+
+- La conversación del contacto queda **pendiente** en el inbox, con un evento **Llamada telefónica** que dice qué pasó.
+- Los agentes reciben un **aviso**: los que tenían el teléfono sonando, el asignado a la conversación o el equipo del número.
+
+El contacto es el mismo que el de su WhatsApp si llama desde ese celular: ves toda su conversación junta.
+
+## Devolver la llamada por WhatsApp
+
+Como el número no hace llamadas, si el contacto le pide a la IA que lo llamen más tarde, la IA le pregunta si puede **llamarlo por WhatsApp** y agenda una [rellamada](/producto/llamadas-ia-salientes/#rellamadas-llámame-más-tarde) en tu línea de WhatsApp:
+
+- Si llama desde un **celular**, se le llama por WhatsApp a ese número.
+- Si llama desde un **fijo**, la IA le pide un celular con WhatsApp y se le llama a ese número.
+- Si **no tiene WhatsApp**, se crea un [seguimiento](/producto/agenda/) para que lo llame una persona de tu equipo a la hora que pidió.
+
+Para llamar por WhatsApp, Meta exige que el contacto **dé permiso**. Una llamada por teléfono no abre la ventana de 24 horas de WhatsApp, así que, salvo que te haya escrito hace poco, el permiso se le pide con la **plantilla de permiso de llamada**. Créala una vez en tu línea de WhatsApp (ver [La plantilla de permiso de llamada](/producto/llamadas-ia-salientes/#la-plantilla-de-permiso-de-llamada)). Sin ella, la rellamada queda para una persona.
+
+Las rellamadas necesitan un plan con llamadas IA salientes (desde Pro) y una línea de WhatsApp con las llamadas activadas.
+
+## Minutos con agente
+
+Los **minutos con agente** cuentan el tiempo de las llamadas a tu número que atiende una persona de tu equipo, **desde que contesta**. El tiempo que suena no cuenta.
+
+- Cada minuto cuenta en una sola bolsa: si atiende la IA, gasta minutos de voz con IA; si atiende una persona, minutos con agente. Si la IA pasa la llamada a tu equipo, cada tramo va a su bolsa.
+- Las llamadas de WhatsApp que atiende tu equipo **no** gastan minutos con agente.
+- En **Configuración → Facturación → Uso** ves los minutos con agente usados e incluidos.
+
+Al agotar los {formatNumber(PHONE_NUMBER.includedAgentMinutes)} minutos del mes:
+
+- **Con el extra activado** (en **Uso**, con un tope de minutos que eliges): las llamadas siguen sonando a tu equipo y cada minuto extra, a {formatUsd(ADDONS.full.phoneAgentMinute)}, se cobra en la siguiente factura.
+- **Sin el extra:** las llamadas ya no suenan a tu equipo. El cliente oye el mensaje de respaldo y queda como llamada perdida o, si el número está en **Agentes primero, después la IA**, contesta la IA.
+
+## Condiciones del número
+
+- El número es de **Ecuador** y lo asigna Snappli. No puedes elegirlo.
+- **No es portable:** si cancelas el complemento, el número se libera y puede asignarse a otro cliente.
+- **No admite SMS.** Si quieres usar el mismo número en WhatsApp, escríbenos: Meta lo verifica con una llamada.
+- Si contesta la IA, la llamada puede grabarse y transcribirse para el historial del contacto. Eres responsable de informarlo a tus clientes cuando la ley lo exija (ver los [términos](https://www.snappli.io/terms)).
+
+## Relacionado
+
+<LinkCard title="Minutos de voz con IA" description="Minutos incluidos y uso extra de la IA." href="/producto/voz-minutos/" />
+<LinkCard title="Llamadas de WhatsApp" description="Recibe las llamadas que tus clientes hacen desde WhatsApp." href="/canales/whatsapp-llamadas/" />
+<LinkCard title="Facturación y uso" description="Complementos y cobros por uso." href="/cuenta/facturacion/" />

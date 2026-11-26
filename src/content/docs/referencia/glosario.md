@@ -33,6 +33,8 @@ sidebar:
 | **Fragmento de conocimiento** | Parte indexada de un documento de la base de conocimiento; el plan define cuántos puedes tener |
 | **Crédito de IA** | Unidad de consumo de la IA: 1 crédito por token que lee y 5 por token que escribe |
 | **Minuto de voz con IA** | Minuto de llamada atendido por la IA; cada llamada se redondea al minuto |
-| **Cobro por uso** | Exceso postpago (contactos, créditos de IA, minutos de voz) que se cobra en la siguiente factura |
+| **Número telefónico** | Complemento con un número de Ecuador que solo recibe llamadas, atendidas por tu equipo o por la IA |
+| **Minuto con agente** | Minuto de una llamada al número telefónico atendida por una persona de tu equipo, desde que contesta |
+| **Cobro por uso** | Exceso postpago (contactos, créditos de IA, minutos de voz, minutos con agente) que se cobra en la siguiente factura |
 | **Enterprise** | Plan a medida de Snappli completo (ver [Facturación](/cuenta/facturacion/)) |
 | **Manage** | Área de administración (canales, billing, desarrolladores…) |
