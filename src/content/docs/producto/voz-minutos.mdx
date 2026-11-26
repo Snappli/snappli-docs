@@ -7,7 +7,7 @@ import { Steps, LinkCard } from '@astrojs/starlight/components';
 import PlanTable from '../../../components/PlanTable.astro';
 import { ADDONS, formatUsd } from '../../../data/pricing';
 
-Los **minutos de voz con IA** miden el tiempo de las llamadas que atiende un agente IA. Cada plan de **Snappli completo** desde **Pro** incluye una cantidad mensual de minutos, y puedes activar minutos extra con un tope que tú eliges.
+Los **minutos de voz con IA** miden el tiempo de las llamadas que atiende un agente IA. Cada plan de **Snappli completo** incluye una cantidad mensual de minutos, y puedes activar minutos extra con un tope que tú eliges.
 
 ## Minutos incluidos por plan
 
@@ -15,9 +15,9 @@ Los **minutos de voz con IA** miden el tiempo de las llamadas que atiende un age
 
 Los planes de Snappli para WhatsApp no incluyen voz con IA.
 
-Los minutos se comparten entre el **canal de voz**, las [llamadas de WhatsApp](/canales/whatsapp-llamadas/) que contesta la IA y las [llamadas IA salientes](/producto/llamadas-ia-salientes/) (las que hace la IA a tus contactos). Solo cuenta el tiempo en que habla la IA:
+Los minutos se comparten entre las [llamadas de WhatsApp](/canales/whatsapp-llamadas/) que contesta la IA, las llamadas a tu [número telefónico](/canales/numero-telefonico/) que contesta la IA y las [llamadas IA salientes](/producto/llamadas-ia-salientes/) (las que hace la IA a tus contactos). En **Uso** ves cuántos fueron por WhatsApp y cuántos por teléfono. Solo cuenta el tiempo en que habla la IA:
 
-- Las llamadas que contesta una persona de tu equipo no gastan minutos.
+- Las llamadas que contesta una persona de tu equipo no gastan minutos de IA. En el número telefónico gastan [minutos con agente](/canales/numero-telefonico/#minutos-con-agente), que son otra bolsa.
 - Si la IA pasa la llamada a tu equipo, los minutos dejan de contar cuando la persona contesta.
 - Una llamada saliente que no contestan no gasta minutos.
 

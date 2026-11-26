@@ -110,7 +110,7 @@ const ROWS: Record<RowKey, { label: string; value: (plan: Plan) => string }> = {
 		label: 'Llamadas de WhatsApp a la vez',
 		value: (p) => limit(p.whatsappCalls),
 	},
-	outboundAiCalls: { label: 'Llamadas IA salientes', value: (p) => check(p.outboundAiCalls) },
+	outboundAiCalls: { label: 'Llamadas IA salientes por WhatsApp', value: (p) => check(p.outboundAiCalls) },
 	reports: {
 		label: product === 'full' ? 'Embudo e informes' : 'Informes',
 		value: (p) => check(p.reports),

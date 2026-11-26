@@ -49,7 +49,7 @@ export const FULL_PLANS: Plan[] = [
 		aiCredits: 10_000_000,
 		recipientsPerSend: 1_000,
 		campaignEmails: 0,
-		voiceMinutes: 0,
+		voiceMinutes: 30,
 		whatsappCalls: 2,
 		outboundAiCalls: false,
 		reports: true,
@@ -70,7 +70,7 @@ export const FULL_PLANS: Plan[] = [
 		aiCredits: 25_000_000,
 		recipientsPerSend: 5_000,
 		campaignEmails: 15_000,
-		voiceMinutes: 60,
+		voiceMinutes: 150,
 		whatsappCalls: 5,
 		outboundAiCalls: true,
 		reports: true,
@@ -90,8 +90,8 @@ export const FULL_PLANS: Plan[] = [
 		kbFragments: 8_000,
 		aiCredits: 50_000_000,
 		recipientsPerSend: 10_000,
-		campaignEmails: 40_000,
-		voiceMinutes: 200,
+		campaignEmails: 25_000,
+		voiceMinutes: 400,
 		whatsappCalls: 10,
 		outboundAiCalls: true,
 		reports: true,
@@ -112,8 +112,8 @@ export const FULL_PLANS: Plan[] = [
 		kbFragments: null,
 		aiCredits: 100_000_000,
 		recipientsPerSend: 25_000,
-		campaignEmails: 100_000,
-		voiceMinutes: 500,
+		campaignEmails: 50_000,
+		voiceMinutes: 800,
 		whatsappCalls: 20,
 		outboundAiCalls: true,
 		reports: true,
@@ -219,6 +219,11 @@ export const ADDONS = {
 		aiCredits1M: 3,
 		campaignEmails1000: 2.5,
 		voiceMinute: 0.15,
+		/** Complemento "Número telefónico" (por número). */
+		phoneNumber: 49,
+		phoneNumberYearly: 588,
+		/** Minuto extra con agente del número telefónico. */
+		phoneAgentMinute: 0.04,
 		onboarding: 149,
 	},
 	ws: {
@@ -228,6 +233,14 @@ export const ADDONS = {
 		aiCredits1M: 3,
 		onboarding: 149,
 	},
+};
+
+/** Número telefónico: backend `PHONE_NUMBER_INCLUDED_AGENT_MINUTES` y `maxConcurrentCalls`. */
+export const PHONE_NUMBER = {
+	includedAgentMinutes: 300,
+	concurrentCalls: 3,
+	/** IVA de Ecuador (%) sobre el precio del complemento y de los planes. */
+	ecuadorVatPercent: 15,
 };
 
 /** Tarifas de referencia de Meta ("resto de Latinoamérica", incluye Ecuador). */
