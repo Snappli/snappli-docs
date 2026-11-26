@@ -1,0 +1,65 @@
+---
+title: Supervisar llamadas en vivo
+description: Mira en vivo lo que se habla en las llamadas que atiende la IA y tómalas desde tu softphone si hace falta.
+---
+
+import { Steps, LinkCard } from '@astrojs/starlight/components';
+
+Mientras la IA atiende una llamada, alguien de tu equipo puede ver **en vivo lo que dicen el cliente y la IA** y, si hace falta, **tomar la llamada**: la IA se despide y el cliente sigue hablando con esa persona sin colgar.
+
+Funciona con las [llamadas de WhatsApp](/canales/whatsapp-llamadas/), el [número telefónico](/canales/numero-telefonico/) y las [llamadas IA salientes](/producto/llamadas-ia-salientes/). Solo en snappli.io: Snappli para WhatsApp y la app móvil no tienen llamadas con IA.
+
+## Quién puede
+
+| Rol | Qué llamadas ve |
+|-----|-----------------|
+| **Propietario** y **Administrador** | Todas las llamadas que atiende la IA. |
+| **Supervisor** | Las de su equipo y las de conversaciones asignadas a su grupo de agentes. Si la IA todavía no sabe a qué equipo va la llamada, el supervisor no la ve hasta que lo elige. |
+| **Agente** y **Lector** | Ninguna. |
+
+## Ver una llamada en vivo
+
+Cuando la IA está atendiendo llamadas que puedes ver, aparece abajo a la izquierda el aviso **«N llamadas con la IA»**, en cualquier pantalla del panel.
+
+<Steps>
+
+1. Pulsa el aviso para ver la lista de llamadas en curso: contacto, equipo y si es entrante o saliente.
+2. Abre una llamada. Verás lo que se ha dicho desde el principio y, en gris, lo que se está diciendo en ese momento.
+
+</Steps>
+
+También lo ves en el inbox: la conversación muestra la etiqueta **En llamada** y, al abrirla, el panel de la llamada aparece arriba del chat.
+
+## Tomar la llamada
+
+Para tomar una llamada necesitas el **softphone conectado** en tu navegador (el mismo con el que los agentes contestan las llamadas).
+
+<Steps>
+
+1. En el panel de la llamada, pulsa **Tomar llamada**.
+2. La IA le dice al cliente que lo pasa con un compañero, y tu softphone contesta solo.
+3. Sigues la llamada desde el softphone. La conversación queda asignada a ti.
+
+</Steps>
+
+Si tu softphone no se conecta a tiempo, la IA sigue en la llamada y se lo explica al cliente; la conversación no cambia. Si otra persona ya está tomando la llamada, o la IA la está transfiriendo a un agente, el botón aparece desactivado.
+
+Al colgar, la llamada queda en el chat como atendida por un agente, con su [resumen](/canales/whatsapp-llamadas/#después-de-una-llamada-con-la-ia).
+
+## Aviso al cliente
+
+Por defecto, al empezar cada llamada la IA dice: **«Esta llamada puede ser escuchada por nuestro equipo para atenderte mejor.»** En las llamadas salientes lo menciona al presentarse.
+
+Lo puedes desactivar en **Automatizaciones → Configuración general → Comportamiento IA**, en la sección **Llamadas**. Te recomendamos dejarlo activo: la ley de protección de datos exige informar al cliente de que la llamada puede ser escuchada.
+
+## Limitaciones
+
+- Solo se ven en vivo las llamadas que atiende la IA. Una llamada entre un agente y el cliente no se puede supervisar.
+- Por ahora se ve la transcripción, no se escucha el audio.
+- No se graban las llamadas.
+
+## Relacionado
+
+<LinkCard title="Llamadas de WhatsApp" description="Recibe las llamadas que tus clientes hacen desde WhatsApp." href="/canales/whatsapp-llamadas/" />
+<LinkCard title="Número telefónico" description="Un número para que tus clientes llamen." href="/canales/numero-telefonico/" />
+<LinkCard title="Equipos" description="Supervisores, grupos y quién recibe cada conversación." href="/producto/equipos/" />

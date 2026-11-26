@@ -62,6 +62,7 @@ export default defineConfig({
 						{ label: 'Informes', slug: 'producto/informes' },
 						{ label: 'Minutos de voz con IA', slug: 'producto/voz-minutos' },
 						{ label: 'Llamadas IA salientes', slug: 'producto/llamadas-ia-salientes' },
+						{ label: 'Supervisar llamadas en vivo', slug: 'producto/supervisar-llamadas' },
 					],
 				},
 				{
