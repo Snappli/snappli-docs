@@ -15,12 +15,27 @@ Los informes están incluidos en **todos los planes de Snappli completo** (Start
 
 | Sección | Qué ves |
 |---------|---------|
-| **Resumen** | **Ahora mismo** (abiertas, pendientes, esperando agente y agentes en línea, se actualiza cada minuto), lo destacado del período, conversaciones nuevas y resueltas, contactos nuevos, 1ª respuesta, actividad frente al período anterior, % resuelto por la IA, **¿Cuándo te escriben?** (día y hora), canales y **¿De qué te escriben?** (etiquetas más usadas) |
-| **IA** | % de conversaciones que resolvió la IA, cuántas pasaron a una persona y quién contestó cada día |
-| **Equipo** | Los agentes que más resuelven, su tiempo de 1ª respuesta (desde que se les asigna la conversación) y la tabla completa |
+| **Resumen** | **Ahora mismo** (sin responder, esperando al cliente, esperando agente y agentes en línea, se actualiza cada minuto), lo destacado del período, conversaciones nuevas y resueltas, contactos nuevos, 1ª respuesta, actividad frente al período anterior, % resuelto por la IA, **¿Cuándo te escriben?** (día y hora), canales y **¿De qué te escriben?** (etiquetas más usadas) |
+| **IA** | % de conversaciones que resolvió la IA, cuántas pasaron a una persona, quién cerró las resueltas y quién contestó cada día |
+| **Equipo** | Los agentes que más resuelven, cuántas tienen sin responder, su tiempo de 1ª respuesta (desde que se les asigna la conversación) y la tabla completa |
 | **Embudo** | Contactos por etapa del pipeline, ganados, perdidos y % que avanza de una etapa a la siguiente. Solo en Snappli completo |
 
 En **Snappli para WhatsApp** no aparecen los filtros de equipo y canal ni la sección Embudo.
+
+## Cómo se cuentan las conversaciones
+
+Cada vez que un contacto escribe después de que su conversación se resolviera, empieza una **conversación nueva** (ver [Cuándo se resuelve una conversación](/producto/inbox/#cuándo-se-resuelve-una-conversación)). Por eso un mismo contacto puede sumar varias en un período; el ⓘ de **Conversaciones** indica cuántas son de contactos que ya habían escrito antes.
+
+| Métrica | Qué mide |
+|---------|----------|
+| **Sin responder** | Conversaciones activas en las que el contacto espera respuesta de tu equipo. Se pone en ámbar si hay alguna y en rojo si la más antigua lleva más de 24 h |
+| **Esperan al cliente** | Conversaciones activas en las que tu equipo ya respondió y falta que conteste el contacto |
+| **Resueltas** | Conversaciones resueltas en el período, desglosadas en: por agentes, por la IA, porque el contacto no respondió ([cierre por inactividad](/producto/agentes/#atención-humana)) y automáticas |
+| **1ª respuesta** | Desde el primer mensaje del contacto hasta la primera respuesta (de la IA o de una persona) |
+| **1ª respuesta humana** | Desde que la conversación pasa a una persona (o desde el primer mensaje, si no hubo IA) hasta el primer mensaje del agente |
+| **Resolución** | Mediana desde que empieza la conversación hasta que se resuelve. En un cierre por inactividad cuenta hasta el último mensaje de tu equipo, no hasta que vence el plazo |
+
+Los cierres por cortesía (un «gracias» después de que la IA cerró) no cuentan como conversación nueva.
 
 ### Ganados, perdidos y «avanza»
 
